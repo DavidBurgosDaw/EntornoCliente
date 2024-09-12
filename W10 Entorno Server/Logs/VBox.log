@@ -1,0 +1,30 @@
+00:00:00.703416 VirtualBox VM 6.1.50_Ubuntu r161033 linux.amd64 (Jan 23 2024 12:29:45) release log
+00:00:00.703417 Log opened 2024-09-11T11:22:31.804033000Z
+00:00:00.703418 Build Type: release
+00:00:00.703420 OS Product: Linux
+00:00:00.703421 OS Release: 5.15.0-112-generic
+00:00:00.703422 OS Version: #122-Ubuntu SMP Thu May 23 07:48:21 UTC 2024
+00:00:00.703439 DMI Product Name: HP EliteDesk 800 G4 SFF
+00:00:00.703446 DMI Product Version: SBKPF
+00:00:00.703451 Firmware type: BIOS
+00:00:00.703477 Host RAM: 31428MB (30.6GB) total, 28750MB (28.0GB) available
+00:00:00.703480 Executable: /usr/lib/virtualbox/VirtualBoxVM
+00:00:00.703480 Process ID: 15719
+00:00:00.703481 Package type: LINUX_64BITS_GENERIC (OSE)
+00:00:00.706067 Installed Extension Packs:
+00:00:00.706073   VNC (Version: 6.1.50 r161033; VRDE Module: VBoxVNC)
+00:00:00.706076   Oracle VM VirtualBox Extension Pack (Version: 6.1.50 r161033; VRDE Module: VBoxVRDP)
+00:00:00.706655 Console: Machine state changed to 'Starting'
+00:00:00.708710 Qt version: 5.15.3
+00:00:00.708718 X11 Window Manager code: 0
+00:00:00.711090 Console: Machine state changed to 'PoweredOff'
+00:00:00.713471 Power up failed (vrc=VINF_SUCCESS, rc=NS_ERROR_FAILURE (0X80004005))
+00:00:00.714639 GUI: UIMediumEnumerator: Medium-enumeration finished!
+00:00:00.715697 X Server details: vendor: The X.Org Foundation, release: 12101004, protocol version: 11.0, display string: :0
+00:00:00.715704 Using XKB for keycode to scan code conversion
+00:00:00.718574 GUI: UIDesktopWidgetWatchdog::sltHandleHostScreenAvailableGeometryCalculated: Screen 0 work area is actually resized to: 0x0 x 1920x1048
+00:00:00.729723 GUI: Machine-window #0 activated
+00:00:00.729754 GUI: Machine-view #0 focused, reason=3
+00:00:01.214340 GUI: UIMachineViewNormal::resendSizeHint: Restoring guest size-hint for screen 0 to 1022x671
+00:00:01.214423 ERROR [COM]: aRC=E_ACCESSDENIED (0x80070005) aIID={4680b2de-8690-11e9-b83d-5719e53cf1de} aComponent={DisplayWrap} aText={The console is not powered up (setVideoModeHint)}, preserve=false aResultDetail=0
+00:00:01.214510 GUI: Aborting startup due to power up progress issue detected...
