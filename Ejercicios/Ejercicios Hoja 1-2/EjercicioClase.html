@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+   
+
+</head>
+<body>
+    <div id="calculadora">
+        <label for="num1">Nùmero 1</label>
+        <input type="text" placeholder="Escribe Número 1" id="caja1">
+        <br>
+        <label for="num2">Número 2</label>
+        <input type="text" placeholder="Escribe Número 2" id="caja2">
+        <br><br>
+        <input type="button" value="Sumar" onclick="comprobarNumeros() + sumar()">
+        <input type="button" value="Restar" onclick="comprobarNumeros() + restar()" >
+        <input type="text" id="resultado" placeholder="Resultado">
+    </div>
+
+    <script>
+        function comprobarNumeros(){
+            if(isNaN(document.getElementById("caja1").value)){
+                alert("El primer numero no puede contener letras, solo numeros")
+            }
+
+            if(isNaN(document.getElementById("caja2").value)){
+                alert("El segundo numero no puede contener, letras solo numero")
+            }
+        }
+
+        function sumar(){
+            let num1 = 0, num2 = 0, resultado = 0;
+            num1 = Number(document.getElementById("caja1").value);
+            num2 = Number(document.getElementById("caja2").value);
+            document.getElementById("resultado").value = num1+num2;
+        }
+
+        function restar(){
+            let num1 = 0, num2 = 0, resultado = 0;
+            num1 = document.getElementById("caja1").value;
+            num2 = document.getElementById("caja2").value;
+
+               document.getElementById("resultado").value = num1 - num2;
+        }
+    </script>
+
+</body>
+</html>
