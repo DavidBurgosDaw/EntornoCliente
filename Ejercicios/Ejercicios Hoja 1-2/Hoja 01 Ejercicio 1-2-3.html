@@ -1,63 +1,134 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<style type='text/css'>
-body{
-	font-family: 'Kite One', sans-serif;
-}
- 
-div {
-	border-style: solid;
-    border-width: 2px;
-	width:500px;
-	margin:auto;
-	padding: 20px;
-}
-.uno {
-		line-height: 30px;  
-	}
-</style>
- <script>
- function ejercicio1(){
-	alert('I am = I`m \nI do not = I don`t');
- }
-  function ejercicio2(){
-	if(document.getElementById("n1").value){
-		alert();
-	} else {
 
-	}
- }
-  function ejercicio3(){
- }
- </script>
+<head>
+	<meta charset="UTF-8">
+	<style type='text/css'>
+		body {
+			font-family: 'Kite One', sans-serif;
+		}
+
+		div {
+			border-style: solid;
+			border-width: 2px;
+			width: 500px;
+			margin: auto;
+			padding: 20px;
+		}
+
+		.uno {
+			line-height: 30px;
+		}
+	</style>
+
 
 </head>
-<body>
-<form>
-<input type="reset" value="BORRAR">
-<div>
-<br> 
- <input type="button" class="uno"  value="Ejercicio 1" onclick="ejercicio1()"> 
- <br> <br>
- </div>
- <div>
-<br> Introduce un N&uacute;mero entero <input type="text" id="n1" size="10"></p>
- <input type="button" class="uno"  value="Ejercicio 2" onclick="ejercicio2()"> 
- <br> <br>
- </div>
- <div>
-Introduce dos n&uacute;meros
-<br>
-<p>N&uacute;mero 1 <input type="text" id="n2" size="8"></p>
-<p>N&uacute;mero 2 <input type="text" id="n3" size="8"></p>
-Introduce la operaci&oacute;n a ejecutar
-<input type="text" id="oper" size="3"></p>
-<p>Resultado <input type="text" id="res" size="8" readonly="readonly"></p>
- <input type="button" class="uno"  value="Ejercicio 3" onclick="ejercicio3()"> 
 
-</div>
- 
-</form>
-</body></html>
+<body>
+	<form>
+		<input type="reset" value="BORRAR">
+		<div>
+			<br>
+			<input type="button" class="uno" value="Ejercicio 1" onclick="ejercicio1()">
+			<br> <br>
+		</div>
+		<div>
+			<br> Introduce un N&uacute;mero entero <input type="text" id="n1" size="10"></p>
+			<input type="button" class="uno" value="Ejercicio 2" onclick="ejercicio2()">
+			<br> <br>
+		</div>
+		<div>
+			Introduce dos n&uacute;meros
+			<br>
+			<p>N&uacute;mero 1 <input type="text" id="n2" size="8"></p>
+			<p>N&uacute;mero 2 <input type="text" id="n3" size="8"></p>
+			Introduce la operaci&oacute;n a ejecutar
+			<input type="text" id="oper" size="3"></p>
+			<p>Resultado <input type="text" id="res" size="8" readonly="readonly"></p>
+			<input type="button" class="uno" value="Ejercicio 3" onclick="ejercicio3(oper)">
+
+		</div>
+
+	</form>
+
+	<script>
+		function ejercicio1() {
+			alert('I am = I`m \nI do not = I don`t');
+		}
+		function ejercicio2() {
+
+			let inputValue = document.getElementById("n1").value;
+			let numero = Number(inputValue); //Le hacemos un casting porque sino no funciona bien
+
+
+			if (isNaN(numero)) {
+				alert("Muy mal, lo que has tecleado no es ni un número.");
+			}
+
+			else if (!Number.isInteger(numero)) {
+				alert("El número introducido no es entero, vuelve a intentarlo ¡ánimo!");
+			}
+
+			else {
+				alert("Felicidades, has metido un número entero correcto.");
+			}
+		}
+
+
+		function ejercicio3(oper) {
+			
+			let num1 = document.getElementById("n2").value;
+			let num2 = document.getElementById("n3").value;
+
+
+			if (num1 === "") {
+				alert("El campo 1 está vacío");
+				return;
+			} else if (num2 === "") {
+				alert("El campo 2 está vacío");
+				return;
+			} else if (isNaN(num1)) {
+				alert("El campo 1 no puede contener letras, solo números");
+				return;
+			} else if (isNaN(num2)) {
+				alert("El campo 2 no puede contener letras, solo números");
+				return;
+			}
+
+
+			num1 = Number(num1);
+			num2 = Number(num2);
+
+			let resultado = 0;
+
+
+			switch (oper) {
+				case '+':
+					resultado = num1 + num2;
+					break;
+				case '-':
+					resultado = num1 - num2;
+					break;
+				case '*':
+					resultado = num1 * num2;
+					break;
+				case '/':
+					if (num2 === 0) {  // Evito la divison entre 0
+						alert("No se puede dividir por 0");
+						return;
+					}
+					resultado = num1 / num2;
+					break;
+				default:
+					alert("El operador no existe");
+					return;
+			}
+
+
+			document.getElementById("res").value = resultado;
+		}
+
+	</script>
+</body>
+
+</html>
