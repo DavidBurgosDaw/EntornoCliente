@@ -48,6 +48,15 @@
 			<input type="button" class="uno" value="Ejercicio 3" onclick="ejercicio3(oper)">
 
 		</div>
+		<div>
+			<label for="numeros">Anota un numero ("Fin/FIN para parar ")</label>
+			<input type="text" >
+			<br><br>
+			<input type="button" value="Ejercicio 4">
+		</div>
+		<div>
+			<input type="button" value="Ejercicio 5" onclick="ejercicio5()">
+		</div>
 
 	</form>
 
@@ -75,7 +84,7 @@
 		}
 
 
-		function ejercicio3(oper) {
+		function ejercicio3() {
 			
 			let num1 = document.getElementById("n2").value;
 			let num2 = document.getElementById("n3").value;
@@ -125,6 +134,21 @@
 
 
 			document.getElementById("res").value = resultado;
+		}
+
+		//En proceso
+
+
+		function ejercicio5(){
+			let mayor, contador = 0, cadenas;
+			while (contador!=5){
+				cadenas = window.prompt("Introduce una cadena");
+			if (document.getElementById("cadenas").value.length > document.getElementById("mayor").value.length){
+				mayor = document.getElementById("cadenas").value;
+			}
+			contador++;
+			}
+			alert("La cadena mas grande es " + mayor);
 		}
 
 	</script>
