@@ -49,13 +49,13 @@
 
 		</div>
 		<div>
-			<label for="numeros">Anota un numero ("Fin/FIN para parar ")</label>
-			<input type="text" >
-			<br><br>
-			<input type="button" value="Ejercicio 4">
+			<input type="button" class="uno" value="Ejercicio 4" onclick="ejercicio4()">
 		</div>
 		<div>
-			<input type="button" value="Ejercicio 5" onclick="ejercicio5()">
+			<input type="button" class="uno" value="Ejercicio 5" onclick="ejercicio5()">
+		</div>
+		<div>
+			<input type="button" class="uno" value="Ejercicio 6" onclick="ejercicio6()">
 		</div>
 
 	</form>
@@ -86,22 +86,31 @@
 
 		function ejercicio3() {
 			
+			let errores = 0;
 			let num1 = document.getElementById("n2").value;
 			let num2 = document.getElementById("n3").value;
+			let oper = document.getElementById("oper").value;
 
 
 			if (num1 == "") {
-				alert("El campo 1 está vacío");
-				return;
-			} else if (num2 == "") {
-				alert("El campo 2 está vacío");
-				return;
-			} else if (isNaN(num1)) {
+				alert("El campo 1 no puede estár vacío");
+				errores++;
+			} 
+			if (num2 == "") {
+				alert("El campo 2 no puede estár vacío");
+				errores++;
+			}
+			if (oper == ""){
+				alert("El campo operador no puede estár vacio")
+				errores++;
+			}
+			if (isNaN(num1)) {
 				alert("El campo 1 no puede contener letras, solo números");
-				return;
-			} else if (isNaN(num2)) {
+				errores++;
+			}
+			if (isNaN(num2)) {
 				alert("El campo 2 no puede contener letras, solo números");
-				return;
+				errores++;
 			}
 
 
@@ -110,8 +119,9 @@
 
 			let resultado = 0;
 
+			if(errores == 0){
 
-			switch (document.getElementById("oper").value) {
+			switch (oper) {
 				case '+':
 					resultado = num1 + num2;
 					break;
@@ -129,26 +139,68 @@
 					break;
 				default:
 					alert("El operador no existe");
-					
+					document.getElementById("res").value = "Error";
+					return;
 			}
 
-
 			document.getElementById("res").value = resultado;
+
+		} else{
+			document.getElementById("res").value = "Error";
 		}
 
-		//En proceso
+		}
+
+
+		function ejercicio4(){
+			let num=0, suma=0;
+			
+			while(num!="FIN"){
+				num = window.prompt("Introduce numero (FIN) para finalizar")
+				if(!isNaN(num) && num != ""){
+					suma+=Number(parseInt(num));
+				}
+
+				
+			}
+
+			
+				alert("El resultado de la suma es " + suma);
+		}
 
 
 		function ejercicio5(){
-			let mayor, contador = 0, cadenas;
+			let mayor="", contador = 0, cadenas="";
 			while (contador!=5){
-				cadenas = window.prompt("Introduce una cadena");
-			if (document.getElementById("cadenas").value.length > document.getElementById("mayor").value.length){
-				mayor = document.getElementById("cadenas").value;
+				cadenas = window.prompt("Introduce cinco cadenas");
+			if (cadenas.length > mayor.length){
+				mayor = cadenas;
 			}
 			contador++;
 			}
-			alert("La cadena mas grande es " + mayor);
+			alert("La cadena mas grande es " + String(mayor));
+		}
+
+		function ejercicio6(){
+			let nota=0;
+
+			nota = window.prompt("Introduce Nota");
+			
+			while(nota < 0 || nota > 10){
+				nota = window.prompt("Nota Erronea debe ser mayor que 0 y menor que 10");
+			}
+
+			if (nota <=4){
+				alert("Suspenso");
+			} else if(nota <=6){
+				alert("Aprobado");
+			} else if(nota <=8){
+				alert("Notable");
+			} else if(nota <=10){
+				alert("Sobresaliente");
+			}
+
+
 		}
 
 	</script>
