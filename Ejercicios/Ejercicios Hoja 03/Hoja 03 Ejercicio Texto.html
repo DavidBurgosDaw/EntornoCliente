@@ -47,18 +47,20 @@ Introduce una palabra para buscarla en el texto <br><br>
 <div>
 Introduce dos palabras para reemplazar la primera por la segunda
 <p>Busco <input type="text" id="pal1" size="10"> Reemplazo <input type="text" id="pal2" size="10"></p>
-<input type="button" class="uno"  value="REEMPLAZAR" onclick=""> 
+<input type="button" class="uno"  value="REEMPLAZAR" onclick="remplazar()"> 
 
 </div>
  <br>
  <div>
-  <input type="button" class="uno"  value="Poner en minúsculas" onclick="">
-  <input type="button" class="uno"  value="Poner en MAYÚSCULAS" onclick="">
-  <input type="button" class="uno"  value="RESTAURAR" onclick="">
+  <input type="button" class="uno"  value="Poner en minúsculas" onclick="minus()">
+  <input type="button" class="uno"  value="Poner en MAYÚSCULAS" onclick="mayus()">
+  <input type="button" class="uno"  value="RESTAURAR" onclick="restaurar()">
 </div>  
 </form>
 
 <script>
+
+
 function buscar() {
     let texto = "";
     let palabra = "";
@@ -81,6 +83,50 @@ function buscar() {
         alert("La palabra " + palabra + " no se ha encontrado");
     }
 }
+
+function remplazar() {
+    let texto = document.getElementById("mitexto").innerHTML;
+    let palabra = document.getElementById("pal1").value.trim(); //Palabra a remplazar
+    let remplazar = document.getElementById("pal2").value.trim(); //Palabra que remplaza
+
+    let pos = texto.indexOf(palabra); //Saco la posicion de la palabra
+    let contador = 0; //Inicializo el contador a 0
+
+    while (pos != -1) {
+        texto = texto.replace(palabra, remplazar); //En el texto remplazo las palabras
+        contador++;
+        pos = texto.indexOf(palabra); //Vuelvo a sacar la posicion de la palabra
+    }
+
+    if (contador === 0) {
+        alert("La palabra " + palabra + " no se ha encontrado");
+    } else {
+        document.getElementById("mitexto").innerHTML = texto;
+    }
+}
+
+function mayus(){
+    let texto = "";
+    texto = document.getElementById("mitexto").innerHTML;
+    texto = (texto.toUpperCase());
+
+    document.getElementById("mitexto").innerHTML = texto;
+}
+
+function minus(){
+    let texto = "";
+    texto = document.getElementById("mitexto").innerHTML;
+    texto = (texto.toLowerCase());
+
+    document.getElementById("mitexto").innerHTML = texto;
+}
+
+const texto = document.getElementById("mitexto").innerHTML;
+
+function restaurar(){
+    document.getElementById("mitexto").innerHTML = texto;
+}
+
 </script>
 
 </body></html>
