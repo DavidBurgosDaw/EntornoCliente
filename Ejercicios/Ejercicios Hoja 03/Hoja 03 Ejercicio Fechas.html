@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style type='text/css'>
+        body{
+            font-family: 'Kite One', sans-serif;
+        }
+         
+        div {
+            border-style: solid;
+            border-width: 2px;
+            width:800px;
+            margin:auto;
+            padding: 20px;
+        }
+        .uno {
+                line-height: 30px;  
+            }
+        </style>
+
+</head>
+
+<body>
+<form>
+    <input type="reset" value="BORRAR">
+
+    <div>
+        <br> 1. Mostrar en qué día de la semana cae tu cumpleaños en el año 2024 <br><br><input type="text" id="n1" size="10"></p>
+        <input type="button" class="uno" value="Calcular" onclick="ejercicio1()">
+        <br> <br>
+    </div>
+
+    <div>
+        <br> 2. Mostrar cuantos días han pasado entre el día 23/08/2022 y hoy. <br><br><input type="text" id="n2" size="10"></p>
+        <input type="button" class="uno" value="Calcular" onclick="ejercicio2()">
+        <br> <br>
+    </div>
+
+    <div>
+        <br> 3. Pedir al usuario que introduzca su fecha de nacimiento en formato dd/mm/yyyy
+        (recogemos como una única cadena) y mostramos por pantalla el día de la semana en
+        que nació en castellano y su edad actual. <br><br><input type="text" id="n3" size="10"></p>
+        <input type="button" class="uno" value="Calcular" onclick="diaSemanaCumple()">
+        <br> <br>
+    </div>
+
+    <div>
+        <br> 4. Pedir al usuario que teclee su nombre y mostrarle cuantos segundos ha tardado en
+        escribirlo. <br><br><input type="text" id="n4" size="10"></p>
+        <input type="button" class="uno" value="Calcular" onclick="diaSemanaCumple()">
+        <br> <br>
+    </div>
+
+    <div>
+        <br> 5. Mostrar la fecha de hoy y qué día será dentro de 100 días. <br><br><input type="text" id="n5" size="10"></p>
+        <input type="button" class="uno" value="Calcular" onclick="diaSemanaCumple()">
+        <br> <br>
+    </div>
+
+</form>
+
+  
+
+  <script>
+
+    function ejercicio1(){
+        let dia = document.getElementById("birthday").value;
+        dia = dia.split('/');
+        alert(dia);
+        let newfecha = ('2024'+'/'+dia[1]+'/'+dia[0]); //Busco el año 2024
+        let birthday = new Date(newfecha);
+        let diaDeLaSemana = birthday.getDay();
+        let diasSemana = ["Domingo", "Lunes", "Martes" , "Miercoles", "Jueves", "Viernes", "Sabado"];
+        alert("Tu cumpleaños en 2024 sera el dia de la semana: " + diasSemana[diaDeLaSemana]);
+    }
+
+    function ejercicio2(){
+        let constructorFechaFija = "2022/08/23"
+        const fechaFija = new Date(constructorFechaFija);
+        let hoy = new Date();
+
+        let diferenciaTiempo = hoy.getTime() - fechaFija.getTime(); //Saco los milisegundos entre 2 fechas
+        document.getElementById("n2").value = Math.round(diferenciaTiempo / (86400000)) + " dias"; //Divido los milisegundos que hay entre ambas fechas entre los que tiene un dia
+    }
+
+  </script>
+</body>
+</html>
