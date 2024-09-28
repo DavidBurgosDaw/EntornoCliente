@@ -44,20 +44,20 @@
         <br> 3. Pedir al usuario que introduzca su fecha de nacimiento en formato dd/mm/yyyy
         (recogemos como una única cadena) y mostramos por pantalla el día de la semana en
         que nació en castellano y su edad actual. <br><br><input type="text" id="n3" size="10"></p>
-        <input type="button" class="uno" value="Calcular" onclick="diaSemanaCumple()">
+        <input type="button" class="uno" value="Calcular" onclick="ejercicio3()">
         <br> <br>
     </div>
 
     <div>
         <br> 4. Pedir al usuario que teclee su nombre y mostrarle cuantos segundos ha tardado en
-        escribirlo. <br><br><input type="text" id="n4" size="10"></p>
-        <input type="button" class="uno" value="Calcular" onclick="diaSemanaCumple()">
+        escribirlo. <br><br>
+        <input type="button" class="uno" value="Ejercicio 4" onclick="ejercicio4()">
         <br> <br>
     </div>
 
     <div>
-        <br> 5. Mostrar la fecha de hoy y qué día será dentro de 100 días. <br><br><input type="text" id="n5" size="10"></p>
-        <input type="button" class="uno" value="Calcular" onclick="diaSemanaCumple()">
+        <br> 5. Mostrar la fecha de hoy y qué día será dentro de 100 días. <br><br>
+        <input type="button" class="uno" value="Ejercicio 5" onclick="ejercicio5()">
         <br> <br>
     </div>
 
@@ -66,7 +66,7 @@
   
 
   <script>
-
+    //1. Mostrar en qué día de la semana cae tu cumpleaños en el año 2024
     function ejercicio1(){
         let dia = document.getElementById("birthday").value;
         dia = dia.split('/');
@@ -78,6 +78,7 @@
         alert("Tu cumpleaños en 2024 sera el dia de la semana: " + diasSemana[diaDeLaSemana]);
     }
 
+    //2. Mostrar cuantos días han pasado entre el día 23/08/2022 y hoy.
     function ejercicio2(){
         const fechaFija = new Date("2022/08/23");
         let hoy = new Date();
@@ -85,6 +86,94 @@
         let diferenciaTiempo = hoy.getTime() - fechaFija.getTime(); //Saco los milisegundos entre 2 fechas
         document.getElementById("n2").value = Math.round(diferenciaTiempo / (86400000)) + " dias"; //Divido los milisegundos que hay entre ambas fechas entre los que tiene un dia
     }
+    
+    //3. Pedir al usuario que introduzca su fecha de nacimiento en formato dd/mm/yyyy (recogemos como una única cadena) y mostramos por pantalla el día de la semana en  que nació en castellano y su edad actual.
+    function ejercicio3(){
+        //Cojo el valor de el input
+        let fecha = document.getElementById("n3").value;
+
+        //Compruebo el formato con una funcion con expresiones regulares
+        if(validarFecha(fecha) == false ){
+            alert("Formato de fecha incorrecto dd/mm/yyyy ")
+            return;
+        }
+        
+        //Creo el array con dias de la semana
+        const diasSemana = ["Domingo", "Lunes", "Martes" , "Miercoles", "Jueves", "Viernes", "Sabado"];
+        //Cojo fechas de Nac y hoy
+        const fechaNac = new Date("01/06/2004");
+        const fechaHoy = new Date();
+        //Creo la var edad y saco la edad
+        let edad = 0;
+        edad = fechaHoy.getFullYear() - fechaNac.getFullYear();
+        if(fechaHoy.getMonth() < fechaNac.getMonth()){
+        edad--;
+        } else {
+            if(fechaHoy.getMonth() == fechaNac.getMonth()){
+                if(fechaHoy.getDay() < fechaNac.getDay()){
+                    edad --;
+                }
+            }
+        }
+
+
+        //Saco el dia de nacimiento
+        fecha = fecha.split('/');
+        let newFecha = (fecha[2]+'/'+fecha[1]+'/'+fecha[0]);
+        newFecha = new Date(newFecha);
+        newFecha  = newFecha.getDay();
+
+
+        alert("Naciste un " + diasSemana[newFecha] + " y tienes " + edad + " años");
+    }
+
+
+    //4. Pedir al usuario que teclee su nombre y mostrarle cuantos segundos ha tardado en escribirlo.
+    function ejercicio4(){
+        let nombre = "";
+        let inicio = new Date(), fin = new Date();
+        
+        //Guardo el tiempo de inicio y de fin
+        incio =  Date.now();
+        nombre = window.prompt("Teclea tu nombre");
+        fin =  Date.now()
+
+        let tiempoTranscurrido = (fin - inicio) / 1000; //Paso de milisegundos a segundos el tiempo transcurrido
+        tiempoTranscurrido = Math.floor(tiempoTranscurrido); //Con los segundos truncados
+
+        alert("Tu nombre es " + nombre + " y has tardado en introducirlo " + tiempoTranscurrido + " segundos");
+
+    }
+
+    //5. Mostrar la fecha de hoy y qué día será dentro de 100 días.
+
+    function ejercicio5(){
+        let fechaHoy = new Date();
+        let fecha = new Date();
+        fecha.setDate(fechaHoy.getDate() + 100) ;
+
+
+
+        alert("La fecha de hoy es " + fechaHoy + " y dentro de 100 dias sera " +  fecha);
+    }
+
+    //Compruebo la fecha con expresiones regulares
+    function validarFecha(fecha) {
+    const regex = /^\d{2}\/\d{2}\/\d{4}$/;
+    if (!regex.test(fecha)) return false;
+    }
+
+
+    /* 
+    1. Mostrar en qué día de la semana cae tu cumpleaños en el año 2024
+    2. Mostrar cuantos días han pasado entre el día 23/08/2022 y hoy.
+    3. Pedir al usuario que introduzca su fecha de nacimiento en formato dd/mm/yyyy
+    (recogemos como una única cadena) y mostramos por pantalla el día de la semana en
+    que nació en castellano y su edad actual.
+    4. Pedir al usuario que teclee su nombre y mostrarle cuantos segundos ha tardado en
+    escribirlo.
+    5. Mostrar la fecha de hoy y qué día será dentro de 100 días.
+    */
 
   </script>
 </body>
