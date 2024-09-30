@@ -68,7 +68,7 @@
   <script>
     //1. Mostrar en qué día de la semana cae tu cumpleaños en el año 2024
     function ejercicio1(){
-        let dia = document.getElementById("birthday").value;
+        let dia = document.getElementById("n1").value;
         dia = dia.split('/');
         alert(dia);
         let newfecha = ('2024'+'/'+dia[1]+'/'+dia[0]); //Busco el año 2024
@@ -100,11 +100,13 @@
         
         //Creo el array con dias de la semana
         const diasSemana = ["Domingo", "Lunes", "Martes" , "Miercoles", "Jueves", "Viernes", "Sabado"];
-        //Cojo fechas de Nac y hoy
-        const fechaNac = new Date("01/06/2004");
+        //Cojo fechas de hoy
         const fechaHoy = new Date();
+        let fechaNac = new Date(fecha);
         //Creo la var edad y saco la edad
         let edad = 0;
+
+        
         edad = fechaHoy.getFullYear() - fechaNac.getFullYear();
         if(fechaHoy.getMonth() < fechaNac.getMonth()){
         edad--;
@@ -165,6 +167,7 @@
 
 
     /* 
+    EJERCICIOS:
     1. Mostrar en qué día de la semana cae tu cumpleaños en el año 2024
     2. Mostrar cuantos días han pasado entre el día 23/08/2022 y hoy.
     3. Pedir al usuario que introduzca su fecha de nacimiento en formato dd/mm/yyyy
