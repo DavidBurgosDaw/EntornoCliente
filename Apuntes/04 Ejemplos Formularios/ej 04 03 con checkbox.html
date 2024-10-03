@@ -19,7 +19,7 @@ alert("Sabes "+cuantos+" lenguajes");
 function contar2()
 {
 let cuantos=0;
-let lenguajes = document.getElementsByTagName("checkbox");
+let lenguajes = document.getElementsByName("leng");
 for (i=0;i<lenguajes.length;i++){
    if (lenguajes[i].checked)
       cuantos++;
@@ -42,13 +42,13 @@ alert("Te va a costar "+cuanto+"€");
 <form name="miformulario">
 Indica cuantos lenguajes conoces
 <br><br>
-JavaScript<input type="checkbox" id="leng1"> <br><br>
-JSP<input type="checkbox" id="leng2"> <br><br>
-PHP<input type="checkbox" id="leng3"> <br><br>
-Java<input type="checkbox" id="leng4"> <br><br>
+JavaScript<input type="checkbox" name="leng" id="leng1"> <br><br>
+JSP<input type="checkbox" name="leng" id="leng2"> <br><br>
+PHP<input type="checkbox" name="leng" id="leng3"> <br><br>
+Java<input type="checkbox" name="leng" id="leng4"> <br><br>
 <br>
 <input type="button" value="CONTABILIZAR" onclick="contar1()">
-<input type="button" value="Otro CONTABILIZAR" onclick="contar1()">
+<input type="button" value="Otro CONTABILIZAR" onclick="contar2()">
 </form>
 <br><br><br>
 <form name="miscompras">
