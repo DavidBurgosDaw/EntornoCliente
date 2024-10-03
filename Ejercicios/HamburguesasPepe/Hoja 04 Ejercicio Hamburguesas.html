@@ -67,14 +67,14 @@ Elige un tamaño
 			}
 
 			//Parseo el value del texto para que sea un numero
-			tamaño = parseInt(tamaño);
+			tamaño = parseInt(tamaño-1);
 			alert(tamaño)
 
 			//Creo un array de precios, 1.Pequeña 2.Mediana 3.Grande 4.Gigante
 			let precios = [2,3,4,5];
 			alert(precios[tamaño])
 			//Precio Hamburguesa
-			precio = precios[tamaño-1];
+			precio = precios[tamaño];
 
 			//Patatas y Refresco
 			if (document.getElementById("idrefresco").checked){
