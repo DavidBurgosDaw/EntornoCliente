@@ -44,87 +44,139 @@
     </form>
     
     <script>
-        function validarFormulario(){
-            //Valido nombre
+        function validarFormulario() {
+            // Valido nombre
             let nombre = document.getElementById("nombre").value.trim();
-            
-            //Valido que Nombre no este vacio
-            if(nombre == ""){
-                alert("Nombre esta vacio")
+            if (nombre == "") {
+                alert("Nombre está vacío");
                 document.getElementById("nombre").focus();
                 return;
             }
-            
-            //Valido Longitud del Nombre
-            if(nombre.length < 3){
-                alert("El nombre debe tener minimo 3 caracteres")
+            if (nombre.length < 3) {
+                alert("El nombre debe tener mínimo 3 caracteres");
                 document.getElementById("nombre").focus();
                 return;
             }
-
-
-            //Valido apellido
+        
+            // Valido apellido
             let apellidos = document.getElementById("apellidos").value.trim();
-
-            //Valido que apellido no este vacio
-            if(apellidos == ""){
-                alert("Apellido esta vacio")
+            if (apellidos == "") {
+                alert("Apellido está vacío");
                 document.getElementById("apellidos").focus();
                 return;
             }
-            
-            //Valido Longitud del Apellidos
-            if(apellidos.length < 3){
-                alert("El apellido debe tener minimo 3 caracteres")
+            if (apellidos.length < 3) {
+                alert("El apellido debe tener mínimo 3 caracteres");
                 document.getElementById("apellidos").focus();
                 return;
             }
-
-            //Valido Año de Nacimiento
+        
+            // Valido Año de Nacimiento
             let anoNacimiento = document.getElementById("anoNacimiento").value.trim();
-
-            //Compruebo si es entero el año
-            if(isNaN(anoNacimiento)){
-                alert("El año de nacimiento no es numero");
+            if (isNaN(anoNacimiento)) {
+                alert("El año de nacimiento no es un número");
                 document.getElementById("anoNacimiento").focus();
                 return;
             }
-
-            if( parseInt(anoNacimiento) % 1 != 0){
+            if (parseInt(anoNacimiento) % 1 != 0) {
                 alert("El año de nacimiento no es entero");
                 document.getElementById("anoNacimiento").focus();
                 return;
-           }
-
-           //Compruebo año del sistema
-           let anoSistema = new Date().getFullYear();
-
-           if ( parseInt(anoNacimiento) > anoSistema){
-            alert("El año de nacimiento no puede ser mayor al del sistema");
+            }
+            let anoSistema = new Date().getFullYear();
+            if (parseInt(anoNacimiento) > anoSistema) {
+                alert("El año de nacimiento no puede ser mayor al del sistema");
                 document.getElementById("anoNacimiento").focus();
                 return;
-           }
-
-           //Compruebo que año de entrada no este vacio
-           let anoEntrada = document.getElementById("anoEntrada").value.trim();
-
-           if(anoEntrada == ""){
-                alert("Año entrada esta vacio")
+            }
+        
+            // Año de entrada
+            let anoEntrada = document.getElementById("anoEntrada").value.trim();
+            if (anoEntrada == "") {
+                alert("Año entrada está vacío");
                 document.getElementById("anoEntrada").focus();
                 return;
-           }
-
-           if(!parseInt(anoEntrada) % 1 == 0){
-                alert("El año de entrada no es un numero entero")
+            }
+            if (parseInt(anoEntrada) % 1 != 0) {
+                alert("El año de entrada no es un número entero");
                 document.getElementById("anoEntrada").focus();
                 return;
-           }
-
-
-            
+            }
+            if (parseInt(anoEntrada) < 2000) {
+                alert("No has podido entrar antes del 2000, la empresa no existía");
+                document.getElementById("anoEntrada").focus();
+                return;
+            }
+        
+            // Calculamos la edad
+            let edad = parseInt(anoEntrada) - parseInt(anoNacimiento);
+            if (edad < 18) {
+                alert("No pudiste entrar a la empresa, no tenías 18");
+                document.getElementById("anoEntrada").focus();
+                return;
+            }
+        
+            // Valido salario base
+            let salarioBase = parseFloat(document.getElementById("salarioBase").value.trim());
+            if (salarioBase == "") {
+                alert("El salario base no puede estar vacío");
+                document.getElementById("salarioBase").focus();
+                return;
+            }
+            if (!Number(salarioBase)) {
+                alert("El salario base debe estar en números");
+                document.getElementById("salarioBase").focus();
+                return;
+            }
+            if (salarioBase < 1100) {
+                alert("El salario base no puede ser menor de 1100");
+                document.getElementById("salarioBase").focus();
+                return;
+            }
+        
+            // Validamos sucursal
+            let sucursal = parseFloat(document.getElementById("sucursal").value.trim());
+            if (sucursal == 0) {
+                alert("Debe seleccionar sucursal");
+                document.getElementById("sucursal").focus();
+                return;
+            }
+        
+            // Valido irpf
+            let irpfElements = document.getElementsByName("irpf");
+            let irpfSeleccionado = null;
+            for (let i = 0; i < irpfElements.length; i++) {
+                if (irpfElements[i].checked) {
+                    irpfSeleccionado = parseFloat(irpfElements[i].value);
+                    break; // Only need the first checked
+                }
+            }
+            if (irpfSeleccionado === null) {
+                alert("Debes marcar un IRPF");
+                return;
+            }
+        
+            // Calculamos trienios
+            let trienios = Math.trunc((2024 - parseInt(anoEntrada)) / 3);
+            alert(trienios);
+        
+            // Calculo paga especial
+            let pagaEspecial = ((salarioBase * 0.1) * trienios) + parseFloat(sucursal);
+            alert(pagaEspecial);
+        
+            // Calculo el IRPF a aplicar
+            let irpfAplicado = (pagaEspecial * irpfSeleccionado) / 100;
+            alert(irpfAplicado + " IRPF Aplicado");
+        
+            // Calculo la paga menos el IRPF
+            pagaEspecial = pagaEspecial - irpfAplicado;
+            alert(pagaEspecial + " Paga Especial Final");
+        
+    
+            document.getElementById("resultado").innerHTML = "Paga Especial Final: " + pagaEspecial;
         }
-
-    </script>
+        </script>
+        
 
 </body>
 </html>
