@@ -142,7 +142,7 @@
                 return;
             }
         
-            // Valido irpf
+            // Validamos IRPF
             let irpfElements = document.getElementsByName("irpf");
             let irpfSeleccionado = null;
             for (let i = 0; i < irpfElements.length; i++) {
@@ -158,24 +158,25 @@
         
             // Calculamos trienios
             let trienios = Math.trunc((2024 - parseInt(anoEntrada)) / 3);
-            alert(trienios);
         
-            // Calculo paga especial
-            let pagaEspecial = ((salarioBase * 0.1) * trienios) + parseFloat(sucursal);
-            alert(pagaEspecial);
+            // Calculamos pagaEspecial y bonificación por sucursal
+            let pagaEspecial = ((salarioBase * 0.1) * trienios);
+            let pagaConBonificacion = pagaEspecial + sucursal;
         
-            // Calculo el IRPF a aplicar
-            let irpfAplicado = (pagaEspecial * irpfSeleccionado) / 100;
-            alert(irpfAplicado + " IRPF Aplicado");
+            // Calculamos IRPF aplicado
+            let irpfAplicado = (pagaConBonificacion * irpfSeleccionado) / 100;
+            let pagaFinal = pagaConBonificacion - irpfAplicado;
+                    
         
-            // Calculo la paga menos el IRPF
-            pagaEspecial = pagaEspecial - irpfAplicado;
-            alert(pagaEspecial + " Paga Especial Final");
+            // Mostramos el resultado en el div con ID "resultado"
+            document.getElementById("resultado").innerHTML = "Trienios: " + trienios + "<br> Paga Especial: " + pagaEspecial + "<br> Con bonificacion por sucursal: " + pagaConBonificacion + "<br> Aplicando IRPF: " + pagaFinal;
         
-    
-            document.getElementById("resultado").innerHTML = "Paga Especial Final: " + pagaEspecial;
+            if(document.getElementById("correo").checked){
+                alert("Toda la informacion sera enviada por correo")
+            }
         }
         </script>
+        
         
 
 </body>
