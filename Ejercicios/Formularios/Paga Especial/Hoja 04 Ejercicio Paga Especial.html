@@ -157,7 +157,7 @@
             }
         
             // Calculamos trienios
-            let trienios = Math.trunc((2024 - parseInt(anoEntrada)) / 3);
+            let trienios = Math.floor((2024 - parseInt(anoEntrada)) / 3);
         
             // Calculamos pagaEspecial y bonificación por sucursal
             let pagaEspecial = ((salarioBase * 0.1) * trienios);
