@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+    // 1. Que significan las siguientes expresiones regulares y para que pueden servir
+
+    let reg = /^\s+$/ //Empieza con un espacion en blanco o mas
+        reg = /^\d{8}[A-Z]$/ //Comienza por 8 digitos y termina con letra de la A a la Z mayuscula, sirve para dni
+        reg = /^\d{10}[A-Z]{2}$/ //Comienza por 9 digitos y contiene 2 Letras de la A a la Z mayusculas, sirve
+        reg = /^\d{9}$/ //Comienza por 9 digitos
+        reg = /^\d{3}-\d{3}-\d{3}$/ //Comienza por tres digitos, seguido de un guion 3 digitos, guion 3 digitos, sirve pare telefono movil
+        reg = /^\d{3}\s\d{2}\s\d{2}\s\d{2}$/ // Comienza por 3 digitos, blanco, 2 digitos, blanco, 2 digitos, sirve para telefono movil
+        reg = /^\+\d{2,3}\s\d{9}$/ // + 2 o 3, y 9 digitos para un frefijo telefonico
+
+    //   2. Definir y comprobar la validez de expresiones regulares que sirvan para comprobar
+
+        reg = /^[01]*$/g //1.Es un número binario.
+        reg = /^[67]{1}\d{8}$/g //2.Es un teléfono móvil
+        reg = /^[901|902|903]{3}\d{6}$/g //3.Es un teléfono 901, 902 o 903
+        reg = /^(daw|asir|fin)[12]{1}$/i
+
+    </script>
+
+</body>
+</html>
