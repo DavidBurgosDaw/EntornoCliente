@@ -22,9 +22,9 @@
 
     //   2. Definir y comprobar la validez de expresiones regulares que sirvan para comprobar
 
-        reg = /^[01]*$/g //1.Es un número binario.
+        reg = /^[01]+$/g //1.Es un número binario.
         reg = /^[67]{1}\d{8}$/g //2.Es un teléfono móvil
-        reg = /^[901|902|903]{3}\d{6}$/g //3.Es un teléfono 901, 902 o 903
+        reg = /^[901|902|903]\d{6}$/g //3.Es un teléfono 901, 902 o 903
         reg = /^(daw|asir|fin)[12]{1}$/i //4. Asir + 1 o 2d
         reg = /^\d{2},\d{2}[$|€]$/ //Es una cantidad de dinero con dos decimales y acaba en € o $
         reg = /^www\..*(poker|porno|juego).*\.(com|org|es)$/ //Pagina web
