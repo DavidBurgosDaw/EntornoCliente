@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        span {
+            display:none;
+        }
+		legend {color: #CC0033;
+                font-weight: 600;
+		}
+        
+        #precio {color: #222;
+                font-weight: 600;
+                line-height: 1.3;
+                }
+        
+    </style>
+ <script>
+	function validar(){
+	
+     }
+	 function cambiarColor (e){ 
+		e.style.background = 'gray';
+	 }
+	 function validarNomApel (e){ 
+	 
+		re = /^[a-z]{2,}[a-z\s]*$/i;
+			if (!re.test(e.value)){
+				alert("Rellene el campo convenientemente")
+				e.focus();
+				return false;
+			}
+			e.style.background = 'white';
+			return true;
+
+	 }
+	 function validarFecha (e){ 
+	 
+		reg = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+		if (!reg.test(e.value)){
+			alert("Rellena el campo con la fecha conveniente");
+			e.focus();
+			return false;
+		}
+		e.style.background = 'white';
+		calcularEdad(e);
+		return true;
+	 }
+
+	 function calcularEdad (e){
+		let fechaNac = new Date(e.value);
+		let fechaHoy = new Date();
+		edad=fechaHoy.getFullYear()-fechaNac.getFullYear();
+			if (fechaHoy.getMonth() < fechaNac.getMonth())
+				edad--;
+			else
+				if (fechaHoy.getMonth() == fechaNac.getMonth())
+					if (fechaHoy.getDate() < fechaNac.getDate())
+						edad--;
+
+		document.getElementById('edad').value = edad;
+	}
+	 function validarDNI (e){ 
+	
+	}
+	 function calcularRenovar(e){ 
+	
+	}
+     </script>
+    </head>
+ <body>
+<h1>CLUB DEL AUTOMOVIL</h1>
+<h3>ALTA NUEVO SOCIO</h3>
+<form>
+<div>
+    <fieldset>
+	<legend>DATOS SOCIO</legend>
+
+	Nombre &nbsp;&nbsp;<input type="text" id="nom"size=30
+     	onfocus="cambiarColor(document.getElementById('nom'))"
+		onchange="validarNomApel(document.getElementById('nom')) ">
+	<br><br>Apellidos <input type="text" id="ape"size=30
+		onfocus="cambiarColor(document.getElementById('ape'))" 
+		onchange="validarNomApel(document.getElementById('ape')) ">
+	<br><br>Fecha Nacimiento  <input type="text" id=fecnac size=13 placeholder="aaaa-mm-dd"
+		onfocus="cambiarColor(document.getElementById('fecnac'))"
+		onchange="validarFecha(document.getElementById('fecnac')) "
+		>&nbsp;&nbsp; Edad <input type="text" size=4 id="edad" readonly>
+		 </fieldset>
+	 <br>
+	<fieldset>
+    <legend>DATOS CARNET CONDUCIR </legend>
+    Num Carnet <input type="text" id="carnet" size="15"
+		onfocus="cambiarColor(document.getElementById('carnet'))"
+		onchange=" "> &nbsp;&nbsp;
+	Desde   <input type="text" size=13 id="desde" placeholder="aaaa-mm-dd"
+		onfocus="cambiarColor(document.getElementById('desde'))"
+		onchange=" "> &nbsp;&nbsp;  
+    Renovar   <input type="text"  size=13 id="renovar" readonly>  
+	<input  type="button" value="CONTRATAR" onclick="validar()">  <br><br> 
+ </div>
+</form> 
+<br>
+<div id="todoOK"></div>
+</body>
+</html>
