@@ -17,8 +17,35 @@
         
     </style>
  <script>
-	function validar(){
+	inputs = document.getElementsByTagName("input");
 	
+	function validar(){
+		vacio = false;
+
+		for(let i = 0; i<inputs.length;i++){
+			if(!inputs[i].readonly && inputs[i].value.trim() == ''){
+				e.style.background = 'gray';
+				vacio = true;
+			}
+		}
+
+		if(vacio){
+			alert("Campos vacios")
+			return;
+		}
+
+
+		if ((!validarNomApel(document.getElementById("nom"))) ||
+				(!validarNomApel(document.getElementById("ape"))) ||
+				(!validarFecha(document.getElementById("fecnac"))) ||
+				(!validarFecha(document.getElementById("desde"))) ||
+				(!calcularEdad(document.getElementById("fecnac")))
+			) {
+				alert("Error de datos")
+				return;
+			}
+			alert("OK")
+
      }
 	 function cambiarColor (e){ 
 		e.style.background = 'gray';
@@ -35,18 +62,54 @@
 			return true;
 
 	 }
-	 function validarFecha (e){ 
-	 
-		reg = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-		if (!reg.test(e.value)){
+	 function validarFecha(e) {
+		// Cojo Fecha Hoy
+		let hoy = new Date();
+		// Extraer año, mes y día del valor de entrada
+		let fecha = new Date(e.value)
+		let fechaSistema = new Date();
+
+		// Expresión regular para validar el formato de fecha
+		const reg = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+
+		// Validar el formato de la fecha
+		if (!reg.test(e.value)) {
 			alert("Rellena el campo con la fecha conveniente");
 			e.focus();
 			return false;
 		}
-		e.style.background = 'white';
-		calcularEdad(e);
-		return true;
-	 }
+
+		if (fecha > fechaSistema){
+			alert("Rellena el campo con la fecha conveniente")
+			return false;
+		}
+
+		e.style.background = 'white'; 
+
+			if (e.id === 'fecnac') {
+				calcularEdad(e);
+			}
+
+			if (e.id === 'desde') {
+				let fechaRenovacion = new Date(fecha);
+				alert(fechaRenovacion)
+				while (fechaRenovacion.getFullYear() <= fechaSistema.getFullYear()){
+				fechaRenovacion.setFullYear(fechaRenovacion.getFullYear() + 10);
+				}
+
+				let dia = fechaRenovacion.getDay();
+				let mes = fechaRenovacion.getMonth();
+				let anio = fechaRenovacion.getFullYear();
+
+				let fechaFormateada = `${anio}-${mes}-${dia}`;
+				
+		
+			document.getElementById('renovar').value = fechaFormateada;
+		}
+
+    return true;
+}
+
 
 	 function calcularEdad (e){
 		let fechaNac = new Date(e.value);
@@ -62,11 +125,19 @@
 		document.getElementById('edad').value = edad;
 	}
 	 function validarDNI (e){ 
-	
+		reg = /^\d{6,8}[A-Z]$/
+
+		if(!reg.test(e.value)){
+			alert("Rellene el campo convenientemente")
+			e.focus();
+			return false;
+		}
+		e.style.background = 'white';
+		return true;
 	}
-	 function calcularRenovar(e){ 
+	/* function calcularRenovar(e){ 
 	
-	}
+	}*/
      </script>
     </head>
  <body>
@@ -78,25 +149,25 @@
 	<legend>DATOS SOCIO</legend>
 
 	Nombre &nbsp;&nbsp;<input type="text" id="nom"size=30
-     	onfocus="cambiarColor(document.getElementById('nom'))"
-		onchange="validarNomApel(document.getElementById('nom')) ">
+     	onfocus="cambiarColor(this)"
+		onchange="validarNomApel(this) ">
 	<br><br>Apellidos <input type="text" id="ape"size=30
-		onfocus="cambiarColor(document.getElementById('ape'))" 
-		onchange="validarNomApel(document.getElementById('ape')) ">
+		onfocus="cambiarColor(this)" 
+		onchange="validarNomApel(this) ">
 	<br><br>Fecha Nacimiento  <input type="text" id=fecnac size=13 placeholder="aaaa-mm-dd"
-		onfocus="cambiarColor(document.getElementById('fecnac'))"
-		onchange="validarFecha(document.getElementById('fecnac')) "
+		onfocus="cambiarColor(this)"
+		onchange="validarFecha(this) "
 		>&nbsp;&nbsp; Edad <input type="text" size=4 id="edad" readonly>
 		 </fieldset>
 	 <br>
 	<fieldset>
     <legend>DATOS CARNET CONDUCIR </legend>
     Num Carnet <input type="text" id="carnet" size="15"
-		onfocus="cambiarColor(document.getElementById('carnet'))"
-		onchange=" "> &nbsp;&nbsp;
+		onfocus="cambiarColor(this)"
+		onchange="validarDNI(this) "> &nbsp;&nbsp;
 	Desde   <input type="text" size=13 id="desde" placeholder="aaaa-mm-dd"
-		onfocus="cambiarColor(document.getElementById('desde'))"
-		onchange=" "> &nbsp;&nbsp;  
+		onfocus="cambiarColor(this)"
+		onchange="validarFecha(this)"> &nbsp;&nbsp;  
     Renovar   <input type="text"  size=13 id="renovar" readonly>  
 	<input  type="button" value="CONTRATAR" onclick="validar()">  <br><br> 
  </div>
