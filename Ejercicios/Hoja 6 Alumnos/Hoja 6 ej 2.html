@@ -1,18 +1,52 @@
 <!DOCTYPE html>
 <html>
-
- <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>CONTROL FORMULARIOS</title>
-        <link rel="stylesheet" href="main.css">
-   
-<script>
-
-</script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CONTROL FORMULARIOS</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-<a href="https://www.yobingo.es/">Juguemos al Bingo</a>
-<img src="garfield.jpg" width="300" height="300"> <input type="button" value="PULSAME">
+    <a href="https://www.yobingo.es/" onclick="return confirmar()">Juguemos al Bingo</a>
+    <img src="garfield.jpg" width="300" height="300" id="foto">
+    <input type="button" value="PULSAME" id="boton">
+
+    <script>
+        function confirmar() {
+            return window.confirm("Estas entrando en una web peligrosa para ludópatas o alérgicos ¿Estas seguro de entrar?");
+        }
+
+        //Cojo el elemento
+        let img = document.getElementById("foto");
+        let boton = document.getElementById("boton")
+
+
+        // Cambio la ruta de la imagen al hacer hover
+        img.onmouseover = function() {
+            img.src = 'garfield2.jpg';
+        };
+
+        // Revierto el cambio al hacer mouseout
+        img.onmouseout = function() {
+            img.src = 'garfield.jpg';
+        };
+
+
+        boton.onmouseover = function(){
+        boton.style.color = "orange";
+        } 
+
+        boton.onmouseout = function(){
+        boton.style.color = "gray";
+        }
+
+        boton.onclick = function(){
+        boton.style.display = "none"
+        }
+
+
+        
+
+    </script>
 </body>
 </html>
