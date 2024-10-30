@@ -2,176 +2,148 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <style>
-        span {
-            display:none;
+<style>
+    span {
+        display:none;
+    }
+    legend { color: #CC0033; font-weight: 600; }
+    #precio { color: #222; font-weight: 600; line-height: 1.3; }
+</style>
+<script>
+    function validar() {
+        let vacio = false;
+        let inputs = document.querySelectorAll("input");
+
+        for (let i = 0; i < inputs.length; i++) {
+            if (!inputs[i].readOnly && inputs[i].value.trim() === '') {
+                inputs[i].style.background = 'gray';
+                vacio = true;
+            }
         }
-		legend {color: #CC0033;
-                font-weight: 600;
-		}
-        
-        #precio {color: #222;
-                font-weight: 600;
-                line-height: 1.3;
-                }
-        
-    </style>
- <script>
-	inputs = document.getElementsByTagName("input");
-	
-	function validar(){
-		vacio = false;
 
-		for(let i = 0; i<inputs.length;i++){
-			if(!inputs[i].readonly && inputs[i].value.trim() == ''){
-				e.style.background = 'gray';
-				vacio = true;
-			}
-		}
+        if (vacio) {
+            alert("Campos vacíos");
+            return false;
+        }
 
-		if(vacio){
-			alert("Campos vacios")
-			return;
-		}
+        // Call validation functions on specific elements
+        if (
+            !validarNomApel(document.getElementById("nom")) ||
+            !validarNomApel(document.getElementById("ape")) ||
+            !validarFecha(document.getElementById("fecnac")) ||
+            !validarFecha(document.getElementById("desde")) ||
+            !calcularEdad(document.getElementById("fecnac"))
+        ) {
+            alert("Error de datos");
+            return false;
+        }
 
+        alert("OK");
+        return true;
+    }
 
-		if ((!validarNomApel(document.getElementById("nom"))) ||
-				(!validarNomApel(document.getElementById("ape"))) ||
-				(!validarFecha(document.getElementById("fecnac"))) ||
-				(!validarFecha(document.getElementById("desde"))) ||
-				(!calcularEdad(document.getElementById("fecnac")))
-			) {
-				alert("Error de datos")
-				return;
-			}
-			alert("OK")
+    function cambiarColor(e) { 
+        e.style.background = 'gray';
+    }
 
-     }
-	 function cambiarColor (e){ 
-		e.style.background = 'gray';
-	 }
-	 function validarNomApel (e){ 
-	 
-		re = /^[a-z]{2,}[a-z\s]*$/i;
-			if (!re.test(e.value)){
-				alert("Rellene el campo convenientemente")
-				e.focus();
-				return false;
-			}
-			e.style.background = 'white';
-			return true;
+    function validarNomApel(e) { 
+        const re = /^[a-z]{2,}[a-z\s]*$/i;
+        if (!re.test(e.value)) {
+            alert("Rellene el campo convenientemente");
+            e.focus();
+            return false;
+        }
+        e.style.background = 'white';
+        return true;
+    }
 
-	 }
-	 function validarFecha(e) {
-		// Cojo Fecha Hoy
-		let hoy = new Date();
-		// Extraer año, mes y día del valor de entrada
-		let fecha = new Date(e.value)
-		let fechaSistema = new Date();
+    function validarFecha(e) {
+        const fechaSistema = new Date();
+        const fecha = new Date(e.value);
 
-		// Expresión regular para validar el formato de fecha
-		const reg = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+        const reg = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-		// Validar el formato de la fecha
-		if (!reg.test(e.value)) {
-			alert("Rellena el campo con la fecha conveniente");
-			e.focus();
-			return false;
-		}
+        if (!reg.test(e.value)) {
+            alert("Rellena el campo con la fecha conveniente");
+            e.focus();
+            return false;
+        }
 
-		if (fecha > fechaSistema){
-			alert("Rellena el campo con la fecha conveniente")
-			return false;
-		}
+        if (fecha > fechaSistema) {
+            alert("La fecha no puede ser en el futuro.");
+            return false;
+        }
 
-		e.style.background = 'white'; 
+        e.style.background = 'white'; 
 
-			if (e.id === 'fecnac') {
-				calcularEdad(e);
-			}
+        if (e.id === 'desde') {
+            let fechaRenovacion = new Date(fecha);
+            while (fechaRenovacion.getFullYear() <= fechaSistema.getFullYear()) {
+                fechaRenovacion.setFullYear(fechaRenovacion.getFullYear() + 10);
+            }
 
-			if (e.id === 'desde') {
-				let fechaRenovacion = new Date(fecha);
-				alert(fechaRenovacion)
-				while (fechaRenovacion.getFullYear() <= fechaSistema.getFullYear()){
-				fechaRenovacion.setFullYear(fechaRenovacion.getFullYear() + 10);
-				}
+            const dia = String(fechaRenovacion.getDate()).padStart(2, '0');
+            const mes = String(fechaRenovacion.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+            const anio = fechaRenovacion.getFullYear();
 
-				let dia = fechaRenovacion.getDay();
-				let mes = fechaRenovacion.getMonth();
-				let anio = fechaRenovacion.getFullYear();
+            const fechaFormateada = `${anio}-${mes}-${dia}`;
+            document.getElementById('renovar').value = fechaFormateada;
+        }
 
-				let fechaFormateada = `${anio}-${mes}-${dia}`;
-				
-		
-			document.getElementById('renovar').value = fechaFormateada;
-		}
+        return true;
+    }
 
-    return true;
-}
+    function calcularEdad(e) {
+        const fechaNac = new Date(e.value);
+        const fechaHoy = new Date();
+        let edad = fechaHoy.getFullYear() - fechaNac.getFullYear();
 
+        if (
+            fechaHoy.getMonth() < fechaNac.getMonth() || 
+            (fechaHoy.getMonth() === fechaNac.getMonth() && fechaHoy.getDate() < fechaNac.getDate())
+        ) {
+            edad--;
+        }
 
-	 function calcularEdad (e){
-		let fechaNac = new Date(e.value);
-		let fechaHoy = new Date();
-		edad=fechaHoy.getFullYear()-fechaNac.getFullYear();
-			if (fechaHoy.getMonth() < fechaNac.getMonth())
-				edad--;
-			else
-				if (fechaHoy.getMonth() == fechaNac.getMonth())
-					if (fechaHoy.getDate() < fechaNac.getDate())
-						edad--;
+        document.getElementById('edad').value = edad;
+        return edad >= 18; 
+    }
 
-		document.getElementById('edad').value = edad;
-	}
-	 function validarDNI (e){ 
-		reg = /^\d{6,8}[A-Z]$/
+    function validarDNI(e) { 
+        const reg = /^\d{6,8}[A-Z]$/;
 
-		if(!reg.test(e.value)){
-			alert("Rellene el campo convenientemente")
-			e.focus();
-			return false;
-		}
-		e.style.background = 'white';
-		return true;
-	}
-	/* function calcularRenovar(e){ 
-	
-	}*/
-     </script>
-    </head>
- <body>
+        if (!reg.test(e.value)) {
+            alert("Rellene el campo convenientemente");
+            e.focus();
+            return false;
+        }
+        e.style.background = 'white';
+        return true;
+    }
+</script>
+</head>
+<body>
 <h1>CLUB DEL AUTOMOVIL</h1>
 <h3>ALTA NUEVO SOCIO</h3>
 <form>
-<div>
-    <fieldset>
-	<legend>DATOS SOCIO</legend>
-
-	Nombre &nbsp;&nbsp;<input type="text" id="nom"size=30
-     	onfocus="cambiarColor(this)"
-		onchange="validarNomApel(this) ">
-	<br><br>Apellidos <input type="text" id="ape"size=30
-		onfocus="cambiarColor(this)" 
-		onchange="validarNomApel(this) ">
-	<br><br>Fecha Nacimiento  <input type="text" id=fecnac size=13 placeholder="aaaa-mm-dd"
-		onfocus="cambiarColor(this)"
-		onchange="validarFecha(this) "
-		>&nbsp;&nbsp; Edad <input type="text" size=4 id="edad" readonly>
-		 </fieldset>
-	 <br>
-	<fieldset>
-    <legend>DATOS CARNET CONDUCIR </legend>
-    Num Carnet <input type="text" id="carnet" size="15"
-		onfocus="cambiarColor(this)"
-		onchange="validarDNI(this) "> &nbsp;&nbsp;
-	Desde   <input type="text" size=13 id="desde" placeholder="aaaa-mm-dd"
-		onfocus="cambiarColor(this)"
-		onchange="validarFecha(this)"> &nbsp;&nbsp;  
-    Renovar   <input type="text"  size=13 id="renovar" readonly>  
-	<input  type="button" value="CONTRATAR" onclick="validar()">  <br><br> 
- </div>
-</form> 
+    <div>
+        <fieldset>
+            <legend>DATOS SOCIO</legend>
+            Nombre &nbsp;&nbsp;<input type="text" id="nom" size=30 onfocus="cambiarColor(this)" onchange="validarNomApel(this)">
+            <br><br>Apellidos <input type="text" id="ape" size=30 onfocus="cambiarColor(this)" onchange="validarNomApel(this)">
+            <br><br>Fecha Nacimiento  <input type="text" id="fecnac" size=13 placeholder="aaaa-mm-dd" onfocus="cambiarColor(this)" onchange="validarFecha(this)">&nbsp;&nbsp; 
+            Edad <input type="text" size=4 id="edad" readonly>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>DATOS CARNET CONDUCIR</legend>
+            Num Carnet <input type="text" id="carnet" size="15" onfocus="cambiarColor(this)" onchange="validarDNI(this)"> &nbsp;&nbsp;
+            Desde <input type="text" size=13 id="desde" placeholder="aaaa-mm-dd" onfocus="cambiarColor(this)" onchange="validarFecha(this)"> &nbsp;&nbsp;  
+            Renovar <input type="text" size=13 id="renovar" readonly>  
+            <input type="button" value="CONTRATAR" onclick="validar()">  
+        </fieldset>
+    </div>
+</form>
 <br>
 <div id="todoOK"></div>
 </body>
