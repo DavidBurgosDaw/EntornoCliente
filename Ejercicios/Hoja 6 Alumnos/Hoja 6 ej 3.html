@@ -9,11 +9,66 @@
     
  
  <script>
+
+       function editText(e){
+
+
+
+              let texto = document.getElementById("texto");
+
+              switch (e.id){
+                     case "tamanyo":
+                            texto.style.fontSize = parseInt(e.value) + "px";
+                            alert(e.value);
+                            break;
+                     case "tipo":
+                            texto.style.fontFamily = e.value;
+                            alert(e.value)
+                            break;
+                     case "color":
+                            texto.style.color = e.value;
+                            alert(e.value)
+                            break;
+                     case "negrita":
+                            if(e.checked){
+                            texto.style.fontWeight = "bold";
+                            alert(e.value)
+                            } else {
+                            texto.style.fontWeight = "normal";
+                            }
+                            break;
+                     case "cursiva":
+                            if(e.checked){
+                                   texto.style.fontStyle = "italic";
+                            } else {
+                                   texto.style.fontStyle = "normal";
+                            }
+                            break;
+                     case "subrayado":
+                            if(e.checked){
+                                   texto.style.textDecoration = "underline"
+                            } else {
+                                   texto.style.textDecoration = "none"
+                            }
+                            break;
+                     
+              }
+
+              //Meto un if ya que el 'a' no tiene id sino nombre
+              if(e.name == 'a'){
+                     texto.style.textAlign = e.value;
+                     alert(e.value);
+              }
+
+       
+       }
+
  </script>
+
 </head>
 <body>
 <div id="controles">Tamaño del texto
-<select id="tamanyo">
+<select id="tamanyo" onchange="editText(this)">
 <option value="8">8</option>
 <option value="10">10</option>
 <option value="12">12</option>
@@ -23,7 +78,7 @@
 </select> 
 
 Tipo de texto
-<select id="tipo">
+<select id="tipo" onchange="editText(this)">
 <option value="arial">arial</option>
 <option value="verdana">verdana</option>
 <option value="geneva">geneva</option>
@@ -31,7 +86,7 @@ Tipo de texto
 </select>
 
 Color del texto 
-<select id="color">
+<select id="color" onchange="editText(this)">
 <option value="#000000">negro</option>
 <option value="#CCCCCC">gris</option>
 <option value="#6699FF">azul</option>
@@ -40,15 +95,15 @@ Color del texto
 <br>
 <div id="controles2">
 Negrita&nbsp;
-<input type="checkbox" id="negrita"/>&nbsp;&nbsp;&nbsp;&nbsp; 
+<input type="checkbox" id="negrita" onchange="editText(this)"/>&nbsp;&nbsp;&nbsp;&nbsp; 
 Cursiva&nbsp;
-<input type="checkbox" id="cursiva"/>&nbsp;&nbsp;&nbsp;&nbsp;Subrayado&nbsp;
-<input type="checkbox" id="subrayado" />
+<input type="checkbox" id="cursiva" onchange="editText(this)"/>&nbsp;&nbsp;&nbsp;&nbsp;Subrayado&nbsp;
+<input type="checkbox" id="subrayado" onchange="editText(this)" />
 &nbsp;&nbsp;&nbsp;&nbsp;Alineación&nbsp;
-<input name="a" type="radio" value="left" />&nbsp;Izq&nbsp;
-<input name="a" type="radio" value="right"/>&nbsp;Der&nbsp;
-<input name="a" type="radio" value="center" />&nbsp;Cen&nbsp;
-<input name="a" type="radio" value="justify"/>
+<input name="a" type="radio" value="left" onchange="editText(this)"/>&nbsp;Izq&nbsp;
+<input name="a" type="radio" value="right" onchange="editText(this)" />&nbsp;Der&nbsp;
+<input name="a" type="radio" value="center" onchange="editText(this)" />&nbsp;Cen&nbsp;
+<input name="a" type="radio" value="justify" onchange="editText(this)"/>
 &nbsp;Jus&nbsp;
 </div>
 <div id="texto">
