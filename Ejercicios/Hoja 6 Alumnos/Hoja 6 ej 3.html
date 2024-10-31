@@ -12,27 +12,21 @@
 
        function editText(e){
 
-
-
               let texto = document.getElementById("texto");
 
               switch (e.id){
                      case "tamanyo":
                             texto.style.fontSize = parseInt(e.value) + "px";
-                            alert(e.value);
                             break;
                      case "tipo":
                             texto.style.fontFamily = e.value;
-                            alert(e.value)
                             break;
                      case "color":
                             texto.style.color = e.value;
-                            alert(e.value)
                             break;
                      case "negrita":
                             if(e.checked){
                             texto.style.fontWeight = "bold";
-                            alert(e.value)
                             } else {
                             texto.style.fontWeight = "normal";
                             }
@@ -57,7 +51,6 @@
               //Meto un if ya que el 'a' no tiene id sino nombre
               if(e.name == 'a'){
                      texto.style.textAlign = e.value;
-                     alert(e.value);
               }
 
        
