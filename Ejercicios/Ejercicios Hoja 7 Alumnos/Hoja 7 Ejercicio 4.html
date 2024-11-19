@@ -1,46 +1,132 @@
 <!DOCTYPE html>
-<html>
-<html>
-<head>
-<meta charset="UTF-8">
-<style type="text/css">
-table{
-	background-color: #F7F793;
-	border: 1px solid #75756A;
-	width:300px;
-	text-align: center;
-	margin: auto;
-	box-shadow: 5px 5px 12px #F5F5DC;
-	font-size: 20px;
-	font-family: 'Indie Flower', cursive;
-}
-td{
-	border: 1px solid red;
-	width: 21px;
-}
+<html lang="es">
 
- </style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        table {
+            background-color: #F7F793;
+            border: 1px solid #75756A;
+            width: 300px;
+            text-align: center;
+            margin: auto;
+            box-shadow: 5px 5px 12px #F5F5DC;
+            font-size: 20px;
+            font-family: 'Indie Flower', cursive;
+        }
+
+        td {
+            border: 1px solid red;
+            width: 21px;
+        }
+    </style>
+    <title>Tabla Interactiva</title>
+</head>
 
 <body>
- 
-<div>
- <input type="button" value=1 onclick="buscar(this.value)"> 
-	 <input type="button" value=2 onclick="buscar(this.value)"> 
-	 <input type="button" value=3 onclick="buscar(this.value)"><br> 
- <input type="button" value=4 onclick="buscar(this.value)"> 
-	 <input type="button" value=5 onclick="buscar(this.value)"> 
-	 <input type="button" value=6 onclick="buscar(this.value)"> <br> 
- <input type="button" value=7 onclick="buscar(this.value)"> 
-	 <input type="button" value=8 onclick="buscar(this.value)"> 
-	 <input type="button" value=9 onclick="buscar(this.value)"> <br> 
- <input type="button" value=0 onclick="buscar(this.value)">  
-</div>
-<div id="div1">
-</div>
-<div id="div2">
-</div>
-</body>
-<script type="text/JavaScript">
+    <div>
+        <input type="button" value="1" onclick="buscar(this.value)">
+        <input type="button" value="2" onclick="buscar(this.value)">
+        <input type="button" value="3" onclick="buscar(this.value)"><br>
+        <input type="button" value="4" onclick="buscar(this.value)">
+        <input type="button" value="5" onclick="buscar(this.value)">
+        <input type="button" value="6" onclick="buscar(this.value)"><br>
+        <input type="button" value="7" onclick="buscar(this.value)">
+        <input type="button" value="8" onclick="buscar(this.value)">
+        <input type="button" value="9" onclick="buscar(this.value)"><br>
+        <input type="button" value="0" onclick="buscar(this.value)">
+    </div>
+    <div id="div1">
+        <!-- Aquí se insertará la tabla -->
+    </div>
+    <div id="div2"></div>
 
-</script>
+    <h2 id="mensaje"></h2> <!-- Mensaje de fallos -->
+
+    <script type="text/javascript">
+        let tabla, tabla2;
+
+        const filas = 4;
+        const columnas = 4;
+        let fallos = 0; // Contador de fallos
+
+        function crearTablaLlena() {
+            // Crear el array bidimensional (tabla)
+            tabla = new Array(filas);
+            for (let i = 0; i < filas; i++) {
+                tabla[i] = new Array(columnas).fill("**"); // Inicializamos con "**"
+            }
+
+            // Crear la tabla con los asteriscos
+            let tablaHTML = "<table border='1' style='border-collapse: collapse; width: 10%;'>";
+            for (let i = 0; i < filas; i++) {
+                tablaHTML += "<tr>"; // Inicia una fila
+                for (let j = 0; j < columnas; j++) {
+                    tablaHTML += `<td id="celda-${i}-${j}">${tabla[i][j]}</td>`; // Crear la celda con el valor
+                }
+                tablaHTML += "</tr>"; // Cierra la fila
+            }
+            tablaHTML += "</table>";
+
+            // Insertar la tabla en el contenedor "div1"
+            document.getElementById("div1").innerHTML = tablaHTML;
+
+            // Crear la tabla oculta (tabla2) con números aleatorios
+            tabla2 = new Array(filas);
+            for (let e = 0; e < filas; e++) {
+                tabla2[e] = new Array(columnas).fill(0);
+            }
+
+            // Llenar `tabla2` con números aleatorios entre 1 y 9
+            for (let e = 0; e < filas; e++) {
+                for (let p = 0; p < columnas; p++) {
+                    tabla2[e][p] = Math.floor(Math.random() * 9) + 1;
+                }
+            }
+
+            console.log("Tabla oculta (tabla2):", tabla2); // Para depurar
+        }
+
+        function buscar(valor) {
+            const valorBuscado = parseInt(valor); // Convertir el valor del botón a número
+            let encontrado = false; // Variable para saber si encontramos el número
+
+            for (let i = 0; i < filas; i++) {
+                for (let j = 0; j < columnas; j++) {
+                    if (tabla2[i][j] === valorBuscado && tabla[i][j] === "**" && !encontrado) { // Solo destapamos el primer número encontrado
+                        tabla[i][j] = valorBuscado; // Actualizamos la tabla visible
+                        document.getElementById(`celda-${i}-${j}`).innerText = valorBuscado; // Actualizamos el DOM
+                        encontrado = true; // Marcamos que ya encontramos un número
+                        break; // Salimos del ciclo interno, ya no buscamos más
+                    }
+                }
+                if (encontrado){
+					break; // Salimos del ciclo externo si ya encontramos el número	
+				} 
+            }
+
+            if (!encontrado) {
+                fallos++; // Si no encontramos el número, sumamos un fallo
+                document.getElementById("mensaje").innerText = `Fallos: ${fallos}`;
+                // Verificar si se han alcanzado los 5 fallos
+                if (fallos >= 5) {
+                    alert("¡Juego terminado! Has cometido 5 fallos.");
+                    resetearJuego();
+                }
+            }
+        }
+
+        function resetearJuego() {
+            // Función para reiniciar el juego
+            fallos = 0;
+            document.getElementById("mensaje").innerText = `Fallos: ${fallos}`;
+            crearTablaLlena(); // Reiniciar la tabla
+        }
+
+        // Llamar a la función para crear la tabla inicial
+        crearTablaLlena();
+    </script>
+</body>
+
 </html>
