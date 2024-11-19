@@ -60,12 +60,12 @@ function añadirDelante(){
 
 function añadirDetras(){
 	array.push(aleatorioBuena())
-	mostrar()
+	mostrar()	
 }
 
 function buscar(){
 	let numero = window.prompt("Introduce numero a buscar");
-	let pos = numero.indexOf();
+	let pos = numero.indexOf(numero);
 	if (pos == -1){
 		alert("No se a encontrado el numero")
 	} else {
@@ -86,11 +86,13 @@ function borrarDetras(){
 }
 
 function ordenarCreciente(){
-
+	array.sort((a, b) => a - b);
+	mostrar()
 }
 
 function ordenarDecreciente(){
-
+	array.sort(((a, b) => b - a))
+	mostrar()
 }
 
 </script>
@@ -104,8 +106,8 @@ function ordenarDecreciente(){
 <input type="button" value="Buscar un elemento" onclick="buscar()">
 <input type="button" value="Borrar primer elemento" onclick="borrarDelante()">
 <input type="button" value="Borrar último elemento" onclick="borrarDetras()">
-<input type="button" value="Ordenar creciente" onclick="">
-<input type="button" value="Ordenar decreciente" onclick="">
+<input type="button" value="Ordenar creciente" onclick="ordenarCreciente()">
+<input type="button" value="Ordenar decreciente" onclick="ordenarDecreciente()">
 <br><br><br>
 <div id="div1">
 

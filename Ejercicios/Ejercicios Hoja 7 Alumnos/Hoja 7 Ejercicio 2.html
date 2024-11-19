@@ -1,88 +1,185 @@
 <!DOCTYPE html>
-<html>
-<html>
-	<head>
-		<link href='http://fonts.googleapis.com/css?family=Kite+One|Cherry+Swash' rel='stylesheet' type='text/css'>
-		<style type='text/css'>
-		
-		body{
-			font-family: 'Kite One', sans-serif;
-		}
-		
-		#div1 {
-			width:250px;
-			margin:auto;
-		}
-		
-		h1{
-			text-align:center;
-			font-size:20pt;
-		}
-		
-		table{
-			background-color: #EFF2FB;
-			text-align:center;
-			width:250px;
-			border: 1px solid #D0A9F5;
-			font-family: 'Cherry Swash', cursive;
-		}
-		
-		#dias{
-			background-color: #D0A9F5;
-		}
-		
-		td{
-			border: 1px solid #D0A9F5;
-		}
-
-		</style>
-
-
-<script type="text/javascript">
-
-</script>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='http://fonts.googleapis.com/css?family=Kite+One|Cherry+Swash' rel='stylesheet' type='text/css'>
+  <title>Ejercicio 2</title>
+  <style type='text/css'>
+    body {
+      font-family: 'Kite One', sans-serif;
+    }
+    #div1 {
+      width: 250px;
+      margin: auto;
+    }
+    h3 {
+      text-align: center;
+      font-size: 20pt;
+    }
+    table {
+      background-color: #EFF2FB;
+      text-align: center;
+      width: 100%;
+      border: 1px solid #D0A9F5;
+      font-family: 'Cherry Swash', cursive;
+      margin-top: 20px;
+    }
+    #dias {
+      background-color: #D0A9F5;
+    }
+    td {
+      border: 1px solid #D0A9F5;
+      padding: 5px;
+    }
+  </style>
 </head>
 <body>
 <div>
-<h3>PROBANDO ARRAYS BIDIMENSIONALES</h3>
-<br>
-<form name="formulario">
-SELECCIONA: Filas <select id="id1" onchange="cargar()">
-		<option value="2" selected> 2 </option>
-		<option value="3"> 3 </option>
-		<option value="4"> 4 </option>
-		<option value="5"> 5 </option>
-		<option value="6"> 6 </option>
-		</select>
-		Columnas <select id="id2" onchange="cargar()">
-		<option value="2" selected> 2 </option>
-		<option value="3"> 3 </option>
-		<option value="4"> 4 </option>
-		<option value="5"> 5 </option>
-		<option value="6"> 6 </option>
-		</select>
-<br>
-<br>
-RELLENAR CON: 
-<input type="radio" name="eleccion" value="1" checked onchange="cargar()"> De uno en uno
-<input type="radio" name="eleccion" value="2" onchange="cargar()"> Pares
-<input type="radio" name="eleccion" value="3" onchange="cargar()"> Impares
-<input type="radio" name="eleccion" value="4" onchange="cargar()"> Multiplos de 
-	<select id="id3" onchange="cargar()">
-		<option value="3" selected> 3 </option>
-		<option value="4"> 4 </option>
-		<option value="5"> 5 </option>
-		<option value="6"> 6 </option>
-		<option value="7"> 7 </option>
-		<option value="8"> 8 </option>
-		<option value="9"> 9 </option>
-		<option value="10"> 10 </option>
-		</select>
-<br>
-<br>
-</form>
+  <h3>PROBANDO ARRAYS BIDIMENSIONALES</h3>
+  <form name="formulario">
+    SELECCIONA: 
+    Filas 
+    <select id="rows">
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+    Columnas 
+    <select id="columns">
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+    <br><br>
+    RELLENAR CON: 
+    <input type="radio" name="fillOption" value="unoPorUno" checked> De uno en uno
+    <input type="radio" name="fillOption" value="Pares"> Pares
+    <input type="radio" name="fillOption" value="Impares"> Impares
+    <input type="radio" name="fillOption" value="multiple"> Múltiplos de 
+    <select id="multipleOf">
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <br><br>
+  </form>
+</div>
+<div>
+   <h3>PROBANDO ARRAYS BIDIMENSIONALES</h3>
+  <form name="formulario">
+    SELECCIONA: 
+    Filas 
+    <select id="rows">
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+    Columnas 
+    <select id="columns">
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+    <br><br>
+    RELLENAR CON: 
+    <input type="radio" name="fillOption" value="unoPorUno" checked> De uno en uno
+    <input type="radio" name="fillOption" value="Pares"> Pares
+    <input type="radio" name="fillOption" value="Impares"> Impares
+    <input type="radio" name="fillOption" value="multiple"> Múltiplos de 
+    <select id="multipleOf">
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <br><br>
+  </form>
 </div>
 <div id="div1">
+  <table id="table"></table>
 </div>
+
+<script>
+  const rowsSelect = document.getElementById("rows");
+  const columnsSelect = document.getElementById("columns");
+  const table = document.getElementById("table");
+  const fillOptions = document.getElementsByName("fillOption");
+  const multipleOfSelect = document.getElementById("multipleOf");
+
+  // Función para generar la tabla
+  function generarTabla() {
+    const rows = parseInt(rowsSelect.value);
+    const columns = parseInt(columnsSelect.value);
+    const fillOption = Array.from(fillOptions).find(option => option.checked).value;
+    const multipleOf = parseInt(multipleOfSelect.value);
+
+    let data = [];
+    let value = 1;
+
+    // Generar los datos según la opción seleccionada
+    for (let i = 0; i < rows; i++) {
+      let row = [];
+      for (let j = 0; j < columns; j++) {
+        if (fillOption === "unoPorUno") {
+          row.push(value++);
+        } else if (fillOption === "Pares") {
+          row.push(value % 2 === 0 ? value : ++value); // Solo pares
+          value += 2;
+        } else if (fillOption === "Impares") {
+          row.push(value % 2 !== 0 ? value : ++value); // Solo impares
+          value += 2;
+        } else if (fillOption === "multiple") { //Multiplos
+          row.push(multipleOf * value);
+          value++;
+        }
+      }
+      data.push(row);
+    }
+
+    // Dibujar la tabla
+    drawTable(data);
+  }
+
+  // Función para dibujar la tabla en HTML
+  function drawTable(data) {
+    table.innerHTML = ""; // Limpiar tabla anterior
+    data.forEach(row => {
+      const tr = document.createElement("tr");
+      row.forEach(cell => {
+        const td = document.createElement("td");
+        td.textContent = cell;
+        tr.appendChild(td);
+      });
+      table.appendChild(tr);
+    });
+  }
+
+  // Añadir eventos a los controles
+  rowsSelect.addEventListener("change", generarTabla);
+  columnsSelect.addEventListener("change", generarTabla);
+  fillOptions.forEach(option => option.addEventListener("change", generarTabla));
+  multipleOfSelect.addEventListener("change", generarTabla);
+
+  // Generar tabla inicial
+  generarTabla();
+</script>
 </body>
 </html>

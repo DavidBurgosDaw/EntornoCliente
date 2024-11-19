@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entradas Cine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 70%;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ejercicio: Entradas Vendidas en el Cine</h1>
+  <p>Genera un reporte con los datos de entradas vendidas por sala y calcula el total.</p>
+  <button onclick="generarReporte()">Generar Reporte</button>
+  <div id="tablaResultados"></div>
+
+  <script>
+    function generarReporte() {
+      // Pedir al usuario la cantidad de salas
+      const numSalas = parseInt(prompt("¿Cuántas salas de cine vamos a trabajar? (Ingrese un número)", "3"));
+      if (isNaN(numSalas) || numSalas <= 0) {
+        alert("Por favor, ingresa un número válido de salas.");
+        return;
+      }
+
+      // Días de la semana
+      const dias = ["L", "M", "X", "J", "V"];
+      
+      // Crear matriz para almacenar las entradas vendidas
+      const datosCine = [];
+      
+      // Generolas celdas de los dias
+      let tablaHTML = "<table>";
+      tablaHTML += "<tr><th> </th>";
+      dias.forEach(dia => tablaHTML += `<th>${dia}</th>`);
+      tablaHTML += "<th>Total</th></tr>";
+
+      //Genero las salas
+      for (let i = 0; i < numSalas; i++) {
+        let total = 0;
+        const sala = [];
+        tablaHTML += `<tr><td>Sala ${i + 1}</td>`;
+        
+            //Relleno las columnas de las salas con datos de venta random hasta 1-50
+            for (let j = 0; j < dias.length; j++) {
+            const entradas = Math.floor(Math.random() * 50) + 1; // Generar entradas aleatorias (1-50)
+            sala.push(entradas);
+            total += entradas;
+            tablaHTML += `<td>${entradas}</td>`;
+            }
+            
+            sala.push(total); // Agregar total al final de cada fila
+            datosCine.push(sala);
+            tablaHTML += `<td>${total}</td></tr>`;
+      }
+      
+      tablaHTML += "</table>";
+      
+      // Mostrar la tabla en la página
+      document.getElementById("tablaResultados").innerHTML = tablaHTML;
+    }
+  </script>
+</body>
+</html>
