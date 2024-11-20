@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla Desordenada</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        table {
+            margin: 25px auto;
+            border-collapse: collapse;
+        }
+        td {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>TABLA DESORDENADA</h1>
+    <p>Selecciona tamaño de la tabla:</p>
+    <select name="tamaño" id="tamañoTabla">
+        <option value="3">3x3</option>
+        <option value="4">4x4</option>
+        <option value="5">5x5</option>
+        <option value="6">6x6</option>
+    </select>
+    <br><br>
+    <button onclick="dibujarTabla()">Generar Tabla</button>
+    <div id="tabla"></div>
+
+    <script>
+        function dibujarTabla() {
+            // Obtener tamaño de la tabla
+            const fil = parseInt(document.getElementById("tamañoTabla").value);
+            const col = fil; // Es una tabla cuadrada
+            const tamaño = fil * col;
+            const numUsados = new Set();
+            const tabla = [];
+
+            // Crear matriz
+            for (let i = 0; i < fil; i++) {
+                tabla[i] = new Array(col);
+            }
+
+            // Llenar la tabla con números únicos
+            for (let i = 0; i < fil; i++) {
+                for (let j = 0; j < col; j++) {
+                    let numeroRandom;
+                    do {
+                        numeroRandom = Math.floor(Math.random() * tamaño) + 1;
+                    } while (numUsados.has(numeroRandom)); // Evitar repetidos
+
+                    numUsados.add(numeroRandom);
+                    tabla[i][j] = numeroRandom;
+                }
+            }
+
+            // Crear tabla HTML
+            let tablaHTML = "<table>";
+            for (let i = 0; i < fil; i++) {
+                tablaHTML += "<tr>";
+                for (let j = 0; j < col; j++) {
+                    tablaHTML += `<td>${tabla[i][j]}</td>`;
+                }
+                tablaHTML += "</tr>";
+            }
+            tablaHTML += "</table>";
+
+            // Insertar la tabla en el contenedor
+            document.getElementById("tabla").innerHTML = tablaHTML;
+        }
+    </script>
+</body>
+</html>
