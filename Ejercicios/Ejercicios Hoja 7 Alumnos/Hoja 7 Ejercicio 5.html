@@ -23,7 +23,7 @@
 <body>
     <h1>TABLA DESORDENADA</h1>
     <p>Selecciona tamaño de la tabla:</p>
-    <select name="tamaño" id="tamañoTabla">
+    <select name="tamaño" id="tamañoTabla" onchange="dibujarTabla()">
         <option value="3">3x3</option>
         <option value="4">4x4</option>
         <option value="5">5x5</option>
@@ -34,6 +34,7 @@
     <div id="tabla"></div>
 
     <script>
+        let contador = 1;
         function dibujarTabla() {
             // Obtener tamaño de la tabla
             const fil = parseInt(document.getElementById("tamañoTabla").value);
@@ -41,6 +42,7 @@
             const tamaño = fil * col;
             const numUsados = new Set();
             const tabla = [];
+            let tablaHTML;
 
             // Crear matriz
             for (let i = 0; i < fil; i++) {
@@ -58,14 +60,14 @@
                     numUsados.add(numeroRandom);
                     tabla[i][j] = numeroRandom;
                 }
-            }
+            }   
 
             // Crear tabla HTML
-            let tablaHTML = "<table>";
+            tablaHTML = "<table>";
             for (let i = 0; i < fil; i++) {
                 tablaHTML += "<tr>";
                 for (let j = 0; j < col; j++) {
-                    tablaHTML += `<td>${tabla[i][j]}</td>`;
+                    tablaHTML += `<td onclick="juego(this)">${tabla[i][j]}</td>`; //Pongo el onclick en la celda para llamar a la funcion juego
                 }
                 tablaHTML += "</tr>";
             }
@@ -73,6 +75,24 @@
 
             // Insertar la tabla en el contenedor
             document.getElementById("tabla").innerHTML = tablaHTML;
+            contador = 1; // Reiniciar contador al generar una nueva tabla
+        }
+
+        function juego(x) {
+            if (contador == x.innerHTML) {
+                x.style.backgroundColor = "blue";
+                contador++;
+
+                // Reiniciar colores de las celdas que faltan
+                let celdas = document.querySelectorAll("#tabla td");
+                celdas.forEach(celda => {
+                    if (parseInt(celda.innerHTML) >= contador) {
+                        celda.style.backgroundColor = "white";
+                    }
+                });
+            } else {
+                x.style.backgroundColor = "red";
+            }
         }
     </script>
 </body>

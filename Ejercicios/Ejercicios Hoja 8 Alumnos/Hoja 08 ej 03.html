@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CONTROL FORMULARIOS</title>
+        <link rel="stylesheet" href="main.css">
+    
+    
+    <style>
+        
+        
+        #precio {color: #222;
+                font-weight: 600;
+                line-height: 1.3;
+                }
+        }
+    </style>
+    <script>
+    var descuento=0;
+    
+
+    function calcular(){
+
+	 
+    }
+   function pedir(){
+      
+         }  
+    </script>
+    </head>
+    <body>
+
+      
+        Actualmente nuestros precios por habitación y noche son (Iva incluido): 
+            <ul>
+            <li>Habitación individual 50€</li>
+            <li>Habitación doble 70€</li>
+            </ul>
+
+        <input type="checkbox" id="check1" value="50">Habitación individual   <br> 
+        <span id="id50">Seleccione cuantas 
+            <select id="sel1">
+				<option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+        </span> <br>
+        <input type="checkbox" id="check2" value="70" >Habitación doble     <br>
+        <span id="id70">Seleccione cuantas
+            <select id="sel2">
+                <option value="0">0</option>
+				<option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </span> <br>
+        
+        Pudiendo aplicar uno de nuestros descuentos<br> 
+			<input type="radio" checked name="desc" value="0"  onclick="descuento=this.value"> Sin descuento 
+            <input type="radio" name="desc" value="10" onclick="descuento=this.value"> Familia numerosa (10%) 
+            <input type="radio" name="desc" value="20" onclick="descuento=this.value"> Tercera edad (20%)
+        <br>
+        Si nos deja un teléfono nosotros le llamamos
+        <input type="text" id="telefono"> 
+       </div> 
+        <br>
+        <input type="button" value="CALCULAR PRECIO" onclick="calcular()"> <br><br>
+        <input type="button" id="idpet" value="Más información" onclick="pedir()" style="display:none" >	 
+  
+
+    </body>
+</html>
