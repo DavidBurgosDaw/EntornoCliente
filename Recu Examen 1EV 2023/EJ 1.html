@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Recuperación FORMULARIOS</title>
+        <link rel="stylesheet" href="main.css">
+        <style type="text/css">
+                #otro {
+                        display: none;
+                }
+        </style>
+</head> 
+<script src="Ej 1.js"></script>
+
+<body>
+        <h1>LEARNING ABACO</h1>
+        Esta es nuestra selección de CURSOS Certificados
+        <br><br>
+        <input type="checkbox" id="prog">PROGRAMACION
+        <select id="selprog">
+                <option value="0">Selecciona</option>
+                <option value="200">Java</option>
+                <option value="80">PHP</option>
+                <option value="120">Python</option>
+                <option value="90">JavaScript</option>
+        </select>
+        <br><br>
+        <input type="checkbox" id="sql" value="100">MySQL
+        <br><br>
+        <input type="checkbox" id="web">DISEÑO WEB
+        <select id="selweb">
+                <option value="0">Selecciona</option>
+                <option value="80">HTML</option>
+                <option value="90">CSS</option>
+                <option value="60">Bootstrap</option>
+        </select>
+        <br>
+        <br> Teclee la fecha en la que quiere comenzar sus curso
+        <br> (dd/mm/aaaa entre el día de hoy y 30 días, de lunes a viernes)
+        <input type="date" id="fec" size=10 placeholder="dd/mm/aaaa">
+        <hr>
+        <input type="button" value="Mostrar Precio y Duración" onclick="calcular()">
+        <br> <br>PRECIO <input type="text" id="precio" size=10 readonly>
+        <br> <br>DURACIÓN <input type="text" id="duracion" size=10 readonly>
+        </div>
+        <hr>
+        <div id="otro">
+                Si dispones de un código descuento indícalo: <input type="text" id="codigo" size=10>
+                Teléfono de contacto: <input type="text" id="codigo" size=12 placeholder="(XXX)-XXX-XXX">
+        </div>
+</body>
+
+</html>
