@@ -48,7 +48,7 @@
             precioNoche = precioInd + precioDob; //Precio noche
             precioDescuento = precioNoche - ((precioNoche * descuento)/100) //Precio Total con Descuento
 
-            //Abrimos la ventana con los detalles
+            //Abro la ventana con los detalles de los precios
             info=window.open('','tuya','width=500,height=500,top=300,left=500' );  
             info.document.write("<p>El preico por noche para las habitaciones seleccionadas es:</p>");
             info.document.write("<p>" + sel1.value + " individual ----> "+ precioInd +"€ <br/>" + sel2.value + " doble ----> "+ precioDob +"€  </p>");
@@ -60,7 +60,7 @@
         }
 
         function pedir() {
-            // Lógica de pedir (aún sin implementación)
+            
         }
     </script>
 </head>
