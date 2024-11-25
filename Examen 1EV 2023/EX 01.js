@@ -1,5 +1,11 @@
 let tarifaSeleccionada = null; // Para almacenar la tarifa seleccionada
 
+
+function inicializar(){
+    document.getElementById('precio').value = "";
+}
+
+
 // Limpiar el formulario y los datos
 function limpiar() {
     document.forms['form1'].reset();
@@ -25,7 +31,7 @@ function validaFecha() {
     }
 
     // Crear el objeto Date para comprobar si la fecha es real
-    let fecha = new Date(ano, mes - 1, dia);
+    let fecha = new Date(ano, mes - 1, dia); //Los meses son 11
     let fechaSistema = new Date();
 
     if (fecha > fechaSistema) {
