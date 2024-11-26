@@ -12,7 +12,7 @@
                 }
         </style>
 </head> 
-<script src="Ej 1.js"></script>
+
 
 <body>
         <h1>LEARNING ABACO</h1>
@@ -50,6 +50,92 @@
                 Si dispones de un código descuento indícalo: <input type="text" id="codigo" size=10>
                 Teléfono de contacto: <input type="text" id="codigo" size=12 placeholder="(XXX)-XXX-XXX">
         </div>
+
+        <script>
+let precio = 0
+let duracion = 0;
+
+const prog = document.getElementById("prog");
+const sql = document.getElementById("sql");
+const web = document.getElementById("web");
+const selprog = document.getElementById("selprog");
+const selweb = document.getElementById("selweb");
+
+function comprobarEleccion(){
+        
+        
+        if (!prog.checked && !sql.checked && !web.checked){
+                alert("Debes seleccionar una materia minimo");
+                return;
+        }
+
+        if (prog.checked && selprog.value == "0"){
+                alert("Selecciona algun lenguaje de programacion");
+                return;
+        }
+
+
+        if (web.checked && selweb.value == "0"){
+                alert("Selecciona algun lenguaje web");
+                return;
+        }
+
+        if (selprog.value !== "0" && !prog.checked) {
+                alert("Debes seleccionar la casilla de PROGRAMACION si eliges un lenguaje de programación.");
+                return;
+        }
+
+        if (selweb.value !== "0" && !web.checked) {
+                alert("Debes seleccionar la casilla de WEB si eliges un lenguaje de web.");
+                return;
+        }
+}
+
+function validarFecha() {
+    fecha = document.getElementById("fec").value;    
+    // Obtener la fecha actual
+    let hoy = new Date();
+    
+    // Convertir la fecha introducida en un objeto Date
+    let fechaIntroducida = new Date(fecha);
+    
+    // Calcular la fecha límite (hoy + 30 días)
+    let fechaLimite = new Date(hoy);
+    fechaLimite.setDate(hoy.getDate() + 30);
+    
+    // Verificar que la fecha esté dentro del rango (hoy y dentro de 30 días)
+    if (fechaIntroducida < hoy || fechaIntroducida > fechaLimite) {
+        alert("La fecha debe estar entre hoy y dentro de 30 días.");
+        return false;
+    }
+    
+    // Verificar que no sea sábado (6) ni domingo (0)
+    let diaSemana = fechaIntroducida.getDay();
+    if (diaSemana === 0 || diaSemana === 6) {
+        alert("La fecha no puede ser un sábado ni un domingo.");
+        return false;
+    }
+    
+    return true;
+}
+
+
+function calcularPrecio(){
+        precio = 0;
+        precio+= parseFloat(selprog.value) + parseFloat(selweb.value) + parseFloat(sql.value);
+        document.getElementById("precio").value = precio + "€"
+}
+
+function calcular(){
+comprobarEleccion();    
+validarFecha();
+calcularPrecio();
+}
+function comprobar_tfno(e){
+}
+function comprobar_codigo(e){
+}
+</script>
 </body>
 
 </html>
