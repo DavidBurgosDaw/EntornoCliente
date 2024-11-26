@@ -151,6 +151,63 @@ function calcular(){
 	document.getElementById("id33").style.display = "block";
 }
 
+function cambiar(event, campo) {
+            if (event.type === "mouseover") {
+                campo.style.backgroundColor = "#81DAF5"; // Azul claro
+                campo.style.fontWeight = "bold";
+            } else if (event.type === "mouseout") {
+                campo.style.backgroundColor = "#FAFAFA"; // Blanco
+                campo.style.fontWeight = "normal";
+            }
+        }
+
+function validaReg() {
+    val1 = document.getElementById("val1");
+    val2 = document.getElementById("val2");
+
+    // Validación de val1
+    reg = /^(?=.*\d{2})[A-Ma-m\d]{6,8}$/;
+    if (!reg.test(val1.value)) {
+        alert("VAL 1 MAL");
+        return;
+    }
+
+    // Validación de val2
+    reg2 = /^([A-Za-z]\.\d){2,}$/;
+    if (!reg2.test(val2.value)) {
+        alert("VAL 2 MAL");
+        return;
+    }
+
+    // Llama a confirmación si ambas validaciones son correctas
+    confirmacion();
+}
+
+
+function confirmacion(){
+    let info = null;  
+
+    if(window.confirm("¿Seguro que quieres enviar los datos?")){
+        info = window.open('', 'tuya', 'width=500,height=500,top=300,left=500');
+        if (info) {
+            info.document.write("<p>Nos pondremos en contacto contigo</p>");
+            info.document.close();  // Necesario para que el contenido se renderice correctamente
+            document.getElementById("span4").style.display = "block";
+        } else {
+            alert("No se pudo abrir la ventana emergente.");
+        }
+    }
+
+    
+    if (info) {
+        setTimeout(function() {
+            if (!info.closed) {  
+                info.close();  
+            }
+        }, 5000);
+    }
+}
+
 </script>
 </head>
 <body>
@@ -200,13 +257,13 @@ Menores de 18 años: 20%
 <div id="id33" style="display:none" >
 <form name="form2">
 <label>Teléfono</label>
- <input type="text" id="telefono" size=20>
+ <input type="text" id="telefono" onmouseover="cambiar(event,this)" onmouseout="cambiar(event,this)" size=20>
 <br>No soy una máquina (Teclea un texto de entre 6 y 8 caracteres con al menos 2 números seguidos y el resto
  letras de la A a la M) 
-<input type="text" id="val1" size=20  >
+<input type="text" id="val1" onmouseover="cambiar(event,this)" onmouseout="cambiar(event,this)" size=20  >
 <br>Vale, el anterior no me sale, pero no soy una máquina (Teclea una secuencia de letra.número al menos 2 veces L.9L.9 )
-<input type="text" id="val2" size=20 >
-<br> <input type="button" value="ENVIAR DATOS">
+<input type="text" id="val2" onmouseover="cambiar(event, this)" onmouseout="cambiar(event, this)" size="20">
+<br> <input type="button" onclick="validaReg()" value="ENVIAR DATOS">
 </form> 
 </div>
 </body>
