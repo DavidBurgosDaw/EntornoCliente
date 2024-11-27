@@ -52,6 +52,7 @@
         </div>
 
         <script>
+
 let precio = 0
 let duracion = 0;
 
@@ -106,17 +107,16 @@ function validarFecha() {
     // Verificar que la fecha esté dentro del rango (hoy y dentro de 30 días)
     if (fechaIntroducida < hoy || fechaIntroducida > fechaLimite) {
         alert("La fecha debe estar entre hoy y dentro de 30 días.");
-        return false;
+        return;
     }
     
     // Verificar que no sea sábado (6) ni domingo (0)
     let diaSemana = fechaIntroducida.getDay();
     if (diaSemana === 0 || diaSemana === 6) {
         alert("La fecha no puede ser un sábado ni un domingo.");
-        return false;
+        return;
     }
     
-    return true;
 }
 
 

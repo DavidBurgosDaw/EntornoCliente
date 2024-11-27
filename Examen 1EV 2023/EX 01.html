@@ -42,6 +42,8 @@ td{
 <script>
 let tarifa = 0;
 function validarfecha(){
+	confirmacion();
+	return;
 	dia =  document.getElementById("dd");
 	mes = document.getElementById("mm");
 	anio = document.getElementById("aaaa");
@@ -185,25 +187,18 @@ function validaReg() {
 
 
 function confirmacion(){
-    let info = null;  
+    let info ;  
 
     if(window.confirm("¿Seguro que quieres enviar los datos?")){
         info = window.open('', 'tuya', 'width=500,height=500,top=300,left=500');
-        if (info) {
+        
             info.document.write("<p>Nos pondremos en contacto contigo</p>");
             info.document.close();  // Necesario para que el contenido se renderice correctamente
-            document.getElementById("span4").style.display = "block";
-        } else {
-            alert("No se pudo abrir la ventana emergente.");
-        }
-    }
-
-    
-    if (info) {
-        setTimeout(function() {
-            if (!info.closed) {  
+            
+            window.setTimeout(function() {
+        
                 info.close();  
-            }
+            
         }, 5000);
     }
 }
