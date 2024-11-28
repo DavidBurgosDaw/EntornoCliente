@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style type="text/css">
+      table {
+        background-color: #f7f793;
+        border: 1px solid #75756a;
+        width: 300px;
+        text-align: center;
+        margin: auto;
+        box-shadow: 5px 5px 12px #f5f5dc;
+        font-size: 20px;
+        font-family: "Indie Flower", cursive;
+      }
+      td {
+        border: 1px solid red;
+        width: 21px;
+        height: 40px;
+      }
+      .hidden {
+        color: transparent;
+      }
+    </style>
+  </head>
+  <body onload="inicializarValores(); generarTabla();">
+    <div>
+      <input type="button" value="1" onclick="buscar(this.value)" />
+      <input type="button" value="2" onclick="buscar(this.value)" />
+      <input type="button" value="3" onclick="buscar(this.value)" /><br />
+      <input type="button" value="4" onclick="buscar(this.value)" />
+      <input type="button" value="5" onclick="buscar(this.value)" />
+      <input type="button" value="6" onclick="buscar(this.value)" /><br />
+      <input type="button" value="7" onclick="buscar(this.value)" />
+      <input type="button" value="8" onclick="buscar(this.value)" />
+      <input type="button" value="9" onclick="buscar(this.value)" /><br />
+      <input type="button" value="0" onclick="buscar(this.value)" />
+    </div>
+
+    <div id="div1">
+      <table id="tabla"></table>
+    </div>
+    <div id="div2">
+      <p id="mensaje"></p>
+    </div>
+
+    <script type="text/javascript">
+      let fallos = 0;
+      const maxFallos = 5;
+      let valoresTabla = [];
+
+      // Initialize the array values
+      function inicializarValores() {
+        for (let i = 0; i < 4; i++) {
+          const fila = [];
+          for (let j = 0; j < 4; j++) {
+            fila.push(Math.floor(Math.random() * 10)); // Random number between 0 and 9
+          }
+          valoresTabla.push(fila);
+        }
+      }
+
+      // Generate the HTML table based on the initialized array values
+      function generarTabla() {
+        const tabla = document.getElementById("tabla");
+        for (let i = 0; i < valoresTabla.length; i++) {
+          const fila = document.createElement("tr");
+          for (let j = 0; j < valoresTabla[i].length; j++) {
+            const celda = document.createElement("td");
+            celda.textContent = valoresTabla[i][j];
+            celda.className = "hidden";
+            celda.setAttribute("data-numero", valoresTabla[i][j]);
+            fila.appendChild(celda);
+          }
+          tabla.appendChild(fila);
+        }
+      }
+
+      function juegoCompleto() {
+        const celdas = document
+          .getElementById("tabla")
+          .getElementsByTagName("td");
+        for (let i = 0; i < celdas.length; i++) {
+          if (celdas[i].className.includes("hidden")) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      function buscar(valor) {
+        let encontrado = false;
+        const tabla = document.getElementById("tabla");
+        const celdas = tabla.getElementsByTagName("td");
+
+        for (let i = 0; i < celdas.length; i++) {
+          if (
+            celdas[i].getAttribute("data-numero") === valor &&
+            celdas[i].className.includes("hidden")
+          ) {
+            celdas[i].className = "";
+            encontrado = true;
+          }
+        }
+
+        if (!encontrado) {
+          fallos++;
+          document.getElementById(
+            "mensaje"
+          ).textContent = `Fallos: ${fallos}/${maxFallos}`;
+        }
+
+        if (fallos >= maxFallos) {
+          document.getElementById("mensaje").textContent =
+            "¡Juego terminado! Has alcanzado el máximo de fallos.";
+          const botones = document.getElementsByTagName("input");
+          for (let i = 0; i < botones.length; i++) {
+            botones[i].disabled = true;
+          }
+        }
+
+        if (juegoCompleto()) {
+          document.getElementById("mensaje").textContent =
+            "¡Felicidades, has completado el juego!";
+          const botones = document.getElementsByTagName("input");
+          for (let i = 0; i < botones.length; i++) {
+            botones[i].disabled = true;
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

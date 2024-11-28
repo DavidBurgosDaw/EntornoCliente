@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style>
+		span {
+			display: none;
+		}
+
+		legend {
+			color: #CC0033;
+			font-weight: 600;
+		}
+
+		#precio {
+			color: #222;
+			font-weight: 600;
+			line-height: 1.3;
+		}
+	</style>
+	<script>
+		nameFormat = /^[A-Za-z]{2}([a-zA-z]|\s)+$/;
+		carnetFormat = /^\d{6,8}[A-Z]$/;
+		dateFormat = /^\d{4}-(1[0-2]|0[1-9])-(3[01]|[1-2]\d|0[1-9])$/;
+
+		inputs = document.getElementsByTagName("input")
+
+		function validar() {
+			vacio = false
+			for (let i = 0; i < inputs.length; i++) {
+				if (!inputs[i].readOnly && inputs[i].value.trim() == '') {
+					inputs[i].style.background = 'orange'
+					vacio = true;
+				}
+			}
+
+			if (vacio) {
+				alert("Hay campos vacios!")
+				return;
+			}
+
+			if ((!validarNomApel(document.getElementById("nom"))) ||
+				(!validarNomApel(document.getElementById("ape"))) ||
+				(!validarFecha(document.getElementById("fecnac"))) ||
+				(!validarFecha(document.getElementById("desde"))) ||
+				(!calcularEdad(document.getElementById("fecnac")))
+			) {
+				alert("Error de datos")
+				return;
+			}
+			alert("OK")
+		}
+		function cambiarColor(e) {
+			e.style.background = 'beige'
+		}
+		function validarNomApel(e) {
+			if (nameFormat.test(e.value)) {
+				e.style.background = 'white'
+				return true;
+			}
+			e.style.background = 'lightcoral'
+			return false;
+
+		}
+		function validarFecha(e) {
+			if (dateFormat.test(e.value)) {
+				e.style.background = 'white'
+				return true;
+			}
+			e.style.background = 'lightcoral'
+			return false;
+		}
+		function calcularEdad(e) {
+			fechaNac = new Date(e.value);
+			edad = new Date(Date.now() - fechaNac.getTime());
+			years = Math.abs(edad.getUTCFullYear() - 1970);
+
+			if (years < 18 | years > 65) {
+				alert("Tiene que ser mayor que 18 y menor que 65")
+				document.getElementById("edad").style.background = 'lightcoral'
+				e.style.background = 'lightcoral'
+				return false;
+			}
+			document.getElementById("edad").value = years;
+			return true;
+		}
+		function validarDNI(e) {
+			if (carnetFormat.test(e.value)) {
+				e.style.background = 'white'
+				return true;
+			}
+			e.style.background = 'lightcoral'
+			return false;
+		}
+		function calcularRenovar(e) {
+			fechaValidez = new Date(e.value);
+			fechaHoy = new Date();
+
+			while (fechaValidez <= fechaHoy) {
+				fechaValidez.setFullYear(fechaValidez.getUTCFullYear() + 10);
+			}
+
+			const year = fechaValidez.getFullYear();
+            const month = String(fechaValidez.getMonth() + 1).padStart(2, '0');
+            const day = String(fechaValidez.getDate()).padStart(2, '0');
+
+			formattedDate = `${year}-${month}-${day}`;
+
+			document.getElementById("renovar").value = formattedDate;
+		}
+	</script>
+</head>
+
+<body>
+	<h1>CLUB DEL AUTOMOVIL</h1>
+	<h3>ALTA NUEVO SOCIO</h3>
+	<form>
+		<div>
+			<fieldset>
+				<legend>DATOS SOCIO</legend>
+
+				Nombre &nbsp;&nbsp;<input type="text" id="nom" size=30 onfocus="cambiarColor(this)"
+					onchange="validarNomApel(this)">
+				<br><br>Apellidos <input type="text" id="ape" size=30 onfocus="cambiarColor(this)"
+					onchange="validarNomApel(this)">
+				<br><br>Fecha Nacimiento <input type="text" id=fecnac size=13 placeholder="aaaa-mm-dd"
+					onfocus="cambiarColor(this)" onchange="validarFecha(this), calcularEdad(this)">&nbsp;&nbsp; Edad
+				<input type="text" size=4 id="edad" readonly>
+			</fieldset>
+			<br>
+			<fieldset>
+				<legend>DATOS CARNET CONDUCIR </legend>
+				Num Carnet <input type="text" id="carnet" size="15" onfocus="cambiarColor(this)"
+					onchange="validarDNI(this)"> &nbsp;&nbsp;
+				Desde <input type="text" size=13 id="desde" placeholder="aaaa-mm-dd" onfocus="cambiarColor(this)"
+					onchange="validarFecha(this), calcularRenovar(this)">
+				&nbsp;&nbsp;
+				Renovar <input type="text" size=13 id="renovar" readonly>
+				<input type="button" value="CONTRATAR" onclick="validar()"> <br><br>
+		</div>
+	</form>
+	<br>
+	<div id="todoOK"></div>
+</body>
+
+</html>

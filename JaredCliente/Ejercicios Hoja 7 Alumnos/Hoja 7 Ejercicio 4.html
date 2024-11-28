@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      table {
+        background-color: #f7f793;
+        border: 1px solid #75756a;
+        width: 300px;
+        text-align: center;
+        margin: auto;
+        box-shadow: 5px 5px 12px #f5f5dc;
+        font-size: 20px;
+        font-family: "Indie Flower", cursive;
+      }
+      td {
+        border: 1px solid red;
+        width: 21px;
+        height: 40px;
+      }
+      .hidden {
+        color: transparent;
+      }
+    </style>
+  </head>
+  <body onload="inicializarJuego()">
+    <div>
+      <input type="button" value="1" onclick="buscar(this.value)" />
+      <input type="button" value="2" onclick="buscar(this.value)" />
+      <input type="button" value="3" onclick="buscar(this.value)" /><br />
+      <input type="button" value="4" onclick="buscar(this.value)" />
+      <input type="button" value="5" onclick="buscar(this.value)" />
+      <input type="button" value="6" onclick="buscar(this.value)" /><br />
+      <input type="button" value="7" onclick="buscar(this.value)" />
+      <input type="button" value="8" onclick="buscar(this.value)" />
+      <input type="button" value="9" onclick="buscar(this.value)" /><br />
+      <input type="button" value="0" onclick="buscar(this.value)" />
+    </div>
+
+    <div id="div1">
+      <table id="table"></table>
+    </div>
+    <div id="div2">
+      <p id="mensaje"></p>
+    </div>
+
+    <script>
+      let Fallos = 0;
+      const maxFallos = 5;
+      let numeros = [];
+
+      function inicializarJuego() {
+        rellenarValores();
+        pintar();
+      }
+
+      function rellenarValores() {
+        for (let i = 0; i < 4; i++) {
+          numeros[i] = [];
+          for (let j = 0; j < 4; j++) {
+            numeros[i][j] = Math.floor(Math.random() * 10);
+          }
+        }
+      }
+
+      function pintar() {
+        const table = document.getElementById("table");
+        for (let i = 0; i < 4; i++) {
+          const row = document.createElement("tr");
+          for (let j = 0; j < 4; j++) {
+            const caja = document.createElement("td");
+            caja.innerHTML = "**";
+            caja.dataset.number = numeros[i][j];
+            row.appendChild(caja);
+          }
+          table.appendChild(row);
+        }
+      }
+
+      function buscar(value) {
+        const cajas = document
+          .getElementById("table")
+          .getElementsByTagName("td");
+        let found = false;
+
+        for (let caja of cajas) {
+          if (caja.dataset.number === value && caja.innerHTML == "**") {
+            caja.innerHTML = caja.dataset.number;
+            found = true;
+            break;
+          }
+        }
+
+        if (!found) {
+          Fallos++;
+          document.getElementById(
+            "mensaje"
+          ).textContent = `Fallos: ${Fallos}/${maxFallos}`;
+        }
+
+        if (Fallos >= maxFallos) {
+          terminarJuego("Has alcanzado el número máximo de fallos.");
+        } else if (juegoCompleto()) {
+          terminarJuego("Enhorabuena!");
+        }
+      }
+
+      function juegoCompleto() {
+        const cajas = document
+          .getElementById("table")
+          .getElementsByTagName("td");
+        return Array.from(cajas).every((caja) => caja.innerHTML != "**");
+      }
+
+      function terminarJuego(mensaje) {
+        document.getElementById("mensaje").innerHTML = mensaje;
+        for (let button of document.getElementsByTagName("input")) {
+          button.disabled = true;
+        }
+      }
+    </script>
+  </body>
+</html>
