@@ -21,23 +21,22 @@
     </style>
     <script>
 	// Aquí pon las variables globales que necesites si las necesitas
-	
+	let imagenDetenida = false;
+    let intervalID; 
+
+
+    //Corregido
     function cargarFecha(){
         //Parte fecha
         let fechaMañana = new Date();
         let fechaHoy =  new Date();
         fechaMañana.setDate(fechaHoy.getDate() + 1);
-        fechaFormateada = fechaMañana.getDate() + "//" + (fechaMañana.getMonth() + 1)+ "//" + ( fechaMañana.getFullYear().toString()).substr(2,2);
-        document.getElementById("fent").value = fechaFormateada;
-         // para que al iniciar el formulario la fecha de entrada se cargue con el día de mañana	
-        //Parte imagen
-        foto();
- 
-}
+        fechaFormateada = "0"+fechaMañana.getDate() + "//" + (fechaMañana.getMonth() + 1)+ "//" + ( fechaMañana.getFullYear().toString()).substr(2,2);
+        document.getElementById("fent").value = fechaFormateada;        
+    }
 
-    
+    //Corregido
     function colorear(event,campo){
-        // recuerda que quiero que recibas el evento y el elemento
         if (event.type === "focus") {
                 campo.style.backgroundColor = "#81DAF5"; // Azul claro
             } else if (event.type === "blur") {
@@ -45,15 +44,27 @@
             }
     }
     
+    //Corregido
     function foto(){
         let cont = 1;
-        setInterval(function(){
-		document.getElementById("imagen").innerHTML+="src = playa"+cont+".PNG";}, 3000);
+        
+        intervalID = setInterval(function(){
+        if (cont == 4){
+            cont = 1;
+        }
+		document.getElementById("imagen").src = "playa" + cont++ + ".PNG"}, 3000);
+        
     }
 
     function calcular(){
-        let precio = 0;
+        let descuento = 0;
+        let precioCancel = 0;
+        let precioDescuento = 0;
+        let precioTotal = 0;
+        let precioCanc = 0;
+        let precio = 0
 
+        //Corregido
         fechaSalida = document.getElementById("fsal").value;
         fechaEntrada = document.getElementById("fent").value;
         //Valido que los campos no sten vacios
@@ -62,10 +73,10 @@
             return;
         }
 
-	  /* // primero valida y luego calcula
-        regFecha = /^(0[1-9]|[12][0-9]|3[01])\/\/(0[1-9]|1[0-2])\/\/[24|25]$/ //dd/mm/aa
+        //Corregido
+	   // primero valida y luego calcula
+        regFecha = /^(0[1-9]|[12][0-9]|3[01])\/\/(0[1-9]|1[0-2])\/\/(24|25)$/ //dd/mm/aa
         //Valido fecha
-        //Pude que no funcione nose
         if (!regFecha.test(fechaSalida)){
             alert("Formato de fecha de salida incorrecto");
             document.getElementById("fsal").focus();
@@ -75,10 +86,9 @@
             alert("Formato de fecha de entrada incorrecto");
             document.getElementById("fent").focus();
             return;
-        }*/
+        }
 
         //Dia de entrada debe ser mayor que dia de hoy
-
 
         let fechaEntradaStrip = fechaEntrada.split("//");
         let fechaSalidaStrip = fechaSalida.split("//");
@@ -86,22 +96,17 @@
         let hoy = new Date();
         let fechaEnt = new Date("20"+fechaEntradaStrip[2],fechaEntradaStrip[1]-1,fechaEntradaStrip[0])
         let fechaSal = new Date("20"+fechaSalidaStrip[2],fechaSalidaStrip[1]-1,fechaSalidaStrip[0])
-
-     
-        if (fechaEnt.getDate() <= hoy.getDate() ){
-            alert("El dia de entrada debe ser mayor que hoy")
-            return;
-        }
-
-        if (fechaSal.getDate() <= fechaEnt.getDate()){
-            alert("El dia de salida debe ser mayor al de entrada");
-            return;
-        }
-
+      
+        //Corregido
         //Pongo noches
-        noches = fechaSal.getDate() - fechaEnt.getDate();
-        document.getElementById("noches").value = noches;
-        alert(noches)
+        noches = ((fechaSal.getTime() - fechaEnt.getTime())/(1000*60*60*24));
+        if (noches < 1){
+            alert("Error, la fecha salida debe ser mayor a la de entrada");
+            return;
+        } else{
+            document.getElementById("noches").value = noches;
+        }
+        
 
         //Seleccion apartamentos
         opc1 = document.getElementById("check1");
@@ -127,24 +132,28 @@
         if (opc3.checked){
             precio+=parseFloat(opc3.value);
         }
+    
+        alert("Precio" + precio)
+    let regCodigo = /^[13579ABC]{3,9}$/;
 
+    if (sel.value != "0") {
 
-        //Descuento
-        regCodigo = /([13579][ABC]{3,9}) /
-        if (sel.value != "Ninguno"){
-
-            if(socio.value == "0"){
-                alert("Debes introducir numero de socio");
-                return;
-            }
-            
-            if(regCodigo.test(socio.value)){
-                alert("Codigo de Socio Invalido");
-                return;
-            }
-
-            descuento = sel.value;
+        // Verifico si hay un codigo introducido
+        if (socio.value === "0" || socio.value.trim() === "") {
+            alert("Debes introducir un número de socio válido");
+            return;
         }
+
+        // Compruebo que el codigo sea correcto
+        if (!regCodigo.test(socio.value)) {
+            alert("Código de Socio Inválido");
+            return;
+        }
+
+    // Si todo esta correcto le aplico el descuento
+    descuento = parseFloat(sel.value);
+    alert("Descuento" + descuento);
+}
 
         //Cancelacion
 
@@ -152,12 +161,12 @@
 
         cancelacion.forEach(function(element) {
         if (element.checked) {
-            precio+= element.value
+            precioCanc+= parseFloat(element.value)
         }
     });
 
         //Telefono
-        //NO SE
+        //Corregido
         telf = document.getElementById("telefonos").value;
         regTelf1 = /^[67]{1}\d{8}$/
         regTelf2 = /^[67]{1}\d{8} \([67]{1}\d{8}\)$/
@@ -166,36 +175,56 @@
                 alert("Formato de telefono incorrecto")
                 return;
             }
+        } else {
+            if (!window.confirm("¿Estas seguro de que no quiere que le contactemos?")){
+                return;
+            }
         }
 
+        
         precioTotal = precio;
         precioDescuento = precio - ((precio*descuento)/100);
-        precioCancel = precio + precioCancel - ((precio*descuento)/100) ;
-        alert(precio);
-        codigo = "<p>Precio Total: " + precioTotal + "</p> <br> <p>Aplicando " + descuento + "% descuento: "+ precioDescuento+"</p> <br> <p>Incluyendo seguro de cancelacion: " + precioCancel + "</p>"
+        precioCancel = precioDescuento + precioCanc;
 
-        document.getElementById("codigo").innerHTML = codigo;
-
-
-    
-      
-
-
+        
+        codigo =  
+        "<p>Precio Total: " + precioTotal + "€</p>" +
+        "<p>Aplicando " + descuento + "% de descuento: " + precioDescuento + "€</p>" +
+        "<p>Incluyendo seguro de cancelación: " + precioCancel + "€</p>";
+        document.getElementById("precio").innerHTML = codigo;
 
     }
 
 
-	function comprobarSocio(){
-		// te puede venir bien para ver si la tecla pulsada corresponde a una de las 
-		// posibles en el código de socio y aquí abrir la ventana de código erroneo
-	
-	}
+	function comprobarSocio(event) {
+    let posiblesTeclas = ['1', '3', '5', '7', '9', 'A', 'B', 'C'];
+    let teclaPress = event.key.toUpperCase();
+
+    if (!posiblesTeclas.includes(teclaPress)) {
+        const ventana = window.open('', 'Comprobar Teclas', 'width=300,height=200,top=300,left=500');
+        ventana.document.write('<p>Carácter no permitido: ' + teclaPress + '</p>');
+        ventana.document.write('<input type="button" value="Cerrar" onClick="window.close()">');
+        ventana.document.close();
+    }
+}
+
+    function pararImagen() {
+            let imagen = document.getElementById("imagen");
+
+            if (!imagenDetenida) {
+                clearInterval(intervalID);
+                imagenDetenida = true;
+            } else {
+                window.location.href = "https://www.booking.com";}
+        }
+
+    
     </script>
     </head>
-    <body onload="cargarFecha()">
+    <body onload="cargarFecha(), foto()">
 
         <h1>APARTAMENTOS SOLYPLAYA</h1>
-        <img src ="playa1.PNG" id="imagen" width="300" height="200">
+        <img src ="playa1.PNG" id="imagen" width="300" height="200" onclick="pararImagen()">
         <h2>Solicite información para su reserva</h2>
         
         Día Entrada&nbsp <input type="text" id="fent" onfocus="colorear(event,this)" onblur="colorear(event,this)" size="8" > 
@@ -214,12 +243,12 @@
         <br><br>
         Pudiendo aplicar uno de nuestros descuentos<br> 
 			<select id="sel">
-                <option value="0" >Ninguno</option>
-                <option value="5" >Socio SOLYPLAYA Plata (5%)</option>
+                <option value="0">Ninguno</option>
+                <option value="5">Socio SOLYPLAYA Plata (5%)</option>
                 <option value="10">Socio SOLYPLAYA Oro (10%)</option>
                 <option value="20">Socio SOLYPLAYA Premium (20%)</option>
             </select>
-            Código Socio <input type="text" id="socio" > 
+            Código Socio <input type="text" id="socio" onkeypress="comprobarSocio(event)" > 
         <br>
         Con seguro de cancelación <input type="radio" checked value="30" name="cancel"> Sí<input type="radio" name="cancel" value="0" >No	
         <br><br>
@@ -233,7 +262,6 @@
         <input type="button" value="CALCULAR PRECIO" onclick="calcular()"> <br><br>
          
         <div id="precio">Le mostraremos el precio</div>
-        <div id="codigo"></div>
         
 
     </body>
