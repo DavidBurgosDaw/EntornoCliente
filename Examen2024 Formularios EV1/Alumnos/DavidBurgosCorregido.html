@@ -109,17 +109,19 @@
             let socio = document.getElementById("socio").value;
             let regCodigo = /^[13579][ABC]{3,9}$/;
 
-            if (sel.value !== "0") {
+            alert("HOLA")
+            if (sel.text() != "Ninguno") {
                 if (socio === "") {
-                    alert("Debes introducir número de socio");
+                    alert("Por favor, introduzca un número de socio.");
                     return;
                 }
 
                 if (!regCodigo.test(socio)) {
-                    alert("Código de socio inválido");
+                    alert("El código de socio no es válido. Debe comenzar con un número impar y seguir con letras ABC.");
                     return;
                 }
             }
+
 
             // Cancelación
             let cancelacion = document.querySelector("input[name='cancel']:checked");

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>EXAMEN 1 EVALUACION</title>
+    <style type="text/css">
+      body {
+        text-align: center;
+        font-family: 'Bookman Old Style', Bookman;
+        color: #29220A;
+      }
+
+      table {
+        background-color: #D5DBDB;
+        border: 2pt solid #fbb;
+        width: 520px;
+        text-align: center;
+        margin: auto;
+        box-shadow: 5px 5px 12px #F5F5DC;
+        font-size: 15px;
+      }
+
+      td {
+        width: 40px;
+        height: 50px;
+      }
+
+      img {
+        width: 40px;
+      }
+
+      #principal {
+        width: 650px;
+        height: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .clasetot {
+        background-color: #fdebd0;
+      }
+    </style>
+    <script>
+      var color = Array("#FA5858", "#81BEF7", "#F3F781", "#2EFE2E");
+      var fil, col, tabla;
+      var numeroRandom;
+      var aciertos = []; // Para almacenar los aciertos de cada jugador
+
+      function jugar() {
+        // Obtener dimensiones de la tabla
+        fil = parseInt(document.getElementById("jug").value); // Número de jugadores (filas)
+        col = parseInt(document.getElementById("fich").value); // Fichas (columnas)
+
+        // Inicializar matriz y conjunto para evitar duplicados
+        tabla = [];
+        let numUsados = new Set();
+
+        // Creo la matriz y le pongo en la primera posición el tag jugador + el número
+        for (let i = 0; i < fil; i++) {
+          tabla[i] = new Array(col + 1);
+          tabla[i][0] = "Jugador " + (i + 1); 
+          aciertos[i] = 0;
+		  aciertos[i].style.backgroundColor = "Orange";
+
+          for (let j = 1; j < col; j++) { // Comenzamos en 1 para evitar la columna de jugadores
+            let numero;
+            do {
+              numero = Math.floor(Math.random() * 32) + 1; // Generar número aleatorio
+            } while (numUsados.has(numero)); // Evitar duplicados
+
+            numUsados.add(numero);
+            tabla[i][j] = numero; // Asignar número único
+          }
+
+          // Añadimos una columna extra para el contador de aciertos
+          tabla[i][col] = aciertos[i]; // Inicializar los aciertos en 0
+        }
+
+        // Generar HTML de la tabla
+        let tablaHTML = "<table border='1'>";
+        for (let i = 0; i < fil; i++) {
+          tablaHTML += "<tr>";
+          for (let j = 0; j <= col; j++) {
+            if (j === 0) {
+              // Primera columna: Etiqueta del jugador
+              tablaHTML += "<td style='font-weight: bold;'>" + tabla[i][j] + "</td>";
+            } else {
+              // Otras columnas: Valores aleatorios o el contador de aciertos
+              if (j === col) {
+                // Última columna: Contador de aciertos
+                tablaHTML += "<td id='acierto-" + i + "'>" + tabla[i][j] + "</td>";
+              } else {
+                // Fichas: Celdas con número
+                tablaHTML += "<td onclick='juego(this, " + i + ")'>" + tabla[i][j] + "</td>";
+              }
+            }
+          }
+          tablaHTML += "</tr>";
+        }
+        tablaHTML += "</table>";
+
+        // Inserto la tabla en el html
+        document.getElementById("fichas").innerHTML = tablaHTML;
+      }
+
+	  //Preguntar a Yolanda
+      function sacarFicha() {
+        numeroRandom = Math.floor(Math.random() * 32) + 1;
+        alert("Número sacado: " + numeroRandom);
+      }
+
+      function iniciar() {
+        let index = 0; // Índice inicial
+
+        setInterval(function () {
+          let h1 = document.getElementById("h1");
+          h1.style.color = color[index]; // Cambiar el color
+          index = (index + 1) % color.length; // Mover al siguiente color cíclicamente
+        }, 3000);
+      }
+    </script>
+  </head>
+  <body onload="iniciar()">
+    <h1 id="h1"> ¡Pierde tus fichas! </h1>
+    Indica número de jugadores
+    <select id="jug" onchange="jugar()">
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    </br></br>
+    Indica número de fichas
+    <select id="fich" onchange="jugar()">
+      <option value="5" selected>5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </select>
+    <br><br>
+    <div id="fichas"></div>
+    <br>
+    <input type="button" id="sacar" value="Sacar ficha" onclick="sacarFicha()">
+    <input type="button" value="Reiniciar" onclick="jugar()">
+    <br><br>
+  </body>
+</html>

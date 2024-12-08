@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>DOM</title>
+		<link rel="stylesheet" href="main.css">
+<script> 
+   function conectar(){
+    usuario = document.getElementById("usu").value;
+    ol = document.getElementById("ol1");
+    li = document.getElementsByTagName("li")
+
+    for(let i = 0; i < li.length; i++){
+        if (li[i].innerHTML == usuario){
+            alert("El usuario "+ usuario + " ya esta conectado")
+            return;
+        }
+    }
+
+        nuevo=document.createElement("li");
+        nuevo.innerHTML = usuario;
+        ol.append(nuevo);
+    }
+
+    function desconectar(){
+        usuario = document.getElementById("usu").value;
+        ol = document.getElementById("ol1");
+        li = document.getElementsByTagName("li")
+
+        for(let i = 0; i < li.length; i++){
+            if (li[i].innerHTML == usuario){
+                ol.removeChild(li[i])
+                return;
+            }
+        }
+        alert("El usuario " + usuario + " no esta conectado")
+    }
+
+</script>
+</head>
+<body>
+<font face="tahoma" size = "6">
+<div >
+<p> REALIZANDO CONEXIONES </p>  
+<font face="tahoma" size = "4">
+<form name="miformulario">
+Usuario <input type="text" id="usu" size = "15">
+Contraseña <input type="text" id="con" size = "15">
+<br><br><br>
+<input type="button" value="CONECTAR" onclick="conectar()">
+<input type="button" value="DESCONECTAR" onclick="desconectar()">
+<br>
+</form>
+<ol id="ol1">
+<li>Pepe</li>
+<li>Ana</li>
+</ol>
+</font>
+</body>
+</html>

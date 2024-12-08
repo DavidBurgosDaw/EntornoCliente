@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>DOM</title>
+        
+ 
+ <style type="text/css">
+ 
+	#imagenes,#foto{
+		width:600px;
+		margin-right:auto;
+		margin-left:auto;
+		padding:20px;
+		}
+</style>
+<script type="text/javascript">
+
+function aumentar(){
+	imagenes = document.getElementsByName("foto");
+	for(let i = 0;i<imagenes.length;i++){
+		ancho = imagenes[i].getAttribute('width');
+		alto = imagenes[i].getAttribute('height');
+		imagenes[i].setAttribute('height', parseFloat(alto) + 10);
+		imagenes[i].setAttribute('width', parseFloat(ancho) + 10);
+
+	}
+}
+
+function disminuir(){
+	imagenes = document.getElementsByName("foto");
+	for(let i = 0;i<imagenes.length;i++){
+		ancho = imagenes[i].getAttribute('width');
+		alto = imagenes[i].getAttribute('height');
+		imagenes[i].setAttribute('height', parseFloat(alto) - 10);
+		imagenes[i].setAttribute('width', parseFloat(ancho) - 10);
+
+	}
+}
+
+function bordear(){
+	imagenes = document.getElementsByName("foto");
+	for(let i = 0;i<imagenes.length;i++){
+		if(imagenes[i].hasAttribute("border")){
+			imagenes[i].setAttribute("border","none")
+		} else {
+			imagenes[i].setAttribute("border","2")
+		}
+
+	}
+}
+
+
+</script>
+</head>
+<body>
+<div id="imagenes">
+<h3>Dragones</h3>
+<input type="button" value="Aumentar" onclick="aumentar()">
+<input type="button" value="Disminuir" onclick="disminuir()">
+<input type="button" value="Bordear" onclick="bordear()"> <br><br>
+<img src='dragon1.jpg' name="foto" height="20" width="10">
+<img src='dragon2.jpg' name="foto" height="15" width="20"> 
+<img src='dragon3.jpg' name="foto" height="25" width="20">
+<img src='dragon4.jpg' name="foto" height="40" width="40"> 
+
+
+</div>
+<div id="foto"></div>
+</body>
+</html>
