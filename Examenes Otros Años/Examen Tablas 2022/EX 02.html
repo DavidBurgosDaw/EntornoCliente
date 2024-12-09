@@ -48,35 +48,38 @@
       var aciertos = []; // Para almacenar los aciertos de cada jugador
 
       function jugar() {
-        // Obtener dimensiones de la tabla
+        //Cojo las dimensiones de la tabla
         fil = parseInt(document.getElementById("jug").value); // Número de jugadores (filas)
         col = parseInt(document.getElementById("fich").value); // Fichas (columnas)
 
-        // Inicializar matriz y conjunto para evitar duplicados
-        tabla = [];
+        // Inicializo la matriz y el conjuntos
         let numUsados = new Set();
-
+        tabla = [];
         // Creo la matriz y le pongo en la primera posición el tag jugador + el número
         for (let i = 0; i < fil; i++) {
           tabla[i] = new Array(col + 1);
           tabla[i][0] = "Jugador " + (i + 1); 
           aciertos[i] = 0;
 
-          for (let j = 1; j < col; j++) { // Comenzamos en 1 para evitar la columna de jugadores
+          for (let j = 1; j < col; j++) { // Empiezo en 1 para evitar la colummna de jugadores
             let numero;
             do {
-              numero = Math.floor(Math.random() * 32) + 1; // Generar número aleatorio
+              numero = Math.floor(Math.random() * 32) + 1; // Genero num aleatorio
             } while (numUsados.has(numero)); // Evitar duplicados
 
             numUsados.add(numero);
-            tabla[i][j] = numero; // Asignar número único
+            tabla[i][j] = numero; //Asgino numero a la tabla
           }
 
-          // Añadimos una columna extra para el contador de aciertos
-          tabla[i][col] = aciertos[i]; // Inicializar los aciertos en 0
+          // Añado una columna extra para el contador de aciertos
+          tabla[i][col] = aciertos[i]; //Inicializo en 0
         }
 
         // Generar HTML de la tabla
+        mostrar();
+      }
+      
+      function mostrar(){
         let tablaHTML = "<table border='1'>";
         for (let i = 0; i < fil; i++) {
           tablaHTML += "<tr>";
@@ -106,8 +109,20 @@
 	  //Preguntar a Yolanda
       function sacarFicha() {
         numeroRandom = Math.floor(Math.random() * 32) + 1;
-        alert("Número sacado: " + numeroRandom);
+        alert(numeroRandom)
+        for(let i = 1; i < col; i++){
+          for (let j = 0; j < fil; j++){
+            alert(tabla[i][j])
+            if (numeroRandom == tabla[i][j]){
+              tabla[i][j] = "<img>acierto.jpeg</img>";
+           //   tabla[i][j].style.backgroundColor = "red";
+            }
+            aciertos[i] +=1;
+          }
       }
+      mostrar();
+
+    }
 
       function iniciar() {
         let index = 0; // Índice inicial
