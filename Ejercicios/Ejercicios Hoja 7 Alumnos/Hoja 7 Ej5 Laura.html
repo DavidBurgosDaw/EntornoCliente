@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+    }
+    table{
+        margin: 30px;
+    }
+    td{
+        width: 50px;
+        height: 50px;
+    }
+</style>
+<body>
+
+
+    <h3>EL JUEGO WEBMIN</h3>
+    <h4>Ordena de menor a mayor</h4>
+
+    <select id="opciones">
+        <option value="3" selected>3x3</option>
+        <option value="4">4x4</option>
+        <option value="5">5x5</option>
+        <option value="6">6x6</option>
+    </select>
+
+    <div id="div1"></div>
+
+    <button onclick="generar()">Generar</button>
+
+</body>
+<script>
+
+
+function crearValores(){
+    let numeros=[]
+
+    const numero = parseInt(document.getElementById("opciones").value);
+    const total = numero * numero;
+
+    for (let i = 0; i < total; i++) {
+            numeros[i] = i + 1;
+        }
+    return numeros;
+}
+
+ // si lo declaro dentro de la funcion el array se inicializa cada vez que llamo
+
+
+
+function random() {
+
+
+    const elegido = Math.floor(Math.random() * numeros.length);
+    const retornar = numeros[elegido];
+
+    numeros.splice(elegido, 1); //borrar
+
+    return retornar;
+}
+
+function generar(){
+
+    numeros=crearValores();
+    solucion=crearValores;
+    correctas=1;
+    fallos=0;
+
+col= fil = parseInt(document.getElementById("opciones").value);
+
+tabla =new Array(fil);
+
+
+    for (let i=0;i<fil;i++)
+                tabla[i]=new Array(col);
+
+                for (let i=0;i<fil;i++)
+                for (let j=0;j<col;j++){
+                tabla[i][j]=random();
+        }
+
+    pintar();
+
+}
+
+function pintar() {
+
+
+
+let codigo='<table border=1> ';
+
+for (let i=0;i<fil;i++){
+codigo+='<tr>';
+for (let j=0;j<col;j++){
+    codigo+='<td onclick="cambiar(this)">'+tabla[i][j]+'</td>' ;
+}
+
+codigo+='</tr>';
+}
+
+
+codigo+='</table>';
+document.getElementById("div1").innerHTML=codigo;
+
+}
+
+
+
+
+function cambiar(x){
+
+    if(parseInt(x.textContent)==correctas){
+        x.style.backgroundColor="blue";
+        correctas++;
+
+
+
+    let celdas = document.querySelectorAll('table td');
+
+        celdas.forEach(celda =>{
+            if(celda.style.backgroundColor == "red")
+            celda.style.backgroundColor="white";
+        });
+    }
+    else{
+        x.style.backgroundColor="red";
+        fallos++;
+    }
+
+}
+
+</script>
+</html>
