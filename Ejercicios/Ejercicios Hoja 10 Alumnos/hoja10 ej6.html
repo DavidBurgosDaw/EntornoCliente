@@ -7,7 +7,28 @@
         <title>DOM</title>
 		<link rel="stylesheet" href="main.css">
 <script>
+  function alta() {
+    let div = document.getElementById("div1");
+    let usuario = document.getElementById("idusu").value
 
+    //Valido que no este vacio
+    if (!usuario.trim()) {
+        alert("Por favor, ingresa un usuario válido"); 
+        return;
+    }
+
+    //Creo el elemento
+    let nuevo = document.createElement("p"); 
+    nuevo.textContent = usuario;
+
+    //Inserto los nuevos antes del primer hijo
+    div.insertBefore(nuevo, div.firstChild);
+
+    //Borro el ultimo hijo
+    if (div.childElementCount > 7) {
+    div.removeChild(div.lastChild);
+    }
+}
 </script>
 </head>
 <body>
