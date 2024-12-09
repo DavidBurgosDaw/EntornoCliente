@@ -20,11 +20,9 @@
 				
 			}
 </style>
-<script type="text/javascript">
- 
-</script>
+
 </head>
-<body onload="cargar()">
+<body >
 <div>
 <ul>
 <li>Bulbasaur</li>
@@ -41,5 +39,51 @@
 <input type="button" value="adelante" onclick="adelante()">
 </div>
 <div id="fotos"></div>
+
+<script type="text/javascript">
+	
+	let li = document.getElementsByTagName("li");
+	let cont = 0;
+	lista = []
+	Array.from(li).forEach(l => {
+		lista.push(l.innerHTML);
+	});
+	console.log(lista)
+	console.log(lista.length)
+
+
+	function atras() {
+    if (cont == 0) {
+        alert("No hay pokemons anteriores");
+    } else {
+        document.getElementById("fotos").innerHTML = '<img id="foto" height="300" width="300">';
+        document.getElementById("foto").src = "pokemon/" + lista[cont - 1] + ".png";
+        cont--;
+        if (cont >= 0) {
+            li[cont].style.color = "orange";  
+        }
+        li[(cont + 1)].style.color = "black";
+        
+    }
+}	
+
+	function adelante(){
+		
+		if (cont==lista.length){
+			alert("No hay mas pokemons posteriores")
+		}else{
+			document.getElementById("fotos").innerHTML = '<img id="foto" height="300" width="300">';
+			document.getElementById("foto").src = "pokemon/"+lista[cont]+".png";
+			if (cont > 0){
+				li[cont-1].style.color="black";
+			}
+			li[cont].style.color="orange";
+			cont++;
+
+
+		}
+	
+	}
+</script>
 </body>
 </html>

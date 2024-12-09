@@ -40,7 +40,7 @@
   <form name="formulario">
     SELECCIONA: 
     Filas 
-    <select id="rows">
+    <select id="filas">
       <option value="2" selected>2</option>
       <option value="3">3</option>
       <option value="4">4</option>
@@ -48,7 +48,7 @@
       <option value="6">6</option>
     </select>
     Columnas 
-    <select id="columns">
+    <select id="columnas">
       <option value="2" selected>2</option>
       <option value="3">3</option>
       <option value="4">4</option>
@@ -57,50 +57,11 @@
     </select>
     <br><br>
     RELLENAR CON: 
-    <input type="radio" name="fillOption" value="unoPorUno" checked> De uno en uno
-    <input type="radio" name="fillOption" value="Pares"> Pares
-    <input type="radio" name="fillOption" value="Impares"> Impares
-    <input type="radio" name="fillOption" value="multiple"> Múltiplos de 
-    <select id="multipleOf">
-      <option value="3" selected>3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
-    <br><br>
-  </form>
-</div>
-<div>
-   <h3>PROBANDO ARRAYS BIDIMENSIONALES</h3>
-  <form name="formulario">
-    SELECCIONA: 
-    Filas 
-    <select id="rows">
-      <option value="2" selected>2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-    </select>
-    Columnas 
-    <select id="columns">
-      <option value="2" selected>2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-    </select>
-    <br><br>
-    RELLENAR CON: 
-    <input type="radio" name="fillOption" value="unoPorUno" checked> De uno en uno
-    <input type="radio" name="fillOption" value="Pares"> Pares
-    <input type="radio" name="fillOption" value="Impares"> Impares
-    <input type="radio" name="fillOption" value="multiple"> Múltiplos de 
-    <select id="multipleOf">
+    <input type="radio" name="opcionRelleno" value="unoPorUno" checked> De uno en uno
+    <input type="radio" name="opcionRelleno" value="Pares"> Pares
+    <input type="radio" name="opcionRelleno" value="Impares"> Impares
+    <input type="radio" name="opcionRelleno" value="multiples"> Múltiplos de 
+    <select id="multiploDe">
       <option value="3" selected>3</option>
       <option value="4">4</option>
       <option value="5">5</option>
@@ -114,69 +75,80 @@
   </form>
 </div>
 <div id="div1">
-  <table id="table"></table>
+  <table id="tabla"></table>
 </div>
 
 <script>
-  const rowsSelect = document.getElementById("rows");
-  const columnsSelect = document.getElementById("columns");
-  const table = document.getElementById("table");
-  const fillOptions = document.getElementsByName("fillOption");
-  const multipleOfSelect = document.getElementById("multipleOf");
+  const filasSelect = document.getElementById("filas");  // Selección de filas
+  const columnasSelect = document.getElementById("columnas");  // Selección de columnas
+  const tabla = document.getElementById("tabla");  // Tabla donde se mostrará la matriz
+  const opcionesRelleno = document.getElementsByName("opcionRelleno");  // Opciones de cómo llenar la tabla
+
+  
+
+
+  const multiploDeSelect = document.getElementById("multiploDe");  // Múltiplo seleccionado
 
   // Función para generar la tabla
   function generarTabla() {
-    const rows = parseInt(rowsSelect.value);
-    const columns = parseInt(columnsSelect.value);
-    const fillOption = Array.from(fillOptions).find(option => option.checked).value;
-    const multipleOf = parseInt(multipleOfSelect.value);
+    const filas = parseInt(filasSelect.value);  // Número de filas seleccionado
+    const columnas = parseInt(columnasSelect.value);  // Número de columnas seleccionado
+    const multiploDe = parseInt(multiploDeSelect.value);  // Número múltiplo seleccionado
 
-    let data = [];
-    let value = 1;
+  //Compruebo el valor de relleno
+    let opcionRelleno = ""
+      opcionesRelleno.forEach(e => {
+      if (e.checked){
+        opcionRelleno = e.value;
+      }
+  });
+
+    let datos = [];  // Inicializamos el array para los datos de la tabla
+    let valor = 1;  // Valor inicial para llenar las celdas de la tabla
 
     // Generar los datos según la opción seleccionada
-    for (let i = 0; i < rows; i++) {
-      let row = [];
-      for (let j = 0; j < columns; j++) {
-        if (fillOption === "unoPorUno") {
-          row.push(value++);
-        } else if (fillOption === "Pares") {
-          row.push(value % 2 === 0 ? value : ++value); // Solo pares
-          value += 2;
-        } else if (fillOption === "Impares") {
-          row.push(value % 2 !== 0 ? value : ++value); // Solo impares
-          value += 2;
-        } else if (fillOption === "multiple") { //Multiplos
-          row.push(multipleOf * value);
-          value++;
+    for (let i = 0; i < filas; i++) {  // Bucle para las filas
+      let fila = [];  // Inicializamos una fila
+      for (let j = 0; j < columnas; j++) {  // Bucle para las columnas
+        if (opcionRelleno === "unoPorUno") {
+          fila.push(valor++);  // De uno en uno, incrementando el valor
+        } else if (opcionRelleno === "Pares") {
+          fila.push(valor % 2 === 0 ? valor : ++valor);  // Solo pares
+          valor += 2;  // Aumentar de dos en dos para asegurar que el siguiente sea par
+        } else if (opcionRelleno === "Impares") {
+          fila.push(valor % 2 !== 0 ? valor : ++valor);  // Solo impares
+          valor += 2;  // Aumentar de dos en dos para asegurar que el siguiente sea impar
+        } else if (opcionRelleno === "multiples") {  // Múltiplos de
+          fila.push(multiploDe * valor);  // Colocamos múltiplos del número seleccionado
+          valor++;  // Incrementar valor
         }
       }
-      data.push(row);
+      datos.push(fila);  // Añadir la fila generada al array de datos
     }
 
-    // Dibujar la tabla
-    drawTable(data);
+    // Dibujar la tabla con los datos generados
+    dibujarTabla(datos);
   }
 
   // Función para dibujar la tabla en HTML
-  function drawTable(data) {
-    table.innerHTML = ""; // Limpiar tabla anterior
-    data.forEach(row => {
-      const tr = document.createElement("tr");
-      row.forEach(cell => {
-        const td = document.createElement("td");
-        td.textContent = cell;
-        tr.appendChild(td);
+  function dibujarTabla(datos) {
+    tabla.innerHTML = "";  // Limpiar la tabla anterior
+    datos.forEach(fila => {  // Recorrer cada fila
+      const tr = document.createElement("tr");  // Crear una nueva fila
+      fila.forEach(celda => {  // Recorrer cada celda de la fila
+        const td = document.createElement("td");  // Crear una nueva celda
+        td.textContent = celda;  // Asignar el valor de la celda
+        tr.appendChild(td);  // Añadir la celda a la fila
       });
-      table.appendChild(tr);
+      tabla.appendChild(tr);  // Añadir la fila a la tabla
     });
   }
 
-  // Añadir eventos a los controles
-  rowsSelect.addEventListener("change", generarTabla);
-  columnsSelect.addEventListener("change", generarTabla);
-  fillOptions.forEach(option => option.addEventListener("change", generarTabla));
-  multipleOfSelect.addEventListener("change", generarTabla);
+  // Añadir eventos a los controles para regenerar la tabla cuando se cambian
+  filasSelect.addEventListener("change", generarTabla);
+  columnasSelect.addEventListener("change", generarTabla);
+  opcionesRelleno.forEach(opcion => opcion.addEventListener("change", generarTabla));
+  multiploDeSelect.addEventListener("change", generarTabla);
 
   // Generar tabla inicial
   generarTabla();

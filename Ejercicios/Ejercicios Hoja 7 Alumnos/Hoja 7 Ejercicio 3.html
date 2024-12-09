@@ -48,26 +48,25 @@
       // Generolas celdas de los dias
       let tablaHTML = "<table>";
       tablaHTML += "<tr><th> </th>";
-      dias.forEach(dia => tablaHTML += `<th>${dia}</th>`);
+      dias.forEach(dia => tablaHTML += "<th>"+ dia + "</th>");
       tablaHTML += "<th>Total</th></tr>";
 
       //Genero las salas
       for (let i = 0; i < numSalas; i++) {
         let total = 0;
         const sala = [];
-        tablaHTML += `<tr><td>Sala ${i + 1}</td>`;
-        
+        tablaHTML += "<tr><td> Sala " + (i + 1) + "</td>";
             //Relleno las columnas de las salas con datos de venta random hasta 1-50
             for (let j = 0; j < dias.length; j++) {
             const entradas = Math.floor(Math.random() * 50) + 1; // Generar entradas aleatorias (1-50)
             sala.push(entradas);
             total += entradas;
-            tablaHTML += `<td>${entradas}</td>`;
+            tablaHTML += "<td>" + entradas + "</td>";
             }
             
             sala.push(total); // Agregar total al final de cada fila
             datosCine.push(sala);
-            tablaHTML += `<td>${total}</td></tr>`;
+            tablaHTML += "<td>" + total + "</td></tr>";
       }
       
       tablaHTML += "</table>";
