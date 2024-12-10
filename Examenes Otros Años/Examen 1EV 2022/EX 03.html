@@ -26,6 +26,84 @@
 	 }
 
  </style>
+ <script>
+	let precio = 0;
+	let descuento = 0;
+	let precioDescuento = 0;
+
+
+	function comprobar(){
+
+
+		//Servicios
+		tinte = document.getElementById("idtinte");
+		corte = document.getElementById("idcorte");
+		peinar = document.getElementById("idpeinar");
+
+		seltinte = document.getElementById("seltinte").value;
+		selcorte = document.getElementById("selcorte").value;
+		selpeinar = document.getElementById("selpeinar").value;
+
+		//Dia y Horario
+		dia = document.getElementById("dia").value;
+		horario = document.getElementById("mt").value;
+
+
+		if (!tinte.checked && !corte.checked && !peinar.checked){
+			alert("Debes seleccionar al menos uno de los servicios")
+			return;
+		}
+
+		if (tinte.checked){
+			precio+=parseFloat(seltinte);
+		}
+
+		if (corte.checked){
+			precio+= parseFloat(selcorte)
+		}
+
+		if (peinar.checked){
+			precio+= parseFloat(selpeinar);
+		}
+		//Compruebo dia
+
+		if (dia == "0"){
+			alert("Debes seleccionar un dia")
+			return;
+		}
+		//Compruebo Horario
+		if (horario == "0"){
+			alert("Debes seleccionar un horario")
+			return;
+		}
+
+		//Descuentos
+
+
+		if(horario == "1" && dia == "1"){
+			descuento = 20;
+		}
+
+		if(dia == "2" && horario == "1"){
+			descuento = 15;
+		}
+
+		precioDescuento = precio - ((precio*descuento)/100);
+
+		document.getElementById("desc").innerHTML = "<p>DESCUENTOS Y PRECIOS</p><p>Precio Sin descuento: " + precio + "€</p>" + "<p>Precio con descuento de " + descuento + "% es " + precioDescuento + "€s</p>"
+
+
+
+		info=window.open('','Precio','width=500,height=500,top=300,left=500' );  
+            info.document.write("<p>El precio del tratamiento sin descuento es: " + precio + "€</p>");
+			info.document.write("<p>El precio del tratamiento con descuento de "+ descuento + "% es: " + precioDescuento + "€</p>");
+            info.document.write('<input type="button" value="Cierra" onClick="window.close()">');
+            info.document.close();  // Para que al abrir de nuevo el documento lo limpie
+
+	
+
+	}
+ </script>
  <body>
  <form name="form">
 <div id="div1">
@@ -34,35 +112,35 @@ Estos son nuestras ofertas
 <br><br>
 <input type="checkbox" id="idtinte" >Tinte
  <select id="seltinte">
-<option value>Baño de color</option>
-<option value>Mechas</option>
+<option value="20">Baño de color</option>
+<option value="30">Mechas</option>
 </select>
 <br><br>
 <input type="checkbox" id="idcorte"  >Corte
 <select id="selcorte">
-<option value>Flequillo y puntas</option>
-<option value>Cambio total</option>
+<option value="8">Flequillo y puntas</option>
+<option value="35">Cambio total</option>
 </select>
 <br><br>
 <input type="checkbox" id="idpeinar" >Peinar
 <select id="selpeinar">
-<option value>Al aire</option>
-<option value>Alisado</option>
-<option value>Otros</option>
+<option value="5">Al aire</option>
+<option value="10">Alisado</option>
+<option value="10">Otros</option>
 </select>
 <br><br>
 Seleccionar día
 <select id="dia"> 
-<option value >Seleccione</option>
-<option value >Lunes a Jueves</option>
-<option value >Viernes</option>
-<option value >Sábado o Domingo</option>
+<option value ="0">Seleccione</option>
+<option value = "1" >Lunes a Jueves</option>
+<option value = "2" >Viernes</option>
+<option value = "3" >Sábado o Domingo</option>
 </select>
  Horario 
 <select id="mt">
-<option value >Seleccione</option>
-<option value >Mañana</option>
-<option value >Tarde</option>
+<option value = "0" >Seleccione</option>
+<option value = "1" >Mañana</option>
+<option value = "2">Tarde</option>
 </select>
 <hr>
 
