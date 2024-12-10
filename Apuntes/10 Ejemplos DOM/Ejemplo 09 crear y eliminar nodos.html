@@ -7,49 +7,96 @@
         <title>DOM</title>
         <link rel="stylesheet" href="main.css">
  
-<script>
- var n=1;
-  function añadir(){
-  var p=document.createElement('p');
-  var texto=document.createTextNode('Este párrafo no existía en el HTML original '+n);
-  p.appendChild(texto);
-  e=document.getElementsByTagName("div");
-  e[0].appendChild(p);
-  n++;
-  }
-  function eliminar(){
-	var p=document.getElementsByTagName('p')[0];
-	p.parentNode.removeChild(p);
-  }
-  function cambiar(){
-	var p1=document.getElementsByTagName('p')[0];
-	var p=document.createElement('p');
-    var texto=document.createTextNode('Este párrafo sustituye al anterior');
-	p.appendChild(texto);
-	p1.parentNode.replaceChild(p,p1);
- }
- function intercalar(){
-	var p1=document.getElementsByTagName('p')[1];
-	var p=document.createElement('p');
-    var texto=document.createTextNode('Este se intercala');
-	p.appendChild(texto);
-	p1.parentNode.insertBefore(p,p1);
- }
-  </script>
-</head>
-<body>
-<input type="button" value="Añadir nodo" onclick="añadir()">
-  <input type="button" value="Elimina nodo" onclick="eliminar()">
-  <input type="button" value="Cambiar nodo" onclick="cambiar()">
-  <input type="button" value="Poner nodo entre 1º y 2º" onclick="intercalar()">
-  <p>Primer párrafo</p>
-  <p>Segundo párrafo</p>
-  <p>Tercer párrafo</p>
-  <div>
-  Esto es un div
-  </div>
-   <div>
-  Y esto es otro
-  </div>
-</body>
+        <script>
+            // Variable global para contar los párrafos añadidos
+            var n = 1;
+
+            // Función para añadir un nuevo párrafo al primer div
+            function añadir(){
+                // Crear un nuevo elemento <p>
+                var p = document.createElement('p');
+                
+                // Crear el texto para el nuevo párrafo
+                var texto = document.createTextNode('Este párrafo no existía en el HTML original ' + n);
+                
+                // Añadir el texto al párrafo
+                p.appendChild(texto);
+                
+                // Obtener todos los elementos <div>
+                e = document.getElementsByTagName("div");
+                
+                // Añadir el párrafo al primer div
+                e[0].appendChild(p);
+                
+                // Incrementar el contador para el siguiente párrafo
+                n++;
+            }
+
+            // Función para eliminar el primer párrafo
+            function eliminar(){
+                // Obtener el primer párrafo en el documento
+                var p = document.getElementsByTagName('p')[0];
+                
+                // Eliminar el primer párrafo
+                p.parentNode.removeChild(p);
+            }
+
+            // Función para reemplazar el primer párrafo con uno nuevo
+            function cambiar(){
+                // Obtener el primer párrafo en el documento
+                var p1 = document.getElementsByTagName('p')[0];
+                
+                // Crear un nuevo párrafo
+                var p = document.createElement('p');
+                
+                // Crear el texto para el nuevo párrafo
+                var texto = document.createTextNode('Este párrafo sustituye al anterior');
+                
+                // Añadir el texto al nuevo párrafo
+                p.appendChild(texto);
+                
+                // Reemplazar el primer párrafo con el nuevo
+                p1.parentNode.replaceChild(p, p1);
+            }
+
+            // Función para insertar un nuevo párrafo entre el primer y el segundo
+            function intercalar(){
+                // Obtener el segundo párrafo
+                var p1 = document.getElementsByTagName('p')[1];
+                
+                // Crear un nuevo párrafo
+                var p = document.createElement('p');
+                
+                // Crear el texto para el nuevo párrafo
+                var texto = document.createTextNode('Este se intercala');
+                
+                // Añadir el texto al nuevo párrafo
+                p.appendChild(texto);
+                
+                // Insertar el nuevo párrafo antes del segundo párrafo
+                p1.parentNode.insertBefore(p, p1);
+            }
+        </script>
+    </head>
+    
+    <body>
+        <!-- Botones que llaman a las funciones JavaScript -->
+        <input type="button" value="Añadir nodo" onclick="añadir()">
+        <input type="button" value="Elimina nodo" onclick="eliminar()">
+        <input type="button" value="Cambiar nodo" onclick="cambiar()">
+        <input type="button" value="Poner nodo entre 1º y 2º" onclick="intercalar()">
+
+        <!-- Párrafos existentes que se manipularán con las funciones -->
+        <p>Primer párrafo</p>
+        <p>Segundo párrafo</p>
+        <p>Tercer párrafo</p>
+
+        <!-- Dos divs que se utilizan en la función de añadir nodo -->
+        <div>
+            Esto es un div
+        </div>
+        <div>
+            Y esto es otro
+        </div>
+    </body>
 </html>

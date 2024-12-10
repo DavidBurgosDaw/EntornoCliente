@@ -6,32 +6,47 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>DOM</title>
         <link rel="stylesheet" href="main.css">
-<style>
-.claseParrafo {color:red;}
-</style>
-<script>
-function crearClase(){
-document.getElementById('parrafo').setAttribute('class','claseParrafo');
-}
-function borrarClase(){
-document.getElementById('parrafo').removeAttribute('class');
-}
+        <style>
+            /* Estilo CSS para la clase "claseParrafo" */
+            .claseParrafo {
+                color: red;
+            }
+        </style>
+        <script>
+            // Función para añadir la clase "claseParrafo" al párrafo con id "parrafo"
+            function crearClase() {
+                // Obtiene el elemento con id 'parrafo' y le asigna la clase 'claseParrafo'
+                document.getElementById('parrafo').setAttribute('class', 'claseParrafo');
+            }
 
-function leerClase(){
-if(document.getElementById('parrafo').hasAttribute('class')){
-	alert(document.getElementById('parrafo').getAttribute('class'));
-	}
-else{
-	alert('No tiene clase');
-	}
-}			
-</script>
-</head>
-<body>
-<p id='parrafo'>El estilo de este párrafo está controlado por los botones</p>	
-<button type='button' onclick='crearClase();'>Crear clase</button>
-<button type='button' onclick='leerClase();'>Leer clase</button>
-<button type='button' onclick='borrarClase();'>Borrar clase</button>
+            // Función para borrar la clase asignada al párrafo con id "parrafo"
+            function borrarClase() {
+                // Elimina el atributo 'class' del elemento con id 'parrafo'
+                document.getElementById('parrafo').removeAttribute('class');
+            }
 
-</body>
+            // Función para leer y mostrar la clase del párrafo con id "parrafo"
+            function leerClase() {
+                // Verifica si el párrafo tiene un atributo 'class'
+                if (document.getElementById('parrafo').hasAttribute('class')) {
+                    // Si tiene clase, muestra el nombre de la clase en un alert
+                    alert(document.getElementById('parrafo').getAttribute('class'));
+                } else {
+                    // Si no tiene clase, muestra un mensaje indicando que no tiene clase
+                    alert('No tiene clase');
+                }
+            }
+        </script>
+    </head>
+    
+    <body>
+        <!-- Párrafo con id 'parrafo' cuyo estilo puede ser manipulado por los botones -->
+        <p id="parrafo">El estilo de este párrafo está controlado por los botones</p>
+        
+        <!-- Botones que ejecutan las funciones JavaScript -->
+        <button type="button" onclick="crearClase();">Crear clase</button>
+        <button type="button" onclick="leerClase();">Leer clase</button>
+        <button type="button" onclick="borrarClase();">Borrar clase</button>
+
+    </body>
 </html>

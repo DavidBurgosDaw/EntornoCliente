@@ -5,83 +5,43 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>DOM</title>
-        
-        <style type="text/css">
-            body {
-                font-family: "Trebuchet MS", Helvetica, sans-serif;
-            }
-            div {
-                width: 600px;
-                margin-right: auto;
-                margin-left: auto;
-                padding: 20px;
-            }
-        </style>
-        
-        <script type="text/javascript">
-            let cont = 0;
-            let lista = [];
+		<link rel="stylesheet" href="main.css">
+<script>
+  function alta() {
+    let div = document.getElementById("div1");
+    let usuario = document.getElementById("idusu").value
 
-            // Cargar las imágenes en el array al cargar la página
-            function cargar() {
-                lista = Array.from(document.getElementsByTagName("img"));
-                console.log(lista); // Asegúrate de que las imágenes estén en el array
-            }
+    //Valido que no este vacio
+    if (!usuario.trim()) {
+        alert("Por favor, ingresa un usuario válido"); 
+        return;
+    }
 
-            // Función para ir atrás (aún no implementada)
-            function atras() {
-                // Aquí podrías agregar la lógica para retroceder
-            }
+    //Creo el elemento
+    let nuevo = document.createElement("p"); 
+    nuevo.textContent = usuario;
 
-            // Función para avanzar a la siguiente imagen
-            function adelante() {
-                if (cont >= lista.length) {
-                    alert("No hay más Pokémon posteriores");
-                    return;
-                } else {
-                    // Mostrar la imagen actual en el contenedor
-                    let fotoElement = document.getElementById("foto");
+    //Inserto los nuevos antes del primer hijo
+    div.insertBefore(nuevo, div.firstChild);
 
-                    // Si no existe la imagen, creamos una dentro de #foto
-                    if (!fotoElement.querySelector('img')) {
-                        fotoElement.innerHTML = '<img id="foto" height="300" width="300">';
-                    }
-
-                    // Actualizar el src de la imagen
-                    fotoElement.querySelector('img').src = lista[cont].src;
-
-                    // Quitar el borde del Pokémon anterior si existe
-                    if (cont > 0) {
-                        lista[cont - 1].style.border = "none";
-                    }
-
-                    // Aplicar un borde al Pokémon actual
-                    lista[cont].style.border = "2px solid black";
-
-                    // Incrementar el contador para la siguiente imagen
-                    cont++;
-                }
-            }
-        </script>
-    </head>
-
-    <body onload="cargar()">
-        <div id="miniaturas">
-            <img src='pokemon/Bulbasaur.png' height="60" width="60">
-            <img src='pokemon/Ivysaur.png' height="60" width="60"> 
-            <img src='pokemon/Venusaur.png' height="60" width="60">
-            <img src='pokemon/Charmander.png' height="60" width="60"> 
-            <img src='pokemon/Charmeleon.png' height="60" width="60"> 
-            <img src='pokemon/Charizard.png' height="60" width="60">
-            <img src='pokemon/Squirtle.png' height="60" width="60"> 
-            <img src='pokemon/Wartortle.png' height="60" width="60"> 
-            <img src='pokemon/Blastoise.png' height="60" width="60">
-            <br><br>
-
-            <input type="button" value="atras" onclick="atras()">
-            <input type="button" value="adelante" onclick="adelante()">
-        </div>
-
-        <div id="foto"></div>
-    </body>
+    //Borro el ultimo hijo
+    if (div.childElementCount > 7) {
+    div.removeChild(div.lastChild);
+    }
+}
+</script>
+</head>
+<body>
+<h3>ÚNETE A NOSOTROS</h3>
+DATE DE ALTA Y JUEGA CON NOSOTROS<br><br>
+USUARIO&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="text" name="usu1" id="idusu" size=20><br><br>
+<input type="button" value="ALTA" onclick="alta()">
+<br><br>
+<div>
+<fieldset>
+  ULTIMOS USUARIOS QUE SE HAN UNIDO A NOSOTROS
+  <div id="div1"></div>
+</fieldset>
+</div>  
+</body>
 </html>
