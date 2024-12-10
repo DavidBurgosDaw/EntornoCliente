@@ -6,39 +6,78 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>DOM</title>
         
-<style type="text/css">
-	body{
-		font-family:"Trebuchet MS", Helvetica, sans-serif;
-	}
-	div{
-		width:600px;
-		margin-right:auto;
-		margin-left:auto;
-		padding:20px;
-		}
-</style>
-<script type="text/javascript">
+        <style type="text/css">
+            body {
+                font-family: "Trebuchet MS", Helvetica, sans-serif;
+            }
+            div {
+                width: 600px;
+                margin-right: auto;
+                margin-left: auto;
+                padding: 20px;
+            }
+        </style>
+        
+        <script type="text/javascript">
+            let cont = 0;
+            let lista = [];
 
-</script>
-</head>
-<body onload="cargar()">
-<div id="miniaturas">
-<img src='pokemon/Bulbasaur.png' height="60" width="60">
-<img src='pokemon/Ivysaur.png' height="60" width="60"> 
-<img src='pokemon/Venusaur.png' height="60" width="60">
-<img src='pokemon/Charmander.png' height="60" width="60"> 
-<img src='pokemon/Charmeleon.png' height="60" width="60"> 
-<img src='pokemon/Charizard.png' height="60" width="60">
-<img src='pokemon/Squirtle.png' height="60" width="60"> 
-<img src='pokemon/Wartortle.png' height="60" width="60"> 
-<img src='pokemon/Blastoise.png' height="60" width="60">
-<br><br>
+            function cargar() {
+                lista = Array.from(document.getElementsByTagName("img"));
+                console.log(lista); 
+            }
 
- 
+            function atras() {
+				if(cont == 0){
+					alert("No hay imagenes anteriores")
+					return;
+				} else {
+					document.getElementById("foto").innerHTML = '<img id="imagen" height="300" width="300">';
+					document.getElementById("imagen").src = lista[cont-1].src;
+					if (cont < lista.length){
+						lista[cont].style.border = "none";
+					}
+					lista[cont-1].style.border = "2px solid black";
+					cont--;
 
-<input type="button" value="atras" onclick="atras()">
-<input type="button" value="adelante" onclick="adelante()">
-</div>
-<div id="foto"></div>
-</body>
+				}
+			}
+
+            // Función para avanzar a la siguiente imagen
+            function adelante() {
+                if (cont >= lista.length) {
+                    alert("No hay más Pokémon posteriores");
+                    return;
+                } else {
+					document.getElementById("foto").innerHTML = '<img id="imagen" height="300" width="300">';
+					document.getElementById("imagen").src = lista[cont].src;
+                    if (cont > 0) {
+                        lista[cont - 1].style.border = "none";
+                    }
+                    lista[cont].style.border = "2px solid black";
+                    cont++;
+                }
+            }
+        </script>
+    </head>
+
+    <body onload="cargar()">
+        <div id="miniaturas">
+            <img src='pokemon/Bulbasaur.png' height="60" width="60">
+            <img src='pokemon/Ivysaur.png' height="60" width="60"> 
+            <img src='pokemon/Venusaur.png' height="60" width="60">
+            <img src='pokemon/Charmander.png' height="60" width="60"> 
+            <img src='pokemon/Charmeleon.png' height="60" width="60"> 
+            <img src='pokemon/Charizard.png' height="60" width="60">
+            <img src='pokemon/Squirtle.png' height="60" width="60"> 
+            <img src='pokemon/Wartortle.png' height="60" width="60"> 
+            <img src='pokemon/Blastoise.png' height="60" width="60">
+            <br><br>
+
+            <input type="button" value="atras" onclick="atras()">
+            <input type="button" value="adelante" onclick="adelante()">
+        </div>
+
+        <div id="foto"></div>
+    </body>
 </html>
