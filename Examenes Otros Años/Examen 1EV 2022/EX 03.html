@@ -103,6 +103,40 @@
 	
 
 	}
+
+	function mostrarDisponibilidad(){
+	//Recojo la fecha
+	let fecha = document.getElementById("fecha").value;
+
+	//La valido
+  	regFecha = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(2024|2025)$/
+	if (!regFecha.test(fecha)){
+		alert("Fecha no valida")
+		return;
+	}
+	
+
+	//Calculo los dias entre las 2 fechas
+	let partesFecha = fecha.split("/");
+	let fechaEnt = new Date(partesFecha[2],partesFecha[1]-1,partesFecha[0]); //Creo la fecha que me han pasado
+	console.log(fechaEnt);
+	let fechaHoy = new Date(); //Creo la fecha de hoy
+	console.log(fechaHoy);
+	let dias = Math.trunc(((fechaEnt.getTime() - fechaHoy.getTime() )/(1000*60*60*24))); //Calculo los dias que faltan y lo trunco para que salga sin decimales
+	
+	fechaLimite = new Date(fechaHoy) //Creo fecha limite
+	fechaLimite.setDate(fechaHoy.getDate() + 20) //Actualizo la fecha limite a hoy + 20 dias
+	console.log("Fecha Limite"+fechaLimite)
+	console.log("Fecha Hoy "+ fechaHoy)
+
+	//Si la fecha esta comprendida entre hoy y un plazo de 20 dias muestro mensaje sino mando error
+	if (fechaEnt < fechaLimite && fechaEnt > fechaHoy){
+		alert("Le esperamos dentro de" + dias + " días")
+	} else {
+		alert("ERROR");
+	}
+}
+
  </script>
  <body>
  <form name="form">
@@ -151,7 +185,7 @@ Seleccionar día
 DESCUENTOS Y PRECIOS
 </div>
 <br> Elija un día para visitarnos (dd/mm/aaaa) <input id="fecha" type="text" size=10>
-<input type="button" value="Mostrar Disponibilidad" > 
+<input type="button" value="Mostrar Disponibilidad" onclick="mostrarDisponibilidad()" > 
  <div>
 </div>
 </form> 
