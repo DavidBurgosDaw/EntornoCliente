@@ -26,6 +26,10 @@
                 lista = Array.from(document.getElementsByTagName("img"));
                 console.log(lista); 
                 lista[0].style.border = "2px solid black";
+                document.getElementById("foto").innerHTML = '<img id="imagen" height="300" width="300">';
+                document.getElementById("imagen").src = lista[cont].src;
+
+
             }
 
             function atras() {
@@ -49,7 +53,6 @@
                     alert("No hay más Pokémon posteriores");
                     return;
                 } else {
-					document.getElementById("foto").innerHTML = '<img id="imagen" height="300" width="300">';
 					document.getElementById("imagen").src = lista[cont].src;
                     if (cont > 0) {
                         lista[cont - 1].style.border = "none";
