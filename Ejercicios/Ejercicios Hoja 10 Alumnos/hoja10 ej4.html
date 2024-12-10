@@ -25,6 +25,7 @@
             function cargar() {
                 lista = Array.from(document.getElementsByTagName("img"));
                 console.log(lista); 
+                lista[0].style.border = "2px solid black";
             }
 
             function atras() {
@@ -43,7 +44,6 @@
 				}
 			}
 
-            // Función para avanzar a la siguiente imagen
             function adelante() {
                 if (cont >= lista.length) {
                     alert("No hay más Pokémon posteriores");
