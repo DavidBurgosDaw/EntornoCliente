@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Enlazamos a un archivo CSS externo (styletabla.css) para estilizar la tabla -->
+  <link rel="stylesheet" type="text/css" href="styletabla.css">
+  
+  <script type="text/javascript">
+    // Esta función se ejecuta cuando la página se carga
+    function cargar() {
+      const fil = 6; // Definimos el número de filas en la matriz (6 filas)
+      const col = 5; // Definimos el número de columnas en la matriz (5 columnas)
+      
+      // Creamos una matriz bidimensional de 6x5
+      const tabla = new Array(fil); // Creamos el array principal que tendrá 6 elementos (filas)
+      for (let i = 0; i < fil; i++) {
+        tabla[i] = new Array(col); // Cada fila será un array con 5 elementos (columnas)
+      }
+      
+      let n = 1; // Inicializamos una variable para rellenar la matriz con números secuenciales
+      // Rellenamos la matriz con números del 1 al 30
+      for (let i = 0; i < fil; i++) {
+        for (let j = 0; j < col; j++) {
+          tabla[i][j] = n; // Asignamos el número actual en la posición [i][j] de la matriz
+          n++; // Incrementamos n para el siguiente número
+        }
+      }
+
+      // Creamos un elemento de tipo "table" para contener nuestra tabla HTML
+      let table = document.createElement('table');
+      
+      // Recorremos la matriz para construir las filas y las celdas
+      for (let i = 0; i < fil; i++) {
+        let tr = document.createElement('tr'); // Creamos una nueva fila para cada iteración
+        for (let j = 0; j < col; j++) {
+          let td = document.createElement('td'); // Creamos una celda para cada elemento en la matriz
+          td.innerHTML = tabla[i][j]; // Asignamos el valor de la matriz a la celda
+          tr.appendChild(td); // Añadimos la celda a la fila
+        }
+        table.appendChild(tr); // Añadimos la fila a la tabla
+      }
+
+      // Finalmente, insertamos la tabla generada en el div con id="div1"
+      document.getElementById("div1").appendChild(table);
+    }
+  </script>
+</head>
+<body onload="cargar()"> <!-- Ejecuta la función "cargar()" cuando la página se carga -->
+  
+  <div>PROBANDO ARRAYS BIDIMENSIONALES</div> <!-- Título para mostrar en la página -->
+  
+  <!-- El div donde se insertará la tabla generada -->
+  <div id="div1"></div>
+  
+</body>
+</html>

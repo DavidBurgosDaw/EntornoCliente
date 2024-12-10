@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Enlazamos a una hoja de estilo externa (styletabla.css) -->
+  <link rel="stylesheet" type="text/css" href="styletabla.css">
+  
+  <script type="text/javascript">
+    // Esta función se ejecuta cuando la página se carga
+    function cargar() {
+      const fil = 6; // Definimos el número de filas en la matriz (6 filas)
+      const col = 4; // Definimos el número de columnas en la matriz (4 columnas)
+      
+      // Creamos una matriz bidimensional de 6x4
+      const tabla = new Array(fil);
+      for (let i = 0; i < fil; i++) {
+        tabla[i] = new Array(col); // Cada fila será un array con 4 elementos
+      }
+      
+      let n = 1; // Empezamos a contar desde 1
+      // Rellenamos la matriz con números secuenciales
+      for (let i = 0; i < fil; i++) {
+        for (let j = 0; j < col; j++) {
+          tabla[i][j] = n; // Asignamos el valor de n en la posición [i][j]
+          n++; // Incrementamos n para el siguiente número
+        }
+      }
+
+      // Inicializamos el código HTML para crear la tabla
+      let codigo = '<table border="1">'; // Inicia la tabla con borde
+      for (let i = 0; i < fil; i++) {
+        codigo += '<tr>'; // Inicia una nueva fila
+        for (let j = 0; j < col; j++) {
+          // Añade una celda para cada elemento de la matriz
+          codigo += '<td>' + tabla[i][j] + '</td>';
+        }
+        codigo += '</tr>'; // Cierra la fila
+      }
+      codigo += '</table>'; // Cierra la tabla
+
+      // Insertamos el código generado en el div con id="div1"
+      document.getElementById("div1").innerHTML = codigo;
+    }
+  </script>
+</head>
+<body onload="cargar()"> <!-- Ejecuta la función "cargar()" cuando se carga la página -->
+  
+  <div>PROBANDO ARRAYS BIDIMENSIONALES</div>
+  
+  <!-- El div donde se insertará la tabla generada -->
+  <div id="div1"></div>
+  
+</body>
+</html>

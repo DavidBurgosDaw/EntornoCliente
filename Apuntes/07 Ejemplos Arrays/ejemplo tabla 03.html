@@ -1,0 +1,70 @@
+<html>
+<head>
+  <!-- Enlace a un archivo de estilo externo (styletabla.css) para personalizar la tabla -->
+  <link rel="stylesheet" type="text/css" href="styletabla.css">  
+
+  <script type="text/javascript">
+    // Función que se ejecuta al cargar la página
+    function cargar(){
+      const fil = 6; // Número de filas
+      const col = 5; // Número de columnas
+      
+      // Creamos una matriz bidimensional de 6x5 (6 filas, 5 columnas)
+      const tabla = new Array(fil);
+      for (let i = 0; i < fil; i++) {
+        tabla[i] = new Array(col); // Cada fila es un array con 5 columnas
+      }
+
+      let n = 1; // Iniciamos la variable para rellenar la matriz con números
+      // Rellenamos la matriz con números secuenciales
+      for (let i = 0; i < fil; i++) {
+        for (let j = 0; j < col; j++) {  // Corregido: ahora 'j' está declarada
+          tabla[i][j] = n; // Asignamos el valor a la celda [i][j]
+          n++; // Incrementamos el número para la siguiente celda
+        }
+      }
+
+      // Creamos una tabla HTML con los valores de la matriz
+      let codigo = '<table border=1>';
+      // Recorremos la matriz para crear filas y celdas en HTML
+      for (let i = 0; i < fil; i++) {
+        codigo += '<tr>'; // Inicia una nueva fila
+        for (let j = 0; j < col; j++) {
+          // Para cada celda, creamos una etiqueta <td> con el número y un evento onclick
+          codigo += `<td onclick="sel(this)">${tabla[i][j]}</td>`;
+        }
+        codigo += '</tr>'; // Cierra la fila
+      }
+      codigo += '</table>'; // Cierra la tabla
+
+      // Insertamos la tabla generada en el div con id="div1"
+      document.getElementById("div1").innerHTML = codigo;
+    }
+
+    // Función para mostrar un alerta con el número de la celda seleccionada
+    function sel(e){
+      alert(Number(e.innerHTML)); // Muestra el valor de la celda clickeada
+    }
+
+    // Función para añadir color de fondo a las celdas cuando el ratón pasa sobre ellas
+    function añadirColor(){
+      let td = document.getElementsByTagName("td"); // Obtenemos todas las celdas de la tabla
+      for (let i = 0; i < td.length; i++) {
+        td[i].addEventListener("mouseover", function(){ this.style.backgroundColor = "blue"; }); // Cambia el color a azul cuando el ratón pasa sobre la celda
+        td[i].addEventListener("mouseout", function(){ this.style.backgroundColor = "white"; }); // Restaura el color cuando el ratón sale de la celda
+      }
+    }
+  </script>
+</head>
+<body onload="cargar()"> <!-- Ejecuta la función cargar() cuando se carga la página -->
+  <div>
+    PROBANDO ARRAYS BIDIMENSIONALES <!-- Título de la página -->
+  </div>
+
+  <!-- Div donde se insertará la tabla generada -->
+  <div id="div1"></div>
+
+  <!-- Botón para activar la función añadirColor() que aplica efectos de color en las celdas -->
+  <input type="button" onclick="añadirColor()" value="Añadir Color">
+</body>
+</html>
