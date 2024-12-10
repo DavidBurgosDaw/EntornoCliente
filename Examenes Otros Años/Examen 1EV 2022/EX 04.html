@@ -27,13 +27,11 @@ function comprobar(){
 
 	//1. Empiezo y termino por letra mayúscula y lo demás son números o espacios
 	campo1 = document.getElementById("c1")
-	reg1 = /^[A-Z][\d ]*[A-Z]$/
+	reg1 = /^[A-Z][\d\s]*[A-Z]$/
 	if (!reg1.test(campo1.value)){
-		alert("CAMPO 1 ERRONEO");
 		campo1.style.backgroundColor = "orange";
 
 	} else {
-		alert("CAMPO 1 CORRECTO");
 		campo1.style.backgroundColor = "#6CB4EE";
 
 	}
@@ -42,10 +40,8 @@ function comprobar(){
 	campo2 = document.getElementById("c2")
 	reg2 = /^\d{3}-\d{3}-\d{3}$/
 	if (!reg2.test(campo2.value)){
-		alert("CAMPO 2 ERRONEO");
 		campo2.style.backgroundColor = "orange";
 	} else {
-		alert("CAMPO 2 CORRECTO");
 		campo2.style.backgroundColor = "#6CB4EE";
 
 	}
@@ -54,10 +50,8 @@ function comprobar(){
 	campo3 = document.getElementById("c3")
 	reg3 = /^\d*0$/
 	if (!reg3.test(campo3.value)){
-		alert("CAMPO 3 ERRONEO");
 		campo3.style.backgroundColor = "orange";
 	} else {
-		alert("CAMPO 3 CORRECTO");
 		campo3.style.backgroundColor = "#6CB4EE";
 	}
 
@@ -65,10 +59,8 @@ function comprobar(){
 	campo4 = document.getElementById("c4")
 	reg4 = /^[A-Za-z\d]{6,10}$/; 
 	if (!reg4.test(campo4.value)){
-		alert("CAMPO 4 ERRONEO");
 		campo4.style.backgroundColor = "orange";
 	} else {
-		alert("CAMPO 4 CORRECTO");
 		campo4.style.backgroundColor = "#6CB4EE";
 	}
 

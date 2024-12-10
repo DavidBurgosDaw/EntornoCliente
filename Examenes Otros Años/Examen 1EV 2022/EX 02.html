@@ -1,51 +1,89 @@
+<!DOCTYPE html>
 <html>
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href='http://fonts.googleapis.com/css?family=Kite+One|Cherry+Swash' rel='stylesheet' type='text/css'>
-		<style type='text/css'>
-		
-		body{
-			font-family: 'Kite One', sans-serif;
-		}
-		
-		#div1 {
-			width:250px;
-			margin:auto;
-		}
-		
-		h1{
-			text-align:center;
-			font-size:20pt;
-		}
-		
-		table{
-			background-color: #EFF2FB;
-			text-align:center;
-			width:250px;
-			border: 1px solid #D0A9F5;
-			font-family: 'Cherry Swash', cursive;
-		}
-		
-		.festivo{
-			background-color: #D0A9F5;
-		}
-		
-		td{
-			border: 1px solid #D0A9F5;
-		}
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link
+      href="http://fonts.googleapis.com/css?family=Kite+One|Cherry+Swash"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style type="text/css">
+      body {
+        font-family: "Kite One", sans-serif;
+      }
 
-		</style>
+      #div1 {
+        width: 250px;
+        margin: auto;
+      }
 
+      h1 {
+        text-align: center;
+        font-size: 20pt;
+      }
 
-<script type="text/javascript">
-function cargar(){
-}
-</script>
-</head>
-<body onload="cargar()">
-<h3></h3>
-<br>
-<div id="div1">
-</div>
-</body>
+      table {
+        background-color: #eff2fb;
+        text-align: center;
+        width: 250px;
+        border: 1px solid #d0a9f5;
+        font-family: "Cherry Swash", cursive;
+      }
+
+      .festivo {
+        background-color: #d0a9f5;
+      }
+
+      td {
+        border: 1px solid #d0a9f5;
+      }
+    </style>
+
+    <script type="text/javascript">
+      function cargar() {
+        const year =
+          prompt("Introduce el año (por defecto 2022):", "2022") || "2022";
+        generarCalendario(parseInt(year));
+      }
+
+      function generarCalendario(year) {
+        const div = document.getElementById("div1");
+        const diasFestivos = [6, 8, 25];
+        const diasSemana = ["L", "M", "X", "J", "V", "S", "D"];
+        const fechaInicio = new Date(year, 11, 1); // Diciembre
+        const diasEnDiciembre = 31;
+        let diaSemana = fechaInicio.getDay(); // 0: Domingo, 1: Lunes, ...
+        diaSemana = diaSemana === 0 ? 7 : diaSemana; // Ajustar domingo como día 7
+
+        // Crear la tabla
+        let tabla = `<table><tr><th colspan="7">CALENDARIO DICIEMBRE ${year}</th></tr><tr>`;
+        diasSemana.forEach((dia) => (tabla += `<th>${dia}</th>`));
+        tabla += "</tr><tr>";
+
+        // Insertar espacios en blanco antes del primer día del mes
+        for (let i = 1; i < diaSemana; i++) {
+          tabla += "<td></td>";
+        }
+
+        // Insertar días del mes
+        for (let dia = 1; dia <= diasEnDiciembre; dia++) {
+          const clase =
+            diasFestivos.includes(dia) || diaSemana % 7 === 0 ? "festivo" : "";
+          tabla += `<td class="${clase}">${dia}</td>`;
+          if (diaSemana % 7 === 0 && dia < diasEnDiciembre) {
+            tabla += "</tr><tr>"; // Nueva fila
+          }
+          diaSemana++;
+        }
+
+        tabla += "</tr></table>";
+        div.innerHTML = tabla;
+      }
+    </script>
+  </head>
+  <body onload="cargar()">
+    <h3 style="text-align: center;"">Calendario de Diciembre</h3>
+    <br />
+    <div id="div1"></div>
+  </body>
 </html>
