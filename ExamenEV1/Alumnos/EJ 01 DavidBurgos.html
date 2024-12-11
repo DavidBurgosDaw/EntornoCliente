@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+		<style type='text/css'>
+		
+		body{
+			font-family: 'Garamond', sans-serif;
+			font-size:18px;
+		}
+		
+		#div1 {
+			width:250px;
+			margin:auto;
+		}
+		
+		h1{
+			text-align:center;
+			font-size:20pt;
+		}
+		
+		table{
+			background-color: #F3E0B6;
+			text-align:center;
+			width:250px;
+			border: 1px solid #83682B;
+			
+		}
+			
+		td{
+			border: 1px solid #83682B;
+		}
+		.producto {
+		background-color:#F8B00D
+	    }
+		</style>
+<script type="text/javascript">
+function generarTabla() {
+		let num = parseInt(prompt("¿Cuántas salas de cine vamos a trabajar? (Ingrese un número)", "3"));
+
+		while (isNaN(num) && num < 3 && num > 9){
+			num = parseInt(prompt("¿Cuántas salas de cine vamos a trabajar? (Ingrese un número)", "3"));
+		}
+
+     
+		//Crear tabla
+		const tabla = new Array(num);
+        for (let i = 0; i < num; i++) tabla[i] = new Array(num);
+
+
+        for (let i = 0; i < num; i++)
+          for (let j = 0; j < num; j++) {
+            tabla[i][j] = Math.floor(Math.random() * 5) + 1;
+          }
+		  console.log(tabla)
+
+		  //Mostrar
+
+		  let table = document.createElement("table");
+		  for (let i = 0; i < num; i++) {
+          let tr = document.createElement("tr");
+
+          producto = 0;
+		  res = 0
+		  let valor = 0;
+          for (let j = 0; j < num; j++) {
+            let td = document.createElement("td");
+            td.innerHTML = tabla[i][j];
+            tr.appendChild(td);
+			console.log("J = " + j);
+			contenido = tabla[i][j];
+			console.log("contenido " + contenido);
+			if (valor == 0){
+				valor = tabla[(i)][(j+1)];
+			}
+			console.log("valor " + valor)
+			if (!isNaN(valor) || !undefined){
+				res = contenido * valor;
+				valor = tabla[i][j+1];
+			}
+			
+			console.log(res)
+            producto = res || 0;
+			}
+			console.log(producto)
+
+          let totalTd = document.createElement("td");
+		  totalTd.setAttribute("class","producto")
+          totalTd.innerHTML = producto;
+          tr.appendChild(totalTd);
+
+          table.appendChild(tr);
+        }
+		console.log(table)
+
+
+        document.getElementById("div1").appendChild(table);
+      }
+		
+    
+
+</script>
+</head>
+<body onload="generarTabla()">
+<h2>
+1ª Evaluación
+<h3>
+EJERCICIO 1
+<div id="div1">
+</div>
+</body>
+</html>

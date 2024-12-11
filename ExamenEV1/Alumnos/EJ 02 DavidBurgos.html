@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EXAMEN EJERCICIO 2</title>
+        <link rel="stylesheet" href="main.css">
+    
+    
+    <style>
+        span {
+            display:none;
+        }
+        
+        #precio {color: #222;
+                font-weight: 600;
+                line-height: 1.3;
+                }
+        
+    </style>
+<script>
+let contActividades = 0;
+let precio = 0;
+let precioCole = 0;
+let precioFamN = 0;
+let descuento = 0;
+   
+
+function añadir(){
+    let info = document.getElementById("info");
+    let sel = document.getElementById("sel")
+    selec = sel.options[sel.selectedIndex].text
+
+    p = document.getElementsByTagName("p")
+
+    for(let i = 0; i < p.length; i++){
+    if (p[i].innerHTML == selec){
+        alert("La actividad ya esta añadida"+ selec )
+        return;
+    }
+}
+    precio+= parseInt(sel.value); //Voy sumando el precio de las actividades
+    nuevo=document.createElement("p");
+    nuevo.setAttribute("onclick","borrar(this)")
+    nuevo.innerHTML = selec;
+    info.append(nuevo);
+    contActividades+=1;
+}
+
+function borrar(e){
+    info.removeChild(e);
+    contActividades-=1;
+}
+
+
+   
+    
+function validar(){
+    //Inicializo los costes
+    descuento = 0;
+    precioCole = 0;
+    precioFamN = 0;
+
+
+    //Valido nombre
+    let nombre = document.getElementById("nom");
+    if (nombre.value.trim().length == 0){
+	alert ("Campo nombre vacio es obligatorio");
+	campo.focus();
+	return;
+    }
+
+    //Saco FEcha
+    let fecNac = document.getElementById("fnac").value;
+
+    if (fecNac.length == 0){
+        alert("El campo fecha nacimiento es obligatorio")
+        document.getElementById("fnac").focus();
+        return;
+    }
+
+    fecNac = fecNac.split("-");
+    let fechaNac = new Date(fecNac[0],fecNac[2]-1,fecNac[1]);
+
+    //Calculo edad
+    let sistema = new Date();
+    let fechaDia = new Date(sistema.getFullYear(),sistema.getMonth(),31)
+    console.log(fechaDia)
+
+        edad=fechaDia.getFullYear()-fechaNac.getFullYear();
+    if (fechaDia.getMonth() < fechaNac.getMonth())
+        edad--;
+    else
+        if (fechaDia.getMonth() == fechaNac.getMonth())
+            if (fechaDia.getDate() < fechaNac.getDate())
+                edad--;
+    
+    if (edad < 6 || edad > 25){
+        //Pone el error en la cajita
+        document.getElementById("edad").value = "ERROR";
+        document.getElementById("fnac").focus();
+        return;
+    } else {
+        document.getElementById("edad").value = edad;
+    }
+
+
+    //DNI
+    dni1 = document.getElementById("dni1");
+    dni2 = document.getElementById("dni2");
+    if (edad > 12 && dni1.value.length == 0){
+        alert("Eres mayor de 12 tienes que tener dni");
+        dni1.focus();
+        return;
+    }
+
+    if (edad < 18 && dni2.value.length == 0) {
+        alert("El chaval es menor, dni tutor obligatorio");
+        dni2.focus();
+        return;
+    }
+
+    //Valido DNI's
+    regDni = /^\d{8}[A-Z]$/;
+    regNie = /^(X|Z)\d{7}[A-Z]$/;
+    if (dni1.value.length != 0){
+        if (!regDni.test(dni1.value) && !regNie.test(dni1.value)){
+            alert("Primer Documento invalido")
+            dni1.focus()
+            return;
+        }
+    }
+
+    if (dni2.value.length != 0){
+        if (!regDni.test(dni2.value) && !regNie.test(dni2.value)){
+            alert("Segundo Documento invalido")
+            dni2.focus()
+            return;
+        }
+    }
+
+    //Valido Telefono
+    regTelf = /^[67]\d{2}\s\d{2}\s\d{2}\s\d{2}$/
+    telf = document.getElementById("telefono");
+
+    if (telf.value.length == 0){
+        alert("El numero de telefono es obligatorio");
+        telf.focus();
+        return;
+    }
+
+    if(!regTelf.test(telf.value)){
+        alert("Telefono no valido");
+        telf.focus();
+        return;
+    }
+
+    //RadioButtons
+    cole = document.getElementsByName("radiob");
+    esCole = false;
+
+    for (i=0;i<cole.length;i++)
+	if (cole[i].checked){
+        if (cole[i].value == "1")
+        esCole = true;
+		break;	
+		}
+    if (i==cole.length){
+        alert("No ha seleccionado si eres del cole o no, debes hacerlo");
+        return;
+    }
+
+    //Ahora valido codigo alumno
+    if (esCole){
+        regCod = /^\$([A-Z]{2,3}\d{1})*\$$/
+        cod = document.getElementById("cod");
+        if (!regCod.test(cod.value)){
+            alert("Codigo de alumno invalido")
+            cod.focus()
+            return;
+        }
+    }
+
+    //Compruebo que haya alguna actividad
+    if (contActividades==0){
+        alert("Error, no hay actividades añadidas");
+        return;
+    }
+
+    //Miro si es familia numerosa y del colegio
+    familiaNumerosa = document.getElementById("familiaNumerosa").checked;
+    if (esCole){
+        descuento+=50;
+    }
+
+    if (familiaNumerosa){
+        descuento+=20;
+    }
+
+    //Calculo precio descuento y añado un parrafo con los precios
+    let p = document.createElement("p");
+    if (descuento == 70){
+        precioCole = precio - ((precio*50)/100);
+        precioFamN = precioCole - ((precioCole*20)/100);
+        p.innerHTML = "Total: "  + precio + "€ <br>Por ser del cole: " + precioCole +"€ <br>Por ser familia numerosa 20%: " + precioFamN + "€"; 
+    } else{
+        precioFamN = precio - ((precio*descuento)/100);
+        p.innerHTML = "Total: "  + precio + "€ <br>Por ser familia numerosa -20%: " + precioFamN + "€"; 
+    }
+    info.append(p);
+    console.log("Precio FamN " + precioFamN);
+    console.log("Precio Cole " + precioCole);
+
+    //Deshabilito botones
+    boton1 = document.getElementById("b1");
+    boton2 = document.getElementById("b2");
+
+    boton1.removeAttribute("onclick");
+    boton2.removeAttribute("onclick");
+
+}
+    </script>
+    </head>
+    <body>
+        <h1>CLUB JUVENIL PLAZA</h1>
+        <img src="SALESIANAS.jpg" width="30%" height="30%">
+        <h2>Formulario de inscripción para Actividades Extraescolares</h2>
+        
+        Nombre y Apellidos <input type="text" id="nom" size="20"> <br><br>
+                
+        Fecha Nacimiento   <input type="text" id="fnac" size="8" placeholder="aaaa-dd-mm">
+
+		Edad al finalizar el año 	<input type="text"   id="edad" size="2"readonly><br> <br>
+        
+        DNI   <input type="text" id="dni1" size="10"> DNI Tutor  <input type="text" id="dni2" size="10">
+		        Teléfono <input type="text" id="telefono" size="8" placeholder="999 99 99 99"  > 
+		<br><br>
+        <div>
+		<input id="familiaNumerosa" type="checkbox"> Familia numerosa <br>
+		<input name="radiob" type="radio" value="0"> NO Soy alumno del cole
+		<input name="radiob" type="radio" value="1"> Soy alumno del cole con
+		código  <input type="text" id="cod"> <br><br>
+		Seleccione una de las actividades:
+		<select id="sel">
+                <option value="20">Yoga 20€</option>
+                <option value="30">Teatro 30€</option>
+                <option value="20">Futbol 20€</option>
+                <option value="20">Baloncesto 20€</option>
+                <option value="10">Ajedrez 10€</option>
+                <option value="25">Pintura 25€</option>
+        </select>
+		<input type="button" id="b1" value="Añadir Actividad" onclick="añadir()"> 
+		<input type="button" id="b2" value="CALCULAR PRECIO" onclick="validar()"> <br>
+		<hr>
+	   <div id="info"></div>
+
+
+     </body>
+</html>
