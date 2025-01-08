@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+ <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CAMBIAR TEXTO</title>
+        <link rel="stylesheet" href="main.css">
+    
+ 
+ <script>
+
+       function editText(e){
+
+              let texto = document.getElementById("texto");
+
+              switch (e.id){
+                     case "tamanyo":
+                            texto.style.fontSize = parseInt(e.value) + "px";
+                            break;
+                     case "tipo":
+                            texto.style.fontFamily = e.value;
+                            break;
+                     case "color":
+                            texto.style.color = e.value;
+                            break;
+                     case "negrita":
+                            if(e.checked){
+                            texto.style.fontWeight = "bold";
+                            } else {
+                            texto.style.fontWeight = "normal";
+                            }
+                            break;
+                     case "cursiva":
+                            if(e.checked){
+                                   texto.style.fontStyle = "italic";
+                            } else {
+                                   texto.style.fontStyle = "normal";
+                            }
+                            break;
+                     case "subrayado":
+                            if(e.checked){
+                                   texto.style.textDecoration = "underline"
+                            } else {
+                                   texto.style.textDecoration = "none"
+                            }
+                            break;
+                     
+              }
+
+              //Meto un if ya que el 'a' no tiene id sino nombre
+              if(e.name == 'a'){
+                     texto.style.textAlign = e.value;
+              }
+
+       
+       }
+
+ </script>
+
+</head>
+<body>
+<div id="controles">Tamaño del texto
+<select id="tamanyo" onchange="editText(this)">
+<option value="8">8</option>
+<option value="10">10</option>
+<option value="12">12</option>
+<option value="14">14</option>
+<option value="16">16</option>
+<option value="20">20</option>
+</select> 
+
+Tipo de texto
+<select id="tipo" onchange="editText(this)">
+<option value="arial">arial</option>
+<option value="verdana">verdana</option>
+<option value="geneva">geneva</option>
+<option value="georgia">georgia</option>
+</select>
+
+Color del texto 
+<select id="color" onchange="editText(this)">
+<option value="#000000">negro</option>
+<option value="#CCCCCC">gris</option>
+<option value="#6699FF">azul</option>
+</select>
+</div>
+<br>
+<div id="controles2">
+Negrita&nbsp;
+<input type="checkbox" id="negrita" onchange="editText(this)"/>&nbsp;&nbsp;&nbsp;&nbsp; 
+Cursiva&nbsp;
+<input type="checkbox" id="cursiva" onchange="editText(this)"/>&nbsp;&nbsp;&nbsp;&nbsp;Subrayado&nbsp;
+<input type="checkbox" id="subrayado" onchange="editText(this)" />
+&nbsp;&nbsp;&nbsp;&nbsp;Alineación&nbsp;
+<input name="a" type="radio" value="left" onchange="editText(this)"/>&nbsp;Izq&nbsp;
+<input name="a" type="radio" value="right" onchange="editText(this)" />&nbsp;Der&nbsp;
+<input name="a" type="radio" value="center" onchange="editText(this)" />&nbsp;Cen&nbsp;
+<input name="a" type="radio" value="justify" onchange="editText(this)"/>
+&nbsp;Jus&nbsp;
+</div>
+<div id="texto">
+
+<br>JavaScript es un lenguaje de programación interpretado que se utiliza 
+<br>fundamentalmente para dotar de comportamiento dinámico a las páginas web. 
+<br>Fue diseñado para que su código se incrustase en documentos HTML y fuera 
+<br>interpretado por el navegador web.
+<br>
+<br>Mediante JavaScript nos encargaremos de realizar acciones en el cliente, 
+<br>como pueden ser pedir datos, confirmaciones, validación de datos en 
+<br>formularios,  incorporar efectos como texto que aparece y desaparece,
+<br>animaciones, acciones que se activan al pulsar botones,  manejar ventanas
+<br>con mensajes de aviso al usuario…
+
+</div>
+
+</body>
+</html>

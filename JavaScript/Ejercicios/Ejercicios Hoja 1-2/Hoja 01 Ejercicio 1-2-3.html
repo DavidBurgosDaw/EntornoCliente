@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<style type='text/css'>
+		body {
+			font-family: 'Kite One', sans-serif;
+		}
+
+		div {
+			border-style: solid;
+			border-width: 2px;
+			width: 500px;
+			margin: auto;
+			padding: 20px;
+		}
+
+		.uno {
+			line-height: 30px;
+		}
+	</style>
+
+
+</head>
+
+<body>
+	<form>
+		<input type="reset" value="BORRAR">
+		<div>
+			<br>
+			<input type="button" class="uno" value="Ejercicio 1" onclick="ejercicio1()">
+			<br> <br>
+		</div>
+		<div>
+			<br> Introduce un N&uacute;mero entero <input type="text" id="n1" size="10"></p>
+			<input type="button" class="uno" value="Ejercicio 2" onclick="ejercicio2()">
+			<br> <br>
+		</div>
+		<div>
+			Introduce dos n&uacute;meros
+			<br>
+			<p>N&uacute;mero 1 <input type="text" id="n2" size="8"></p>
+			<p>N&uacute;mero 2 <input type="text" id="n3" size="8"></p>
+			Introduce la operaci&oacute;n a ejecutar
+			<input type="text" id="oper" size="3"></p>
+			<p>Resultado <input type="text" id="res" size="8" readonly="readonly"></p>
+			<input type="button" class="uno" value="Ejercicio 3" onclick="ejercicio3(oper)">
+
+		</div>
+		<div>
+			<input type="button" class="uno" value="Ejercicio 4" onclick="ejercicio4()">
+		</div>
+		<div>
+			<input type="button" class="uno" value="Ejercicio 5" onclick="ejercicio5()">
+		</div>
+		<div>
+			<input type="button" class="uno" value="Ejercicio 6" onclick="ejercicio6()">
+		</div>
+
+	</form>
+
+	<script>
+		function ejercicio1() {
+			alert('I am = I`m \nI do not = I don`t');
+		}
+		function ejercicio2() {
+
+			let inputValue = document.getElementById("n1").value;
+			let numero = Number(inputValue); //Le hacemos un casting porque sino no funciona bien
+
+
+			if (isNaN(numero)) {
+				alert("Muy mal, lo que has tecleado no es ni un número.");
+			}
+
+			else if (!Number.isInteger(numero)) {
+				alert("El número introducido no es entero, vuelve a intentarlo ¡ánimo!");
+			}
+
+			else {
+				alert("Felicidades, has metido un número entero correcto.");
+			}
+		}
+
+
+		function ejercicio3() {
+			
+			let errores = 0;
+			let num1 = document.getElementById("n2").value;
+			let num2 = document.getElementById("n3").value;
+			let oper = document.getElementById("oper").value;
+
+
+			if (num1 == "") {
+				alert("El campo 1 no puede estár vacío");
+				errores++;
+			} 
+			if (num2 == "") {
+				alert("El campo 2 no puede estár vacío");
+				errores++;
+			}
+			if (oper == ""){
+				alert("El campo operador no puede estár vacio")
+				errores++;
+			}
+			if (isNaN(num1)) {
+				alert("El campo 1 no puede contener letras, solo números");
+				errores++;
+			}
+			if (isNaN(num2)) {
+				alert("El campo 2 no puede contener letras, solo números");
+				errores++;
+			}
+
+
+			num1 = Number(num1);
+			num2 = Number(num2);
+
+			let resultado = 0;
+
+			if(errores == 0){
+
+			switch (oper) {
+				case '+':
+					resultado = num1 + num2;
+					break;
+				case '-':
+					resultado = num1 - num2;
+					break;
+				case '*':
+					resultado = num1 * num2;
+					break;
+				case '/':
+					if (num2 == 0) {  // Evito la divison entre 0
+						alert("No se puede dividir por 0");
+					}
+					resultado = num1 / num2;
+					break;
+				default:
+					alert("El operador no existe");
+					document.getElementById("res").value = "Error";
+					return;
+			}
+
+			document.getElementById("res").value = resultado;
+
+		} else{
+			document.getElementById("res").value = "Error";
+		}
+
+		}
+
+
+		function ejercicio4(){
+			let num=0, suma=0;
+			
+			while(num!="FIN"){
+				num = window.prompt("Introduce numero (FIN) para finalizar")
+				if(!isNaN(num) && num != ""){
+					suma+=Number(parseInt(num));
+				}
+
+				
+			}
+
+			
+				alert("El resultado de la suma es " + suma);
+		}
+
+
+		function ejercicio5(){
+			let mayor="", contador = 0, cadenas="";
+			while (contador!=5){
+				cadenas = window.prompt("Introduce cinco cadenas");
+			if (cadenas.length > mayor.length){
+				mayor = cadenas;
+			}
+			contador++;
+			}
+			alert("La cadena mas grande es " + String(mayor));
+		}
+
+		function ejercicio6(){
+			let nota=0;
+
+			nota = window.prompt("Introduce Nota");
+			
+			while(nota < 0 || nota > 10){
+				nota = window.prompt("Nota Erronea debe ser mayor que 0 y menor que 10");
+			}
+
+			if (nota <=4){
+				alert("Suspenso");
+			} else if(nota <=6){
+				alert("Aprobado");
+			} else if(nota <=8){
+				alert("Notable");
+			} else if(nota <=10){
+				alert("Sobresaliente");
+			}
+
+
+		}
+
+	</script>
+</body>
+
+</html>

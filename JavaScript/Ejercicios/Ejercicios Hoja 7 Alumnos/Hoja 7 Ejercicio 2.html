@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='http://fonts.googleapis.com/css?family=Kite+One|Cherry+Swash' rel='stylesheet' type='text/css'>
+  <title>Ejercicio 2</title>
+  <style type='text/css'>
+    body {
+      font-family: 'Kite One', sans-serif;
+    }
+    #div1 {
+      width: 250px;
+      margin: auto;
+    }
+    h3 {
+      text-align: center;
+      font-size: 20pt;
+    }
+    table {
+      background-color: #EFF2FB;
+      text-align: center;
+      width: 100%;
+      border: 1px solid #D0A9F5;
+      font-family: 'Cherry Swash', cursive;
+      margin-top: 20px;
+    }
+    #dias {
+      background-color: #D0A9F5;
+    }
+    td {
+      border: 1px solid #D0A9F5;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <h3>PROBANDO ARRAYS BIDIMENSIONALES</h3>
+  <form name="formulario">
+    SELECCIONA: 
+    Filas 
+    <select id="filas">
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+    Columnas 
+    <select id="columnas">
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+    <br><br>
+    RELLENAR CON: 
+    <input type="radio" name="opcionRelleno" value="unoPorUno" checked> De uno en uno
+    <input type="radio" name="opcionRelleno" value="Pares"> Pares
+    <input type="radio" name="opcionRelleno" value="Impares"> Impares
+    <input type="radio" name="opcionRelleno" value="multiples"> Múltiplos de 
+    <select id="multiploDe">
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <br><br>
+  </form>
+</div>
+<div id="div1">
+  <table id="tabla"></table>
+</div>
+
+<script>
+  const filasSelect = document.getElementById("filas");  // Selección de filas
+  const columnasSelect = document.getElementById("columnas");  // Selección de columnas
+  const tabla = document.getElementById("tabla");  // Tabla donde se mostrará la matriz
+  const opcionesRelleno = document.getElementsByName("opcionRelleno");  // Opciones de cómo llenar la tabla
+
+  
+
+
+  const multiploDeSelect = document.getElementById("multiploDe");  // Múltiplo seleccionado
+
+  // Función para generar la tabla
+  function generarTabla() {
+    const filas = parseInt(filasSelect.value);  // Número de filas seleccionado
+    const columnas = parseInt(columnasSelect.value);  // Número de columnas seleccionado
+    const multiploDe = parseInt(multiploDeSelect.value);  // Número múltiplo seleccionado
+
+  //Compruebo el valor de relleno
+    let opcionRelleno = ""
+      opcionesRelleno.forEach(e => {
+      if (e.checked){
+        opcionRelleno = e.value;
+      }
+  });
+
+    let datos = [];  // Inicializamos el array para los datos de la tabla
+    let valor = 1;  // Valor inicial para llenar las celdas de la tabla
+
+    // Generar los datos según la opción seleccionada
+    for (let i = 0; i < filas; i++) {  // Bucle para las filas
+      let fila = [];  // Inicializamos una fila
+      for (let j = 0; j < columnas; j++) {  // Bucle para las columnas
+        if (opcionRelleno === "unoPorUno") {
+          fila.push(valor++);  // De uno en uno, incrementando el valor
+        } else if (opcionRelleno === "Pares") {
+          fila.push(valor % 2 === 0 ? valor : ++valor);  // Solo pares
+          valor += 2;  // Aumentar de dos en dos para asegurar que el siguiente sea par
+        } else if (opcionRelleno === "Impares") {
+          fila.push(valor % 2 !== 0 ? valor : ++valor);  // Solo impares
+          valor += 2;  // Aumentar de dos en dos para asegurar que el siguiente sea impar
+        } else if (opcionRelleno === "multiples") {  // Múltiplos de
+          fila.push(multiploDe * valor);  // Colocamos múltiplos del número seleccionado
+          valor++;  // Incrementar valor
+        }
+      }
+      datos.push(fila);  // Añadir la fila generada al array de datos
+    }
+
+    // Dibujar la tabla con los datos generados
+    dibujarTabla(datos);
+  }
+
+  // Función para dibujar la tabla en HTML
+  function dibujarTabla(datos) {
+    tabla.innerHTML = "";  // Limpiar la tabla anterior
+    datos.forEach(fila => {  // Recorrer cada fila
+      const tr = document.createElement("tr");  // Crear una nueva fila
+      fila.forEach(celda => {  // Recorrer cada celda de la fila
+        const td = document.createElement("td");  // Crear una nueva celda
+        td.textContent = celda;  // Asignar el valor de la celda
+        tr.appendChild(td);  // Añadir la celda a la fila
+      });
+      tabla.appendChild(tr);  // Añadir la fila a la tabla
+    });
+  }
+
+  // Añadir eventos a los controles para regenerar la tabla cuando se cambian
+  filasSelect.addEventListener("change", generarTabla);
+  columnasSelect.addEventListener("change", generarTabla);
+  opcionesRelleno.forEach(opcion => opcion.addEventListener("change", generarTabla));
+  multiploDeSelect.addEventListener("change", generarTabla);
+
+  // Generar tabla inicial
+  generarTabla();
+</script>
+</body>
+</html>
