@@ -9,6 +9,15 @@
 		color:orange} 
 </style>
 </head>
+<script src="../../jquery-3.7.1.min.js"></script>
+<script>
+	 $(document).ready(function () {
+		alert("Script activado");
+            $("li").click(function () {
+                $(this).hide();
+            });
+        });
+</script>
 <body>
 <ul>
 <li>Opción 1</li>
