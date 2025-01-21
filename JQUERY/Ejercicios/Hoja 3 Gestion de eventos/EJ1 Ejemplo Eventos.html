@@ -4,9 +4,69 @@
 <meta charset="UTF-8">
 <title>EVENTOS </title>
 <link rel="stylesheet" href="main.css">
-<script src="..\jquery-3.4.1.min.js"> </script>
+<script src="../../jquery-3.7.1.min.js"> </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
 <script>
+   $(document).ready(function() {
+
+        //Ej1
+        $("div:first").hover(
+            function() {
+                $(this).css("background-color", "#FAD7A0");
+                $(this).html("Paso por encima");
+            },
+            function() {
+                $(this).css("background-color", "");
+                $(this).html("SALGO");
+            }
+        );
+    
+        $("div:first").on("click", function() {
+            $(this).html("(A) Método hover(): Pasa con el ratón por encima y luego sal.");
+        });
+
+        //Ej2
+        $("#boton").mouseenter(function(){
+            $(this).animate( {opacity: 0.3} , 600);
+        });
+
+        $("#boton").mouseleave(function(){
+            $(this).animate( {opacity: 1} , 600);
+        });
+
+        $("#boton").click(function(){
+            $("span").text("Has hecho " + event.type +  " en el botón");
+        });
+
+        $("#boton").dblclick(function(){
+            $("span").text("Has hecho " + event.type +  " en el botón");
+        });
+
+        //Ej3 link
+
+        $("a").click(function(){
+            if (confirm("Seguro que quieres salir de la página?")) {
+            } else {
+                event.preventDefault(); // Para parar la navegacion
+}       });
+
+        $("#otro").one("click", function(){
+            alert("Has hecho click en el botón");
+        });
+
+        $("p").on("click",function(){
+            $(this).css("background-color","#85C1E9");
+            $(this).css("font-size","+=5");
+        })
+
+        $("p").off("click",function(){
+            $("div:first").off("mouseenter"); // Desactiva el mouseenter en el div
+            $("div:first").off("mouseleave"); // Desactiva el mouseleave en el div
+    
+        });
+     
+    });
+
 
 </script>
 		
