@@ -39,7 +39,43 @@
 	   }
 </style>
 
-</head> 
+</head>
+<script src="../../jquery-3.7.1.min.js"></script>
+<script>
+	$(document).ready(function () {
+    alert("Script Cargado");
+
+    $("h1:contains('título')").mouseenter(function () {
+        $("h1").css("color", "red");
+    });
+
+    $("h1:contains('título')").mouseleave(function () {
+        $("h1").css("color", "black");
+    });
+
+	$("#boton1").click(function(){
+		$("p").hide();
+	})
+
+	$("#boton2").click(function(){
+		$("p").show();
+	})
+
+	$("#boton3").click(function(){
+		$("p:first").hide();
+	})
+
+	$("#boton4").click(function(){
+		$("p:last").hide();
+	})
+
+	$("p:has(span)").each(function () {
+    $(this).css("color", "green");
+	$(this).css("border"," 2px solid red")
+	});
+
+});
+</script>
 <body> 
 <h1 class="Sombra">Esto es un título h1 con una clase sombra</h1>
 <p>Esto es un parrafo <span>y este texto es un span dentro del parrafo con 0.2em de separación entre letras</span></p>
