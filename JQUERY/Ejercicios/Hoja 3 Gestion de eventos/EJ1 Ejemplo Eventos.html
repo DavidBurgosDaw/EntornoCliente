@@ -54,17 +54,33 @@
             alert("Has hecho click en el botón");
         });
 
-        $("p").on("click",function(){
-            $(this).css("background-color","#85C1E9");
-            $(this).css("font-size","+=5");
-        })
-
-        $("p").off("click",function(){
-            $("div:first").off("mouseenter"); // Desactiva el mouseenter en el div
-            $("div:first").off("mouseleave"); // Desactiva el mouseleave en el div
-    
+        // Evento click en los párrafos
+        $("p").on("click", function () {
+            $(this).css("background-color", "#85C1E9");
+            $(this).css("font-size", "+=5");
         });
-     
+
+        // Botón u otro evento para desactivar los eventos
+        $("#otromas").on("click", function () {
+            // Desactiva el evento click en los párrafos
+            $("p").off("click");
+
+            // Desactiva los eventos hover (mouseenter y mouseleave) del primer div
+            $("div:first").off("mouseenter");
+            $("div:first").off("mouseleave");
+        });
+
+        //Al escribir
+
+        $("#texto").on("keypress", function (event) {
+            const letra = event.key;       // Representación textual de la tecla
+            const charCode = event.charCode; // Obsoleto, siempre será 0 en keydown
+            const keyCode = event.keyCode;  // Código numérico de la tecla (obsoleto)
+
+            // Mostrar los valores en el mensaje
+            $("#mensaje").append(keyCode + " " + charCode + " " + letra + "<br>");
+        });
+            
     });
 
 
