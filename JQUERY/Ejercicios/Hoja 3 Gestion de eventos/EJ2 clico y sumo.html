@@ -44,6 +44,43 @@
 function aleatorio (min,max){
  return Math.floor(Math.random()*(max - min +1)+min);
 }
+
+$(document).ready(function(){
+	var sum = 0;
+	//Relleno la tabla de numeros del 1 al 10
+	$("td").each(function(){
+		$(this).html(aleatorio(1,9));
+	})
+
+	//Le asigno el valor del numero al que hay que llegar sumando
+	$("#num").val(aleatorio(1,100));
+
+	$("td").on("click",function(){
+		$(this).css("background-color","rgb(128, 128, 128)");
+		sum += parseInt($(this).html())
+		console.log(sum);
+		$("#suma").val(sum);
+		if($("#suma").val() == $("#num").val()){
+			alert("Lo Conseguiste!!!")
+
+		}
+
+		if($("#suma").val() > $("#num").val()){
+			alert("Te pasastes :(");
+
+		}
+
+		if($("#suma").val() >= $("#num").val()){
+			$("td").each(function(){
+				if($(this).css("background-color") != "rgb(128, 128, 128)"){
+					$(this).html("*");
+				}
+			})
+		}
+
+
+	})
+})
 </script>
 </head>
 <body>
