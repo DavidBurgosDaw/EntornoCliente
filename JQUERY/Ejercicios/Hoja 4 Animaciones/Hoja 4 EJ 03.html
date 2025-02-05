@@ -2,7 +2,23 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+<script src="../../jquery-3.7.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#boton").click(function(){
+            $("#divAnimado").animate({"margin-top": "225px"}, 300);
+           
+
+            $("#divAnimado2").animate({"margin-left": "-150px"}, 300);
+
+            $("#divAnimado3").animate({"margin-top":"225px"});
+
+            $("#divAnimado2").animate({"margin-top":"225px"},900)
+
+
+            })
+
+    })
 </script>
 <style>
           #divAnimado,#divAnimado2, #divAnimado3{
@@ -22,7 +38,7 @@
 </head>
  
 <body>
-          <div id="divAnimado"></div>
+          <div id="divAnimado"></div>   
  
           <div id="divAnimado2"></div>
  
