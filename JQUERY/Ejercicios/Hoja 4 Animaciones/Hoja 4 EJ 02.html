@@ -3,7 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>jQuery Drop Down Menu</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+<script src="../../jquery-3.7.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".navigation li").hover(
+            function () {
+                $(this).find("ul").stop(true, true).slideDown(300);
+            }, 
+            function () {
+                $(this).find("ul").stop(true, true).slideUp(300);
+            }
+        );
+    });
 </script>
 <link rel="stylesheet" href="stilos 02.css" type="text/css" />  
 	
