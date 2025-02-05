@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="main.css">
+<style>
+#container {
+		position:relative;
+		margin:auto;
+		width:800px;
+		}
+#id1 {
+		position:absolute;
+		left:20px;
+		top:50px;
+		}
+#id2 {
+		position:absolute;
+		left:200px;
+		top:50px;
+		}
+#id3 {
+		position:absolute;
+		left:350px;
+		top:50px;
+		}
+</style>
+
+</head>
+<script src="../../jquery-3.7.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+    $("#id1 li").click(function() {
+        console.log(this); // "this" es el <li> clicado
+		quitarBorder("id1"); // Llamamos a la función para quitar el borde de otros divs
+
+		// Primero, reseteamos todos los <li> a color negro
+		$("#id1 li").css("color", "black");
+
+		// Cambiar el color del <li> clicado a azul
+		$(this).css("color", "blue");
+
+		// Cambiar el color del siguiente <li> a verde, si existe
+		$(this).next("li").css("color", "green");
+
+		// Cambiar el color del anterior <li> a verde, si existe
+		$(this).prev("li").css("color", "green");
+
+		// Poner el borde en el div que contiene el <li> clicado
+		$(this).closest("div").css("border", "2px solid black");
+		});
+
+	$("#id2 li").click(function(){
+		console.log(this); // "this" es el <li> clicado
+		quitarBorder("id2"); // Llamamos a la función para quitar el borde de otros divs
+
+		// Primero, reseteamos todos los <li> a color negro
+		$("#id2 li").css("color", "black");
+
+		// Cambiar el color del <li> clicado a azul
+		$(this).css("color", "blue");
+
+		// Cambiar el color del siguiente <li> a verde, si existe
+		$(this).next("li").css("color", "green");
+
+		// Cambiar el color del anterior <li> a verde, si existe
+		$(this).prev("li").css("color", "green");
+
+		// Poner el borde en el div que contiene el <li> clicado
+		$(this).closest("div").css("border", "2px solid black");
+	})
+
+	$("#id3 li").click(function() {
+    console.log("id3"); // "this" es el <li> clicado
+    quitarBorder("id3"); // Llamamos a la función para quitar el borde de otros divs
+
+    // Primero, reseteamos todos los <li> a color negro
+    $("#id3 li").css("color", "black");
+
+    // Cambiar el color del <li> clicado a azul
+    $(this).css("color", "blue");
+
+    // Cambiar el color del siguiente <li> a verde, si existe
+    $(this).next("li").css("color", "green");
+
+    // Cambiar el color del anterior <li> a verde, si existe
+    $(this).prev("li").css("color", "green");
+
+    // Poner el borde en el div que contiene el <li> clicado
+    $(this).closest("div").css("border", "2px solid black");
+	});
+
+
+	function quitarBorder(elemento) {
+    
+    if (elemento == "id1") {
+        $("#id2, #id3").css("border", "none").find("li").css("color", "black");
+    }
+
+    if (elemento == "id2") {
+        $("#id1, #id3").css("border", "none").find("li").css("color", "black");
+    }
+
+    if (elemento == "id3") {
+        $("#id1, #id2").css("border", "none").find("li").css("color", "black");
+    }
+}
+});
+
+</script>
+<body>
+<div id="#container">
+
+<div id="id1"> 
+<ul>
+<li> Naranjas </li>
+<li> Limones </li>
+<li> Peras </li>
+<li> Manzanas </li>
+<li> Plátanos </li>
+</ul>
+</div>
+<div id="id2">
+<ul>
+<li> Queso </li>
+<li> Salchichón </li>
+<li> Jamón </li>
+</ul>
+</div>
+<div id="id3">
+<ul>
+<li> Tomate </li>
+<li> Cebolla </li>
+<li> Lechuga </li>
+<li> Pepino </li>
+<li> Ajo </li>
+</ul>
+</div>
+</div>
+</body>
+
+</html>
