@@ -1,26 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Header from './components/header'
-import Footer from './components/footer'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-import './App.css'
-
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Layout from "./components/layout";
+import Inicio from "./pages/Inicio";
+import CrearComponentes from "./pages/CrearComponentes";
+import Estilos from "./pages/Estilos";
+import MostrarDatos from "./pages/MostrarDatos";
+import Eventos from "./pages/Eventos";
+import EstadoYProps from "./pages/EstadoYProps";
+import "bootstrap/dist/css/bootstrap.min.css"; // Importamos Bootstrap
+import "../src/App.css"
+import Condicionales from "./pages/Condicionales";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <Header/>
-        <Footer/>
-      </div>
-    </>
-  )
+    <Router>
+      <Routes>
+        {/* Layout envuelve todas las páginas */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Inicio />} />
+          <Route path="crear-componentes" element={<CrearComponentes />} />
+          <Route path="estilos" element={<Estilos />} />
+          <Route path="mostrar-datos" element={<MostrarDatos />} />
+          <Route path="renderizado-condicional" element={<Condicionales />} />
+          <Route path="eventos" element={<Eventos />} />
+          <Route path="estado-y-props" element={<EstadoYProps />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

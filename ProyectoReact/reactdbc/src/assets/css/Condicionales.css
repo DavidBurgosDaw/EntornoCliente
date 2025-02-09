@@ -1,0 +1,38 @@
+.product-list-container {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  li {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  li.is-fruit {
+    color: magenta;
+  }
+  
+  li.not-fruit {
+    color: darkgreen;
+  }
+  
+  li:hover {
+    background-color: #f4f4f4;
+    cursor: pointer;
+  }
+  
+  
+  li.is-fruit:hover {
+    color: darkmagenta;
+  }
+  
+  li.not-fruit:hover {
+    color: darkgreen; 
+  }
+  

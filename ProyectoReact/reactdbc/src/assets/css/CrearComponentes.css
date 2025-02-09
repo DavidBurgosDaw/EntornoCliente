@@ -1,0 +1,39 @@
+
+.crear-componentes-container {
+    text-align: justify;
+    color: white;
+    margin: 40px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .code-block {
+    color: black;
+    background: rgb(236, 234, 234);
+    padding: 20px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    word-wrap: break-word; 
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1.1em; 
+  }
+  
+  
+  .code-block code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    color: #d63384; 
+    font-size: 1em; 
+  }
+  
+  
+  .crear-componentes-container a {
+    color: #007bff; 
+    text-decoration: none; 
+  }
+  
+  .crear-componentes-container a:hover {
+    text-decoration: underline; 
+  }
+  

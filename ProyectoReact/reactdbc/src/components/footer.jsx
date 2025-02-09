@@ -1,10 +1,11 @@
 import React from 'react';
+import "../assets/css/Footer.css"; // Asegúrate de importar los estilos CSS
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white py-4 mt-8 shadow-lg">
-      <div className="container text-center">
-        <p>&copy; 2024 Guia React - David Burgos Carpeño. Todos los derechos reservados.</p>
+    <footer>
+      <div className="container">
+        <p>&copy; 2025 Guía React - David Burgos Carpeño. Todos los derechos reservados.</p>
       </div>
     </footer>
   );

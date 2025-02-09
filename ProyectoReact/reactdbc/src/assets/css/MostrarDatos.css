@@ -1,0 +1,52 @@
+
+.mostrar-datos-container {
+    margin: 40px;
+    font-family: Arial, sans-serif;
+    text-align: justify;
+    color: white;
+  }
+  
+  .mostrar-datos-container p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .code-block {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    margin-bottom: 20px;
+  }
+  
+  .mostrar-datos-container code {
+    font-weight: bold;
+    color: #d63384;
+  }
+  
+  .avatar {
+    border-radius: 50%;
+    display: block;
+    margin-top: 15px;
+  }
+  
+  .mostrar-datos-container a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .mostrar-datos-container a:hover {
+    text-decoration: underline;
+  }
+
+  .ejemplo-avatar {
+    display: flex;
+    flex-direction: column;  /* Coloca los elementos en disposición vertical */
+    flex-wrap: wrap;
+    justify-content: center;  /* Centra los elementos en el eje X */
+    align-items: center;  /* Centra los elementos en el eje Y (si es necesario) */
+  }
+  
+  
+  
