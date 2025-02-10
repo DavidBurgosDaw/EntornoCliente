@@ -1,6 +1,4 @@
-/* inicio.css */
 
-/* Estilos generales para el contenedor y otros elementos (ya definidos) */
 .inicio-container {
   background-color: #282c34;
   min-height: 100vh;
@@ -52,19 +50,17 @@
   margin-bottom: 30px;
 }
 
-/* Estilos personalizados para los botones: fondo azul y texto blanco */
 .btn-blue {
-  background-color: #007bff !important;  /* Azul recomendado */
-  border-color: #007bff !important;
+  background-color: #61dafb !important; 
+  border-color: #61dafb !important;
   color: white !important;
 }
 
 .btn-blue:hover,
 .btn-blue:focus,
 .btn-blue:active {
-  background-color: #0056b3 !important; /* Azul más oscuro en hover/focus */
+  background-color: #0056b3 !important; 
   border-color: #0056b3 !important;
   color: white !important;
 }
 
-/* Si tienes otros estilos, mantenlos tal como están */

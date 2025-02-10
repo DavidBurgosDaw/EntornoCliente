@@ -1,18 +1,14 @@
-/* App.css */
 
-/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     background-color: #20232a;
     color: #333;
   }
   
-  /* Estilo del contenedor principal */
   .App {
     text-align: center;
   }
   
-  /* Estilos específicos para el encabezado */
   header {
     background-color: #20232a;
     color: #61dafb;
@@ -20,7 +16,6 @@ body {
     font-size: 2em;
   }
   
-  /* Estilos para el contenido principal */
   main {
     padding: 20px;
   }

@@ -1,14 +1,13 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import '../assets/css/inicio.css'; // Asegúrate de importar el CSS
+import '../assets/css/inicio.css';
 
 const Inicio = () => {
   const navigate = useNavigate();
 
   return (
     <div className="inicio-container">
-      {/* Header */}
       <header className="inicio-header">
         <div className="container">
           <img
@@ -22,7 +21,6 @@ const Inicio = () => {
       </header>
 
       <div className="container">
-        {/* Sección de bienvenida */}
         <div className="bienvenida">
           <h2>Bienvenido a la Documentación de React</h2>
           <p>
@@ -31,7 +29,6 @@ const Inicio = () => {
           </p>
         </div>
 
-        {/* Sección de botones verticales */}
         <h3>¿Qué aprenderás?</h3>
         <div className="d-flex flex-column botones">
           

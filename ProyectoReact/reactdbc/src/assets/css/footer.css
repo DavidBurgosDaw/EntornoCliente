@@ -1,20 +1,18 @@
-/* Footer.css */
 
-/* Estilos para el contenedor del footer */
 footer {
-    background-color: #1a2b47; /* Azul más oscuro */
+    background-color: #1a2b47; 
     color: white;
-    padding: 16px 0; /* Espaciado vertical (top y bottom) */
-    margin-top: 32px; /* Espaciado superior */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    padding: 16px 0; 
+    margin-top: 32px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   }
   
-  /* Estilos para el texto centrado dentro del footer */
+ 
   footer .container {
     text-align: center;
   }
   
-  /* Estilo para el texto dentro del footer */
+
   footer p {
     margin: 0;
     font-size: 14px;

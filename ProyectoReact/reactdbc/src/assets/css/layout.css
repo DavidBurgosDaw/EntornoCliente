@@ -1,6 +1,4 @@
-/* layout.css */
 
-/* Aseguramos que el Layout ocupe el 100% del ancho y altura */
 .layout {
     width: 100%;
     min-height: 100vh;
@@ -9,11 +7,10 @@
   }
   
   .layout-main {
-    width: 100%;  /* Esto asegura que el contenido ocupe todo el ancho */
-    padding: 20px; /* Si quieres algo de padding */
+    width: 100%;  
+    padding: 20px; 
   }
   
-  /* Si quieres que los pies y el encabezado también ocupen el 100% de ancho */
   header, footer {
     width: 100%;
   }

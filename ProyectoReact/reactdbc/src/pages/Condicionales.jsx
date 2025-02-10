@@ -8,14 +8,12 @@ const LoginForm = () => <div>Formulario de Inicio de Sesión</div>;
 const RenderizadoCondicionalYListas = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Arreglo de productos para renderizado de listas
   const products = [
     { title: 'Col', isFruit: false, id: 1 },
     { title: 'Ajo', isFruit: false, id: 2 },
     { title: 'Manzana', isFruit: true, id: 3 },
   ];
 
-  // Renderizado condicional utilizando if
   let content;
   if (isLoggedIn) {
     content = <AdminPanel />;
@@ -23,7 +21,6 @@ const RenderizadoCondicionalYListas = () => {
     content = <LoginForm />;
   }
 
-  // Renderizado de la lista de productos
   const listItems = products.map(product => (
     <li
       key={product.id}

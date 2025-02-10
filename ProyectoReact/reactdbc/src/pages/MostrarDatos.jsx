@@ -1,5 +1,5 @@
 import React from 'react';
-import "../assets/css/MostrarDatos.css"; // Importa los estilos CSS
+import "../assets/css/MostrarDatos.css";
 
 const MostrarDatos = () => {
   const user = {

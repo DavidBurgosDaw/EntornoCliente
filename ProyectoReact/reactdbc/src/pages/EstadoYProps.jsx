@@ -29,7 +29,6 @@ const EstadoYProps = () => {
         En el ejemplo anterior, cada <code>MyButton</code> tenía su propio <code>count</code> independiente. Sin embargo, a menudo necesitas que los componentes compartan datos y se actualicen siempre en conjunto.
       </p>
 
-      {/* Contenedor de imágenes alineadas */}
       <div className="diagram-container">
         <div className="diagram">
           <h3>Diagrama del estado compartido</h3>
@@ -81,7 +80,6 @@ function MyButton({ count, onClick }) {
 
       <p>Al mover el estado hacia arriba, lo compartimos entre los componentes <code>MyButton</code>, y así ambos botones se actualizan cuando haces clic en cualquiera de ellos.</p>
 
-      {/* Botones funcionales */}
       <div className="button-container">
         <button onClick={handleClick}>Hacer clic para aumentar</button>
         <p>Contador compartido: {count}</p>

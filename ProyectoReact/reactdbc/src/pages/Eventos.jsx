@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../assets/css/Eventos.css"; // Asegúrate de que existe si se necesita.
+import "../assets/css/Eventos.css";
 
 function MyButton() {
   const [count, setCount] = useState(0);
