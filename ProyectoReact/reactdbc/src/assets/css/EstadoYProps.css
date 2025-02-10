@@ -1,68 +1,68 @@
-/* Contenedor principal del componente */
-.eventos-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    color: #333;
-  }
-  
-  /* Título principal */
-  .eventos-container h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #1d72b8;
-  }
-  
-  /* Títulos secundarios */
-  .eventos-container h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #2c3e50;
-  }
-  
-  /* Párrafos con el texto explicativo */
-  .eventos-container p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
-  
-  /* Estilo del bloque de código */
-  .code-block {
-    background-color: #f4f4f4;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 20px;
-    font-family: "Courier New", monospace;
-    font-size: 1em;
-    color: #2d3e50;
-  }
-  
-  /* Contenedor para los botones */
-  .eventos-buttons {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  /* Botones personalizados */
-  button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Efecto hover para los botones */
-  button:hover {
-    background-color: #2980b9;
-  }
-  
-  /* Estilo para los contadores */
-  button:focus {
-    outline: none;
-  }
-  
+.estilos-container {
+  margin: 40px;
+  text-align: justify;
+  font-family: Arial, sans-serif;
+  color: white;
+  line-height: 1.6;
+}
+
+.estilos-container h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.estilos-container h2 {
+  font-size: 2em;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.estilos-container p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.estilos-container code {
+  background-color: #f4f4f4;
+  padding: 3px 5px;
+  border-radius: 4px;
+  font-size: 1.1em;
+  color: #d63384;
+}
+
+.code-block {
+  background: #f4f4f4;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 1.1em;
+  color: black;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.diagram-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.diagram {
+  max-width: 400px;
+}
+
+.diagram-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.button-container {
+  text-align: center;
+}

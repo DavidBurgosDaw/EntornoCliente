@@ -1,5 +1,15 @@
-import React, { useState } from 'react';
-import "../assets/css/Eventos.css"; // Asegúrate de tener el archivo CSS si lo necesitas
+import React, { useState } from "react";
+import "../assets/css/Eventos.css"; // Asegúrate de que existe si se necesita.
+
+function MyButton() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return <button onClick={handleClick}>Hiciste clic {count} veces</button>;
+}
 
 const Eventos = () => {
   return (
@@ -24,13 +34,9 @@ const Eventos = () => {
 }`}
       </pre>
 
-      <p>
-        ¡Nota que <code>onClick={handleClick}</code> no tiene paréntesis al final! No necesitas llamar a la función controladora de eventos; solo debes pasarla y React la llamará cuando se haga clic en el botón.
-      </p>
-
       <h2>Actualizar la pantalla</h2>
       <p>
-        A menudo, querrás que tu componente "recuerde" alguna información y la muestre. Por ejemplo, contar el número de veces que se hace clic en un botón. Para lograr esto, puedes usar el hook <code>useState</code> de React.
+        A menudo, querrás que tu componente "recuerde" alguna información y la muestre. Para lograr esto, puedes usar el hook <code>useState</code> de React.
       </p>
 
       <pre className="code-block">
@@ -50,10 +56,6 @@ function MyButton() {
   );
 }`}
       </pre>
-
-      <p>
-        Al hacer clic en el botón, el contador se actualizará. Este es el ejemplo con estado para llevar el conteo de los clics:
-      </p>
 
       <h2>Ejemplo de botones con contadores independientes</h2>
       <pre className="code-block">
@@ -96,19 +98,5 @@ function MyButton() {
     </div>
   );
 };
-
-function MyButton() {
-  const [count, setCount] = useState(0);  // Usamos el hook useState aquí para manejar el estado de cada botón.
-
-  function handleClick() {
-    setCount(count + 1); // Actualiza el contador de este botón cuando se haga clic.
-  }
-
-  return (
-    <button onClick={handleClick}>
-      Hiciste clic {count} veces
-    </button>
-  );
-}
 
 export default Eventos;
