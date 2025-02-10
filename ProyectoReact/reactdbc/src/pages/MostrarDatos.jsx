@@ -3,7 +3,7 @@ import "../assets/css/MostrarDatos.css";
 
 const MostrarDatos = () => {
   const user = {
-    name: 'Hedy Lamarr',
+    name: 'Mari Carmen Rosales',
     imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
     imageSize: 90,
   };
@@ -51,7 +51,7 @@ const MostrarDatos = () => {
 
       <pre className="code-block">
         {`const user = {
-  name: 'Hedy Lamarr',
+  name: 'Mari Carmen Rosales',
   imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
   imageSize: 90,
 };
