@@ -10,6 +10,9 @@ const Header = () => {
           <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
             Guía React
           </Link>
+          <Link to="/" className="volver-button">
+            Volver
+          </Link>
         </h1>
       </div>
     </header>

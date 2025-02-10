@@ -6,7 +6,7 @@ import Estilos from "./pages/Estilos";
 import MostrarDatos from "./pages/MostrarDatos";
 import Eventos from "./pages/Eventos";
 import EstadoYProps from "./pages/EstadoYProps";
-import "bootstrap/dist/css/bootstrap.min.css"; // Importamos Bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/App.css"
 import Condicionales from "./pages/Condicionales";
 
@@ -14,7 +14,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Layout envuelve todas las páginas */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Inicio />} />
           <Route path="crear-componentes" element={<CrearComponentes />} />
