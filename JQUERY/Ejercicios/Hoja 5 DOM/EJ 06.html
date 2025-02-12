@@ -1,27 +1,54 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>jQuery</title>
-		<style>
-			.encontrada{
-			
-				background-color: yellow;
-				font-style: italic;
-			
-				}
-		</style>
-		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-		
-	</head>
-	<body>
-	<p>El Èxito de Jquery se debe a:</p> 
- <p>Es gratuito. </p> 
- <p>Es una biblioteca relativamente poco pesada (ocupa poca memoria). </p> 
- <p>Crea una capa de abstracciÛn entre las funcionalidades y los navegadores, el programador no tiene que controlar la compatibilidad. </p> 
- <p>Aprovecha los conocimientos que pudiera tener el usuario sobre CSS para ofrecerle un mÈtodo de selecciÛn de nodos del DOM muy refinado. </p> 
- <p>Puede ampliarse a travÈs de plugins. </p> 
- <p>Su cÛdigo es compacto, eficiente y muy depurado. </p> 
-<div>
-<input id="palabra" type="text" onkeypress="ver(event)">
-</div>
-	<body>
+<head>
+    <title>jQuery</title>
+    <style>
+        .encontrada {
+            background-color: yellow;
+            font-style: italic;
+            padding: 5px;
+        }
+        .encontrada-text {
+            font-weight: bold;
+            color: red;
+            margin-left: 10px;
+        }
+    </style>
+    <script src='../../jquery-3.7.1.min.js'></script>
+    <script>
+        function ver(event) {
+            let palabra = $("#palabra").val().trim().toLowerCase(); // Obtener y normalizar la palabra
+
+            $("p").each(function () {
+                let textoOriginal = $(this).text(); // Obtener el texto original
+
+                // Restaurar los p√°rrafos a su estado normal antes de buscar
+                $(this).removeClass("encontrada").next("span.encontrada-text").remove();
+
+                if (palabra.length > 0 && textoOriginal.toLowerCase().includes(palabra)) {
+                    $(this).addClass("encontrada"); // Agregar la clase para resaltar
+                    $(this).after("<span class='encontrada-text'>ENCONTRADA</span>"); // Agregar el texto "ENCONTRADA"
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $("#palabra").on("input", ver); // Ejecutar la b√∫squeda en tiempo real
+        });
+    </script>
+</head>
+<body>
+    <p>El √©xito de Jquery se debe a:</p> 
+    <p>Es gratuito.</p> 
+    <p>Es una biblioteca relativamente poco pesada (ocupa poca memoria).</p> 
+    <p>Crea una capa de abstracci√≥n entre las funcionalidades y los navegadores, el programador no tiene que controlar la compatibilidad.</p> 
+    <p>Aprovecha los conocimientos que pudiera tener el usuario sobre CSS para ofrecerle un m√©todo de selecci√≥n de nodos del DOM muy refinado.</p> 
+    <p>Puede ampliarse a trav√©s de plugins.</p> 
+    <p>Su c√≥digo es compacto, eficiente y muy depurado.</p> 
+
+    <div>
+        <input id="palabra" type="text" onkeypress="ver(event)" placeholder="Buscar palabra...">
+    </div>
+    <div id="nuevas"></div>
+</body>
 </html>

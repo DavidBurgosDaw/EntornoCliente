@@ -7,12 +7,11 @@
 <script>
 	$(document).ready(function(){
 
-		$("#item1, #item2, #item3, #item4").hide(); //Oculto los botones
+		$("#item1, #item2, #item3").hide(); //Oculto los botones
 		// Hacer que los botones vayan apareciendo
 		$("#item1").show(400);
 		$("#item2").show(800);
 		$("#item3").show(1200);
-		
 		//Al entrar aplico el underline y cambio color, y al salir lo dejo como estaba
 		$("#item1, #item2, #item3").hover(function(){
 			$(this).css("text-decoration","underline");
