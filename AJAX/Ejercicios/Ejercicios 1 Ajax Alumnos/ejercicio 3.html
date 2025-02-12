@@ -8,11 +8,54 @@ xhtml1/DTD/xhtml1-transitional.dtd">
 </head>
 
 <script type="text/javascript">
-var arr;		 
+
+let empleados = []
+
+var arr;		
 function descargaArchivo() {
+		// Obtener la instancia del objeto XMLHttpRequest		
+				peticion_http = new XMLHttpRequest();	
+		// Preparar la funcion de respuesta
+				peticion_http.onreadystatechange = muestraContenido;
+		// Realizar peticion HTTP
+				peticion_http.open('GET', 'empleados.json', true);
+				peticion_http.send(null);
+			function muestraContenido() {
+				if(peticion_http.readyState == 4) {
+					if(peticion_http.status == 200) {
+						var arr = JSON.parse(peticion_http.responseText);
+						var out = "";
+						var i;
+						for(i = 0; i < arr.length; i++) {
+								empleados.push(arr[i])
+						}
+						document.getElementById("id1").innerHTML = out;
+		
+			 
+					}
+				}
+			}
 		}
 function cargarDatos(){
- 
+	let sel = document.getElementById("sel1").value;
+    console.log(sel);
+    document.getElementById("ul1").innerHTML = ""
+    switch(sel){
+        
+        case "1":
+            for(let i = 0; i<empleados.length;i++){
+                var li = document.createElement("li");
+                li.innerHTML = empleados[i].departamento + " " +  empleados[i].nombre + " " + empleados[i].apellido;
+                document.getElementById("ul1").appendChild(li);
+            }
+            break;
+        case "2":
+            for(let i = 0; i<empleados.length;i++){
+                var li = document.createElement("li");
+                li.innerHTML = empleados[i].departamento + " " +  empleados[i].nombre + " " + empleados[i].apellido + " " + empleados[i].salario;
+                document.getElementById("ul1").appendChild(li);
+            }       
+    }
 }
 				
 </script>

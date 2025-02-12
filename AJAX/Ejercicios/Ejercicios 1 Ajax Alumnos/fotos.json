@@ -1,0 +1,17 @@
+
+    [
+      {
+        "imagen": "Mi gato",
+        "src": "gato.jpg"
+      },
+      {
+        "imagen": "Mi perro",
+        "src": "perro.jpg"
+      },
+      {
+        "imagen": "El sol",
+        "src": "sol.jpg"
+      }
+    ]
+  
+  

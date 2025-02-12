@@ -1,16 +1,64 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/
-xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-	<head>
-	<meta charset="UTF-8">
-		<title> </title>
-		 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscar Fotos</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    let fotos = [];  // Array para guardar las rutas de las fotos
+
+    // Función para descargar el archivo JSON
+    function descargaArchivo() {
+      var peticion_http = new XMLHttpRequest();
+      peticion_http.onreadystatechange = muestraContenido;
+      peticion_http.open("GET", "fotos.json", true);  // Ruta al archivo JSON
+      peticion_http.send(null);
+
+      function muestraContenido() {
+        if (peticion_http.readyState == 4 && peticion_http.status == 200) {
+          var arr = JSON.parse(peticion_http.responseText); // Convierte el JSON en un objeto
+          console.log(arr);  // Verificar el contenido del JSON en la consola
+
+          // Recorrer el arreglo y agregar las opciones al select
+          for (var i = 0; i < arr.length; i++) {
+            fotos.push(arr[i].src); // Guardar las rutas de las imágenes en el arreglo 'fotos'
+
+            var opcion = document.createElement("option");
+            opcion.value = i + 1;  // El valor del 'select' será el índice (empezando de 1)
+            opcion.text = arr[i].imagen;  // El texto que se mostrará en la opción
+
+            // Agregar la opción al 'select'
+            document.getElementById("sel").appendChild(opcion);
+          }
+        }
+      }
+    }
+
+   
+    $(document).ready(function() {
+      $("#sel").on("change", function() {
+        if ($(this).val() > 0) {
+          let img = document.createElement("img");
+          img.src = fotos[$(this).val() - 1]; 
+
+          let demo = document.getElementById("demo");
+          demo.innerHTML = "";  
+
+          document.getElementById("demo").appendChild(img);
+        }
+      });
+    });
+  </script>
 </head>
-<body>
-<div id="titulo"> <h1> BUSCAR FOTOS</h1> </div>
-<select id="sel">
-<option value="0">MIS FOTOS</option>
-</select>
-<div id="demo"></div>
+<body onload="descargaArchivo()">
+  <div id="titulo">
+    <h1>BUSCAR FOTOS</h1>
+  </div>
+
+  <select id="sel">
+    <option value="0">MIS FOTOS</option>  
+  </select>
+
+  <div id="demo"></div>
 </body>
 </html>

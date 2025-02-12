@@ -1,22 +1,61 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-<style>
-table,th,td {
-  border : 1px solid black;
-  border-collapse: collapse;
-}
-th,td {
-  padding: 5px;
-}
-</style>
-</head>
-<body>
-
-<button type="button">MIS DISCOS</button>
-<br><br>
-<table id="demo"></table>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 5px;
+      }
+      * {
+        outline: 1px solid red;
+      }
+    </style>
+    <script type="text/javascript">
+      function descargaArchivo() {
+        peticion_http = new XMLHttpRequest();
+        peticion_http.onreadystatechange = muestraContenido;
+        peticion_http.open("GET", "discos.json", true);
+        peticion_http.send(null);
+        function muestraContenido() {
+          if (peticion_http.readyState == 4) {
+            if (peticion_http.status == 200) {
+              var arr = JSON.parse(peticion_http.responseText);
+              var out = "";
+              var i;
+              for (i = 0; i < arr.length; i++) {
+                out +=
+                  "<tr> <td>" +
+                  arr[i].ARTIST +
+                  "</td><td>" +
+                  arr[i].TITLE +
+                  "</td><td>" +
+                  arr[i].COMPANY +
+                  "</td></tr>";
+              }
+              document.getElementById("demo").innerHTML += out;
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button type="button" onclick="descargaArchivo()">MIS DISCOS</button>
+    <br />
+    <br />
+    <table id="demo">
+      <tr>
+        <td>Artista</td>
+        <td>Titulo</td>
+        <td>Disco</td>
+      </tr>
+    </table>
+  </body>
 </html>
