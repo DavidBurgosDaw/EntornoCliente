@@ -1,79 +1,78 @@
 import React, { useState } from 'react';
 import "../assets/css/MostrarDatos.css"; // Importa los estilos CSS
 
-// Componentes de ejemplo para renderizado condicional
-const AdminPanel = () => <div>Panel de Administración</div>;
-const LoginForm = () => <div>Formulario de Inicio de Sesión</div>;
+// Componentes personalizados para renderizado condicional
+const Dashboard = () => <div>Panel Principal</div>;
+const SignInForm = () => <div>Formulario de Acceso</div>;
 
 const RenderizadoCondicionalYListas = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [usuarioAutenticado, setUsuarioAutenticado] = useState(false);
 
-  const products = [
-    { title: 'Col', isFruit: false, id: 1 },
-    { title: 'Ajo', isFruit: false, id: 2 },
-    { title: 'Manzana', isFruit: true, id: 3 },
+  const elementos = [
+    { nombre: 'Zapato', esRopa: false, id: 1 },
+    { nombre: 'Camisa', esRopa: true, id: 2 },
+    { nombre: 'Sombrero', esRopa: true, id: 3 },
   ];
 
-  let content;
-  if (isLoggedIn) {
-    content = <AdminPanel />;
+  let vista;
+  if (usuarioAutenticado) {
+    vista = <Dashboard />;
   } else {
-    content = <LoginForm />;
+    vista = <SignInForm />;
   }
 
-  const listItems = products.map(product => (
+  const listaElementos = elementos.map(item => (
     <li
-      key={product.id}
+      key={item.id}
       style={{
-        color: product.isFruit ? 'magenta' : 'darkgreen', // Diferente color para frutas
+        color: item.esRopa ? 'blue' : 'brown', // Color diferente para prendas y accesorios
       }}
     >
-      {product.title}
+      {item.nombre}
     </li>
   ));
 
   return (
     <div className="mostrar-datos-container">
-      <h1>Renderizado Condicional y de Listas en JSX</h1>
+      <h1>Ejemplo de Renderizado Condicional y Listas</h1>
 
       <h2>Renderizado Condicional</h2>
       <p>
-        Aquí estamos mostrando el componente <code>AdminPanel</code> si el usuario está
-        <strong>loggeado</strong> o el componente <code>LoginForm</code> si no lo está:
+        Mostramos el componente <code>Dashboard</code> si el usuario está
+        <strong> autenticado</strong> o el componente <code>SignInForm</code> si no lo está:
       </p>
       <pre className="code-block">
-        {`let content;
-if (isLoggedIn) {
-  content = <AdminPanel />;
+        {`let vista;
+if (usuarioAutenticado) {
+  vista = <Dashboard />;
 } else {
-  content = <LoginForm />;
+  vista = <SignInForm />;
 }
-return <div>{content}</div>;`}
+return <div>{vista}</div>;`}
       </pre>
 
       <div>
-        <h3>Estado de Usuario: {isLoggedIn ? 'Loggeado' : 'No loggeado'}</h3>
-        <div>{content}</div>
-        <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
-          {isLoggedIn ? 'Cerrar sesión' : 'Iniciar sesión'}
+        <h3>Estado de Usuario: {usuarioAutenticado ? 'Autenticado' : 'No autenticado'}</h3>
+        <div>{vista}</div>
+        <button onClick={() => setUsuarioAutenticado(!usuarioAutenticado)}>
+          {usuarioAutenticado ? 'Cerrar sesión' : 'Iniciar sesión'}
         </button>
       </div>
 
       <h2>Renderizado de Listas</h2>
       <p>
-        Aquí estamos usando el método <code>map()</code> para transformar un arreglo de productos
-        en una lista de elementos:
+        Usamos el método <code>map()</code> para transformar un array de elementos en una lista:
       </p>
       <pre className="code-block">
-        {`const listItems = products.map(product => (
-  <li key={product.id} style={{ color: product.isFruit ? 'magenta' : 'darkgreen' }}>
-    {product.title}
+        {`const listaElementos = elementos.map(item => (
+  <li key={item.id} style={{ color: item.esRopa ? 'blue' : 'brown' }}>
+    {item.nombre}
   </li>
 ));`}
       </pre>
 
-      <h3>Lista de Productos</h3>
-      <ul>{listItems}</ul>
+      <h3>Lista de Elementos</h3>
+      <ul>{listaElementos}</ul>
     </div>
   );
 };

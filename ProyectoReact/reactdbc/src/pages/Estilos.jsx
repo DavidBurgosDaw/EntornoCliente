@@ -4,60 +4,61 @@ import "../assets/css/Estilos.css"; // Importa los estilos CSS
 const Estilos = () => {
   return (
     <div className="estilos-container">
-      <h1>Escribir marcado con JSX</h1>
+      <h1>Trabajando con JSX</h1>
       <p>
-        La sintaxis de marcado que viste arriba se llama JSX. Es totalmente
-        opcional, pero la mayoría de los proyectos de React usan JSX por la
-        comodidad que ofrece. Todas las herramientas que recomendamos para el
-        desarrollo local son compatibles con JSX sin ningún tipo de configuración.
+        JSX es una forma de escribir código en React que se parece mucho a HTML, pero con algunas reglas adicionales. 
+        Aunque es opcional, casi todos los proyectos de React optan por usar JSX porque facilita la construcción de la interfaz.
       </p>
 
       <p>
-        JSX es más estricto que HTML. Tienes que cerrar etiquetas como <code>&lt;br /&gt;</code>. Tu componente tampoco
-        puede devolver múltiples etiquetas de JSX. Debes envolverlas en un padre compartido, como{' '}
-        <code>&lt;div&gt;...&lt;/div&gt;</code> o en un envoltorio vacío <code>&lt;&gt;...&lt;/&gt;</code>:
+        A diferencia de HTML, en JSX se deben seguir ciertas reglas: por ejemplo, todas las etiquetas deben cerrarse, 
+        como <code>&lt;br /&gt;</code>, y si deseas devolver varios elementos, éstos deben estar contenidos dentro de un solo contenedor, 
+        como un <code>&lt;div&gt;</code> o un fragmento vacío <code>&lt;&gt;&lt;/&gt;</code>.
       </p>
 
       <pre className="code-block">
-        {`function AboutPage() {
+        {`function PerfilUsuario() {
   return (
     <>
-      <h1>Acerca de</h1>
-      <p>Hola.<br />¿Cómo vas?</p>
+      <h2>Perfil del Usuario</h2>
+      <p>
+        ¡Hola, bienvenido a tu perfil!<br />Esperamos que disfrutes navegando.
+      </p>
     </>
   );
 }`}
       </pre>
 
       <p>
-        Si tienes mucho HTML que convertir a JSX, puedes utilizar un convertidor en línea.
+        Si necesitas convertir una gran cantidad de HTML a JSX, existen herramientas en línea que pueden ayudarte con ese proceso.
       </p>
 
-      <h2>Añadir estilos</h2>
+      <h2>Estilizando componentes en React</h2>
       <p>
-        En React, especificas una clase de CSS con <code>className</code>. Funciona de la misma forma que el atributo{' '}
-        <code>class</code> de HTML:
+        En React, para asignar una clase CSS a un elemento, usamos la propiedad <code>className</code> en lugar de <code>class</code>. 
+        Esto se debe a que <code>class</code> es una palabra reservada en JavaScript. Así, definimos:
       </p>
 
       <pre className="code-block">
-        {`<img className="avatar" />`}
+        {`<div className="caja-destacada">Contenido de ejemplo</div>`}
       </pre>
 
       <p>
-        Luego escribes las reglas CSS para esa clase en un archivo CSS aparte:
+        Luego, en tu archivo CSS, puedes definir los estilos para esa clase, por ejemplo:
       </p>
 
       <pre className="code-block">
-        {`/* In your CSS */
-.avatar {
-  border-radius: 50%;
+        {`/* Archivo Estilos.css */
+.caja-destacada {
+  padding: 20px;
+  background-color: #e0f7fa;
+  border-radius: 10px;
 }`}
       </pre>
 
       <p>
-        React no prescribe como debes añadir tus archivos CSS. En el caso más simple, añades una etiqueta{' '}
-        <code>&lt;link&gt;</code> a tu HTML. Si utilizas una herramienta de construcción o un framework, consulta su
-        documentación para saber como añadir un archivo CSS a tu proyecto.
+        React no dicta una única forma de incluir tus archivos de estilo. En aplicaciones simples, puedes enlazar el CSS directamente en el HTML 
+        o importarlo en tus componentes. Si utilizas herramientas avanzadas o frameworks, revisa la documentación correspondiente para elegir la mejor opción.
       </p>
     </div>
   );

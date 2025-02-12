@@ -2,71 +2,65 @@ import React from 'react';
 import "../assets/css/MostrarDatos.css";
 
 const MostrarDatos = () => {
-  const user = {
-    name: 'Mari Carmen Rosales',
-    imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
-    imageSize: 90,
+  const usuario = {
+    nombre: 'James Bond',
+    imagenUrl: '',
+    tamañoImagen: 100,
   };
 
   return (
     <div className="mostrar-datos-container">
-      <h1>Mostrar datos con JSX</h1>
+      <h1>Mostrar información con JSX</h1>
 
       <p>
-        JSX te permite poner marcado dentro de JavaScript. Las llaves te permiten
-        “escapar de nuevo” hacia JavaScript de forma tal que puedas incrustar una
-        variable de tu código y mostrársela al usuario. Por ejemplo, esto mostrará{' '}
-        <code>user.name</code>:
+        JSX te permite insertar HTML dentro de JavaScript. Utilizando llaves puedes “salir” a JavaScript y mostrar el valor de una variable. Por ejemplo, el siguiente código muestra <code>usuario.nombre</code>:
       </p>
 
       <pre className="code-block">
         {`return (
   <h1>
-    {user.name}
+    {usuario.nombre}
   </h1>
 );`}
       </pre>
 
       <p>
-        También puedes “escaparte hacia JavaScript” en los atributos JSX, pero
-        tienes que utilizar llaves en lugar de comillas. Por ejemplo, <code>className="avatar"</code>
-        pasa la cadena <code>"avatar"</code> como la clase CSS, pero{' '}
-        <code>src={user.imageUrl}</code> lee el valor de la variable{' '}
-        <code>user.imageUrl</code> y luego pasa el valor como el atributo <code>src</code>:
+        También puedes usar JavaScript dentro de los atributos en JSX. En lugar de usar comillas, debes usar llaves. Por ejemplo, <code>className="avatar"</code> asigna la cadena <code>"avatar"</code> como clase CSS, pero{' '}
+        <code>src={usuario.imagenUrl}</code> toma el valor de la variable <code>usuario.imagenUrl</code> y lo pasa al atributo <code>src</code>:
       </p>
 
       <pre className="code-block">
         {`return (
   <img
     className="avatar"
-    src={user.imageUrl}
+    src={usuario.imagenUrl}
   />
 );`}
       </pre>
 
       <h2>Ejemplo práctico</h2>
       <p>
-        Aquí está un ejemplo de cómo puedes mostrar el nombre y la imagen de un usuario usando JSX:
+        A continuación se muestra un ejemplo de cómo puedes mostrar el nombre y la imagen de un usuario utilizando JSX:
       </p>
 
       <pre className="code-block">
-        {`const user = {
-  name: 'Mari Carmen Rosales',
-  imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
-  imageSize: 90,
+        {`const usuario = {
+  nombre: 'Juan Pérez',
+  imagenUrl: 'https://i.imgur.com/JtZV5hw.jpg',
+  tamañoImagen: 100,
 };
 
-export default function Profile() {
+export default function Perfil() {
   return (
     <>
-      <h1>{user.name}</h1>
+      <h1>{usuario.nombre}</h1>
       <img
         className="avatar"
-        src={user.imageUrl}
-        alt={'Foto de ' + user.name}
+        src={usuario.imagenUrl}
+        alt={'Foto de ' + usuario.nombre}
         style={{
-          width: user.imageSize,
-          height: user.imageSize
+          width: usuario.tamañoImagen,
+          height: usuario.tamañoImagen
         }}
       />
     </>
@@ -74,19 +68,18 @@ export default function Profile() {
 }`}
       </pre>
 
-
-      <div className='ejemplo-avatar'>
+      <div className="ejemplo-avatar">
         <h2>Ejemplo:</h2>
 
         <h3>Perfil del Usuario</h3>
-        <h1>{user.name}</h1>
+        <h1>{usuario.nombre}</h1>
         <img
           className="avatar"
-          src={user.imageUrl}
-          alt={'Foto de ' + user.name}
+          src={usuario.imagenUrl}
+          alt={'Foto de ' + usuario.nombre}
           style={{
-            width: user.imageSize,
-            height: user.imageSize
+            width: usuario.tamañoImagen,
+            height: usuario.tamañoImagen
           }}
         />
       </div>
