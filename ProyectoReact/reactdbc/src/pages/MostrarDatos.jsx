@@ -4,7 +4,7 @@ import "../assets/css/MostrarDatos.css";
 const MostrarDatos = () => {
   const usuario = {
     nombre: 'James Bond',
-    imagenUrl: '',
+    imagenUrl: '../assets/images/james-bond-webp',
     tamañoImagen: 100,
   };
 

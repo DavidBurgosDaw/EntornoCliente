@@ -57,10 +57,10 @@ const CrearComponentes = () => {
         permitiendo su importación en otros archivos dentro de la aplicación. 
         Para más información sobre React y JavaScript, consulta estos recursos:
         <a href="https://developer.mozilla.org/es/" target="_blank" rel="noopener noreferrer">
-          MDN Web Docs
+           MDN Web Docs
         </a>{' '} y
         <a href="https://javascript.info/" target="_blank" rel="noopener noreferrer">
-          JavaScript.info
+           JavaScript.info
         </a>.
       </p>
     </div>

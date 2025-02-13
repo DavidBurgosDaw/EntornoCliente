@@ -42,48 +42,48 @@ const Eventos = () => {
       <pre className="code-block">
         {`import { useState } from 'react';
 
-function BotonContador() {
-  const [contador, setContador] = useState(0);
+      function BotonContador() {
+        const [contador, setContador] = useState(0);
 
-  function manejarClick() {
-    setContador(contador + 1);
-  }
+        function manejarClick() {
+          setContador(contador + 1);
+        }
 
-  return (
-    <button onClick={manejarClick}>
-      Has hecho clic {contador} veces
-    </button>
-  );
-}`}
-      </pre>
+        return (
+          <button onClick={manejarClick}>
+            Has hecho clic {contador} veces
+          </button>
+        );
+      }`}
+            </pre>
 
-      <h2>Ejemplo de botones con contadores independientes</h2>
-      <pre className="code-block">
-        {`import { useState } from 'react';
+            <h2>Ejemplo de botones con contadores independientes</h2>
+            <pre className="code-block">
+              {`import { useState } from 'react';
 
-export default function App() {
-  return (
-    <div>
-      <h1>Contadores independientes</h1>
-      <BotonContador />
-      <BotonContador />
-    </div>
-  );
-}
+      export default function App() {
+        return (
+          <div>
+            <h1>Contadores independientes</h1>
+            <BotonContador />
+            <BotonContador />
+          </div>
+        );
+      }
 
-function BotonContador() {
-  const [contador, setContador] = useState(0);
+      function BotonContador() {
+        const [contador, setContador] = useState(0);
 
-  function manejarClick() {
-    setContador(contador + 1);
-  }
+        function manejarClick() {
+          setContador(contador + 1);
+        }
 
-  return (
-    <button onClick={manejarClick}>
-      Has hecho clic {contador} veces
-    </button>
-  );
-}`}
+        return (
+          <button onClick={manejarClick}>
+            Has hecho clic {contador} veces
+          </button>
+        );
+      }`}
       </pre>
 
       <h2>Ejemplo práctico</h2>

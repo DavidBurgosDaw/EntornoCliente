@@ -49,11 +49,11 @@ const Estilos = () => {
 
       <pre className="code-block">
         {`/* Archivo Estilos.css */
-.caja-destacada {
-  padding: 20px;
-  background-color: #e0f7fa;
-  border-radius: 10px;
-}`}
+        .caja-destacada {
+          padding: 20px;
+          background-color: #e0f7fa;
+          border-radius: 10px;
+        }`}
       </pre>
 
       <p>
