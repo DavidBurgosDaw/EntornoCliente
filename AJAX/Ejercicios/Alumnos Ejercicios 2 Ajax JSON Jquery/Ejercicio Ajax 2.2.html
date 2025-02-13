@@ -1,23 +1,66 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/
-xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title> </title>
-		 <link rel="stylesheet" href="stilos deportes.css" type="text/css" />  
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"> </script>
+		<link rel="stylesheet" href="stilos deportes.css" type="text/css" />
+		<script src="../../jquery-3.7.1.min.js" type="text/javascript"></script>
 
-	
-	<script>
-		
-	</script>
-</head>
-<body>
-<div id="titulo"> <h1> DEPORTES</h1> </div>
-<input type="button" value="Cargar Deportes" id="cargar">
-<div id="demo">
-<ul>
-</ul>
-</div>
-</body>
+		<script>
+			function cargar(){
+				$.ajax({
+					url: 'deportes.json',
+					type: 'get',
+					dataType: 'json',
+					success: function(request){
+						let arr = request;
+						for(let i = 0; i < arr.length; i++) {
+							var deporte = document.createElement("li");
+							deporte.textContent = arr[i].deporte;
+							
+							var descripcion = document.createElement("div");
+							descripcion.textContent = arr[i].desc;
+							descripcion.style.display = "none";
+							
+							deporte.appendChild(descripcion);
+							
+							document.getElementById("demo").getElementsByTagName("ul")[0].appendChild(deporte);
+						}
+
+						$("li").on("click",function(){
+							$(this).children("div").toggle();
+						})
+					}
+				});
+			}
+
+			
+
+
+			
+			$(document).ready(function() {
+				$("#cargar").click(function() {
+					cargar();
+				});
+
+				$("li").on("click", function() {
+					console.log("hola")
+					alert("hola")
+    			$(this).children("div").toggle(); 
+				});
+
+			});
+		</script>
+	</head>
+	<body>
+		<div id="titulo">
+			<h1>DEPORTES</h1>
+		</div>
+		<input type="button" value="Cargar Deportes" id="cargar">
+		<div id="demo">
+			<ul>
+				<!-- Los deportes se cargarán aquí -->
+			</ul>
+		</div>
+	</body>
 </html>
