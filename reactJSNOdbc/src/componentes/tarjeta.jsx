@@ -1,27 +1,18 @@
+// src/componentes/Tarjeta.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Para navegar a la página de detalles
 
-const Tarjeta = ({ lanzamiento }) => {
-  console.log(lanzamiento);
+const Tarjeta = ({ imagen, titulo, id }) => {
+  const navigate = useNavigate();
 
-  const imagenUrl = lanzamiento?.links?.patch?.small;  // Imagen por defecto si no existe
-  const nombreLanzamiento = lanzamiento?.name || 'Nombre no disponible';  // Nombre por defecto si no existe
-  const fechaLanzamiento = lanzamiento?.date_utc ? new Date(lanzamiento.date_utc).toLocaleDateString() : 'Fecha no disponible';
-  const estadoLanzamiento = lanzamiento?.success ? "✅ Éxito" : "❌ Fallido";  // Estado por defecto si no existe
+  const handleClick = () => {
+    navigate(`/detalle/${id}`);
+  };
 
   return (
-    <div className="card">
-      <img
-        src={imagenUrl}
-        alt={nombreLanzamiento}
-      />
-      <h3>{nombreLanzamiento}</h3>
-      <p>
-        <strong>Fecha:</strong> {fechaLanzamiento}
-      </p>
-      <p>
-        <strong>Estado:</strong>{" "}
-        {estadoLanzamiento}
-      </p>
+    <div className="tarjeta" onClick={handleClick}>
+      <img src={imagen} alt={titulo} />
+      <h2>{titulo}</h2>
     </div>
   );
 };
