@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>EXAMEN 1 EVALUACION</title>
+    <style type="text/css">
+      body {
+        text-align: center;
+        font-family: "Bookman Old Style", Bookman;
+        color: #29220a;
+      }
+
+      table {
+        background-color: #d5dbdb;
+        border: 2pt solid #fbb;
+        width: 520px;
+        text-align: center;
+        margin: auto;
+        box-shadow: 5px 5px 12px #f5f5dc;
+        font-size: 15px;
+        width: auto;
+      }
+
+      td {
+        width: 40px;
+        height: 50px;
+      }
+
+      img {
+        width: 40px;
+      }
+
+      #principal {
+        width: 650px;
+        height: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .clasetot {
+        background-color: #fdebd0;
+      }
+    </style>
+    <script>
+      var color = ["#FA5858", "#81BEF7", "#F3F781", "#2EFE2E"];
+      var fil, col, tabla;
+      var i = 0;
+      let arraynum = [];
+      let arraynumerosfinal = [];
+
+      function random() {
+        let r;
+        do {
+          r = Math.floor(Math.random() * 32) + 1;
+        } while (arraynum.includes(r));
+        arraynum.push(r);
+        return r;
+      }
+
+      function iniciar() {
+        intervalo = setInterval(() => {
+          document.getElementById("h1").style.color = color[i];
+          i = (i + 1) % color.length;
+        }, 3000);
+      }
+
+      function finalizar(q) {
+        clearInterval(intervalo);
+      }
+
+      function jugar() {
+        document.getElementById("sacar").disabled = false;
+        let tablaHTML = "<table>";
+        let jug = document.getElementById("jug").value;
+        let fichas = Number(document.getElementById("fich").value);
+        let ancho = fichas + 2;
+
+        for (let i = 0; i < jug; i++) {
+          tablaHTML += "<tr>";
+          for (let q = 0; q < ancho; q++) {
+            if (q == 0) {
+              tablaHTML += `<td>Jugador ${i}</td>`;
+            } else if (q == ancho - 1) {
+              tablaHTML += `<td class="clasetot">0</td>`;
+            } else {
+              tablaHTML += `<td>${random()}</td>`;
+            }
+          }
+          tablaHTML += "</tr>";
+        }
+        tablaHTML += "</table>";
+        document.getElementById("tabla").innerHTML = tablaHTML;
+        arraynumerosfinal = arraynum;
+        arraynum = [];
+        //alert(arraynumerosfinal);
+      }
+
+      function sacarFicha() {
+        let num = random();
+        //alert(num);
+        //alert(arraynumerosfinal);
+        if (arraynumerosfinal.includes(num)) {
+          let lista = document.getElementsByTagName("td");
+          let fin = false;
+
+          for (let i = 0; i < lista.length; i++) {
+            if (lista[i].innerHTML == num) {
+              lista[i].innerHTML = "";
+              let imagen = document.createElement("img");
+              imagen.src = "acierto.jpeg";
+              lista[i].appendChild(imagen); // Añadir la imagen
+              let filaActual = lista[i].parentElement; // Obtener la fila actual
+              let celdas = filaActual.getElementsByTagName("td");
+
+              let contadorCelda = celdas[celdas.length - 1]; // Obtener la última celda
+              let contador = parseInt(contadorCelda.innerHTML) || 0; // Obtener el valor actual, o 0 si está vacío
+              contador += 1;
+              contadorCelda.innerHTML = contador;
+
+              if (lista[i].innerHTML.includes("acierto.jpeg")) {
+                fin = filallena(filaActual); // Comprobar si la fila está llena
+                if (fin) {
+                  celdas[celdas.length - 1].style.backgroundColor = "green";
+                  document.getElementById("sacar").disabled = true;
+                  return;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      function filallena(fila) {
+        let celdas = fila.getElementsByTagName("td");
+        for (let j = 1; j < celdas.length - 1; j++) {
+          // Ignorar primera y última celda
+          if (!celdas[j].innerHTML.includes("acierto.jpeg")) {
+            return false;
+          }
+        }
+        return true;
+      }
+    </script>
+  </head>
+
+  <body onload="iniciar()">
+    <h1 id="h1" onclick="finalizar(this)">Pierde tus fichas!</h1>
+
+    <p>Indica número de jugadores</p>
+    <select id="jug">
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+
+    <br /><br />
+
+    <p>Indica número de fichas</p>
+    <select id="fich">
+      <option value="5" selected>5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </select>
+
+    <br /><br />
+
+    <div id="tabla"></div>
+
+    <br />
+
+    <input
+      type="button"
+      id="sacar"
+      value="Sacar ficha"
+      onclick="sacarFicha()"
+    />
+    <input type="button" value="Reiniciar" onclick="jugar()" />
+
+    <br /><br />
+  </body>
+</html>

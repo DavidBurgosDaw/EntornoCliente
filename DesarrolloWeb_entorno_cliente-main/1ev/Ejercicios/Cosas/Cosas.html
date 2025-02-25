@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    // Fecha en formato "día *** mes *** año"
+    const fechaTexto = "27 *** noviembre *** 2024";
+
+    // Realizamos el split para separar día, mes y año
+    const [dia, mesTexto, anio] = fechaTexto.split(" *** ");
+
+    // Creamos un objeto para mapear el texto del mes a su valor numérico
+    const meses = {
+      enero: 0,
+      febrero: 1,
+      marzo: 2,
+      abril: 3,
+      mayo: 4,
+      junio: 5,
+      julio: 6,
+      agosto: 7,
+      septiembre: 8,
+      octubre: 9,
+      noviembre: 10,
+      diciembre: 11,
+    };
+
+    // Convertimos los valores en un objeto Date
+    const mes = meses[mesTexto.toLowerCase()];
+    const fecha = new Date(anio, mes, dia);
+
+    console.log(fecha);
+  </script>
+  <body></body>
+</html>

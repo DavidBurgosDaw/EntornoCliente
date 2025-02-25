@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <script>
+    function temp() {
+      i = 10;
+      a = window.setInterval(function () {
+        document.getElementById("id").innerHTML = i;
+        i--;
+        if (i < 0) {
+          clearInterval(a);
+          document.getElementById("id").innerHTML = "FINN";
+        }
+      }, 1000);
+    }
+  </script>
+  <body onload="temp()">
+    tiempo
+    <div id="id"></div>
+    <!-- Poner foto en display none-->
+  </body>
+</html>

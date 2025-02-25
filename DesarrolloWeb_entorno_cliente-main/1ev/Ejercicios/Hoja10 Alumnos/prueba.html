@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Máquina Tragaperras</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f4f4f9;
+        color: #333;
+      }
+      .slot-machine {
+        margin: 20px auto;
+        max-width: 400px;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .reels {
+        display: flex;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 20px 0;
+      }
+      .reel {
+        margin: 0 10px;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        background: #fafafa;
+      }
+      .controls {
+        margin-top: 20px;
+      }
+      .controls input,
+      .controls button {
+        margin: 5px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+      }
+      button {
+        background-color: #28a745;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+      button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      .info {
+        margin-top: 10px;
+        font-size: 1.1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slot-machine">
+      <h1>Máquina Tragaperras</h1>
+      <div class="reels">
+        <div class="reel" id="reel1">🍒</div>
+        <div class="reel" id="reel2">🍋</div>
+        <div class="reel" id="reel3">🍊</div>
+      </div>
+      <div class="controls">
+        <input type="number" id="bet" placeholder="Apuesta (€)" min="1" />
+        <button id="playButton">Jugar</button>
+        <button id="depositButton">Depositar</button>
+        <input
+          type="number"
+          id="depositAmount"
+          placeholder="Depositar (€)"
+          min="1"
+        />
+      </div>
+      <div class="info">
+        <p id="balance">Saldo: 0€</p>
+        <p id="message"></p>
+      </div>
+    </div>
+    <script>
+      // Clase de la Máquina Tragaperras
+      class SlotMachine {
+        constructor() {
+          this.balance = 0; // Saldo inicial
+          this.symbols = ["🍒", "🍋", "🍊", "⭐", "💎"]; // Símbolos de las ruedas
+        }
+
+        deposit(amount) {
+          if (amount > 0) {
+            this.balance += amount;
+            return `Has depositado ${amount}€. Saldo actual: ${this.balance}€.`;
+          } else {
+            return "Introduce una cantidad válida.";
+          }
+        }
+
+        play(bet) {
+          if (bet <= 0) {
+            return "La apuesta debe ser mayor a 0.";
+          }
+          if (bet > this.balance) {
+            return "Saldo insuficiente. Deposita más dinero para jugar.";
+          }
+
+          // Reducir el saldo según la apuesta
+          this.balance -= bet;
+
+          // Generar resultados de las ruedas
+          const reel1 = this.randomSymbol();
+          const reel2 = this.randomSymbol();
+          const reel3 = this.randomSymbol();
+
+          // Actualizar los símbolos en el DOM
+          document.getElementById("reel1").textContent = reel1;
+          document.getElementById("reel2").textContent = reel2;
+          document.getElementById("reel3").textContent = reel3;
+
+          // Verificar si el jugador gana
+          if (reel1 === reel2 && reel2 === reel3) {
+            const prize = bet * 10; // El premio es 10 veces la apuesta
+            this.balance += prize;
+            return `¡Felicidades! Has ganado ${prize}€. Saldo actual: ${this.balance}€.`;
+          } else {
+            return `No has ganado esta vez. Saldo actual: ${this.balance}€.`;
+          }
+        }
+
+        // Método para generar un símbolo aleatorio
+        randomSymbol() {
+          const index = Math.floor(Math.random() * this.symbols.length);
+          return this.symbols[index];
+        }
+
+        // Obtener el saldo actual
+        getBalance() {
+          return this.balance;
+        }
+      }
+
+      // Instanciar la máquina tragaperras
+      const slotMachine = new SlotMachine();
+
+      // Elementos del DOM
+      const balanceDisplay = document.getElementById("balance");
+      const messageDisplay = document.getElementById("message");
+      const playButton = document.getElementById("playButton");
+      const depositButton = document.getElementById("depositButton");
+      const betInput = document.getElementById("bet");
+      const depositInput = document.getElementById("depositAmount");
+
+      // Actualizar la pantalla del saldo
+      function updateBalance() {
+        balanceDisplay.textContent = `Saldo: ${slotMachine.getBalance()}€`;
+      }
+
+      // Evento para el botón "Depositar"
+      depositButton.addEventListener("click", () => {
+        const depositAmount = parseInt(depositInput.value);
+        const message = slotMachine.deposit(depositAmount);
+        messageDisplay.textContent = message;
+        updateBalance();
+        depositInput.value = "";
+      });
+
+      // Evento para el botón "Jugar"
+      playButton.addEventListener("click", () => {
+        const betAmount = parseInt(betInput.value);
+        const message = slotMachine.play(betAmount);
+        messageDisplay.textContent = message;
+        updateBalance();
+        betInput.value = "";
+      });
+    </script>
+  </body>
+</html>

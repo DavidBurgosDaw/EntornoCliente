@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #2c3e50;
+      border-radius: 10px;
+      color: white;
+      text-align: center;
+    }
+
+    .machine {
+      background: #34495e;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .reels {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .reel {
+      background: white;
+      color: black;
+      font-size: 40px;
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .balance {
+      font-size: 24px;
+      margin: 10px 0;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .bet-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    button {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #c0392b;
+    }
+
+    button:disabled {
+      background: #95a5a6;
+      cursor: not-allowed;
+    }
+
+    .win {
+      animation: winPulse 0.5s ease-in-out 3;
+    }
+
+    .paytable {
+      background: #34495e;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .disclaimer {
+      font-size: 12px;
+      color: #bdc3c7;
+      margin-top: 20px;
+    }
+
+    @keyframes winPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎰 Lucky Slots</h1>
+    <div class="balance">Balance: $<span id="balance">100.00</span></div>
+    <div class="bet-controls">
+      <button id="decreaseBet">-</button>
+      <div>Bet: $<span id="currentBet">1.00</span></div>
+      <button id="increaseBet">+</button>
+    </div>
+    <div class="machine">
+      <div class="reels">
+        <div class="reel" id="reel1">7</div>
+        <div class="reel" id="reel2">7</div>
+        <div class="reel" id="reel3">7</div>
+      </div>
+    </div>
+    <button id="spinButton">Spin</button>
+    <p id="message"></p>
+    
+    <div class="paytable">
+      <h3>Paytable (Multiplies Your Bet)</h3>
+      <p>💎💎💎 = 50x</p>
+      <p>7️⃣7️⃣7️⃣ = 25x</p>
+      <p>🍒🍒🍒 = 15x</p>
+      <p>🍊🍊🍊 = 10x</p>
+      <p>🍇🍇🍇 = 5x</p>
+    </div>
+    
+    <div class="disclaimer">
+      This is a simulation for entertainment purposes only. No real money is involved.
+      Please gamble responsibly and be aware of your local gambling laws and regulations.
+    </div>
+  </div>
+
+  <script>
+    const symbols = ['🍒', '🍊', '🍇', '7️⃣', '💎'];
+    let balance = 100.00;
+    let currentBet = 1.00;
+    let spinning = false;
+    
+    const balanceDisplay = document.getElementById('balance');
+    const currentBetDisplay = document.getElementById('currentBet');
+    const spinButton = document.getElementById('spinButton');
+    const message = document.getElementById('message');
+    const decreaseBet = document.getElementById('decreaseBet');
+    const increaseBet = document.getElementById('increaseBet');
+    const reels = [
+      document.getElementById('reel1'),
+      document.getElementById('reel2'),
+      document.getElementById('reel3')
+    ];
+
+    function updateDisplay() {
+      balanceDisplay.textContent = balance.toFixed(2);
+      currentBetDisplay.textContent = currentBet.toFixed(2);
+      spinButton.disabled = balance < currentBet || spinning;
+      decreaseBet.disabled = currentBet <= 0.50 || spinning;
+      increaseBet.disabled = currentBet >= 10.00 || spinning || currentBet >= balance;
+    }
+
+    function adjustBet(amount) {
+      if (!spinning) {
+        currentBet = Math.max(0.50, Math.min(10.00, currentBet + amount));
+        updateDisplay();
+      }
+    }
+
+    decreaseBet.addEventListener('click', () => adjustBet(-0.50));
+    increaseBet.addEventListener('click', () => adjustBet(0.50));
+
+    function spin() {
+      if (balance < currentBet || spinning) return;
+      
+      spinning = true;
+      balance -= currentBet;
+      updateDisplay();
+      message.textContent = '';
+      
+      const results = [];
+      const spinDurations = [2000, 2500, 3000];
+      
+      reels.forEach((reel, index) => {
+        let spins = 0;
+        const finalSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+        results.push(finalSymbol);
+        
+        const spinInterval = setInterval(() => {
+          reel.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+          spins++;
+          
+          if (spins * 100 >= spinDurations[index]) {
+            clearInterval(spinInterval);
+            reel.textContent = finalSymbol;
+            
+            if (index === 2) {
+              checkWin(results);
+              spinning = false;
+              updateDisplay();
+            }
+          }
+        }, 100);
+      });
+    }
+
+    function checkWin(results) {
+      const allMatch = results.every(symbol => symbol === results[0]);
+      let multiplier = 0;
+      
+      if (allMatch) {
+        switch(results[0]) {
+          case '💎': multiplier = 50; break;
+          case '7️⃣': multiplier = 25; break;
+          case '🍒': multiplier = 15; break;
+          case '🍊': multiplier = 10; break;
+          case '🍇': multiplier = 5; break;
+        }
+        
+        const winAmount = currentBet * multiplier;
+        balance += winAmount;
+        message.textContent = `Winner! +$${winAmount.toFixed(2)}!`;
+        message.classList.add('win');
+        setTimeout(() => message.classList.remove('win'), 1500);
+      }
+      
+      updateDisplay();
+    }
+
+    spinButton.addEventListener('click', spin);
+    updateDisplay();
+  </script>
+</body>
+</html>

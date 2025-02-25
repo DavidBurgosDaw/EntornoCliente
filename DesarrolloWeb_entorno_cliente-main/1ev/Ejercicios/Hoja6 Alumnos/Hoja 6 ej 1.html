@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        span {
+            display:none;
+        }
+		legend {color: #CC0033;
+                font-weight: 600;
+		}
+        
+        #precio {color: #222;
+                font-weight: 600;
+                line-height: 1.3;
+                }
+        
+    </style>
+ <script>
+	 function cambiarColor (e){ 
+		e.style.background= 'grey'
+	 }
+	 function validarNomApel (e){ 
+		let renombre=/^[a-z]{2,}[a-z\s]*$/i;
+			if(!renombre.test(e.value)){
+				alert("rellene el campo convenientemente")
+				e.focus();
+				return false;
+			}
+		e.style.background='green'
+
+	 }
+	 function validarFecha (e){ 
+		let formatod=/^(\d{4})-(1[0-2]|[1-9])-(3[0-1]|[0-2]\d|\d)$/;
+		let dia= new Date();
+		//hacer una fecha
+		fecha_caja=e.value.split('-');
+		let fecha = new Date (fecha_caja[0], fecha_caja[1]-1,fecha_caja[2])
+		if(!formatod.test(e.value) || fecha > dia){
+				alert("rellene el campo convenientemente")
+				e.focus();
+				return false;
+			}
+		e.style.background='green'
+		return true;
+	 }
+	 function validarCarnet(e){
+		let formatod=/^\d{6,8}[A-Z]$/;
+		if(!formatod.test(e.value)){
+				alert("rellene el campo convenientemente")
+				e.focus();
+				return false;
+			}
+		e.style.background='green'
+
+	 }
+	 function calcularEdad (e){ 
+		fecha_caja=e.value.split('-');
+		let fechanac = new Date (fecha_caja[0], fecha_caja[1]-1,fecha_caja[2])
+		let hoy = new Date();
+
+		let edad = hoy.getFullYear() - fechanac.getFullYear();
+
+		if (hoy.getMonth() < fechanac.getMonth() || 
+			(hoy.getMonth() === fechanac.getMonth() && hoy.getDate() < fechanac.getDate())) {
+			edad--;
+		}
+
+		document.getElementById("edad").value = edad;
+
+	}
+	 function calcularRenovar(e){ 
+		fecha_caja=e.value.split('-');
+		let fechaCarnet = new Date (fecha_caja[0], fecha_caja[1]-1,fecha_caja[2])
+		let hoy = new Date();
+			
+		while(true){
+			fechaCarnet.setFullYear(fechaCarnet.getFullYear() + 10);
+			if(fechaCarnet>hoy){
+				fechasescrita=fechaCarnet.getDay()+" - "+(fechaCarnet.getMonth()+1)+" - "+fechaCarnet.getFullYear()
+				document.getElementById("renovar").value = fechasescrita;
+				break;
+			}
+		}
+	}
+		function validar(){
+			alert("pulsa");
+			seleccionados = document.querySelectorAll('input');
+			let cont=0
+		 	for (let i = 0; i < seleccionados.length; i++) {
+				
+					if(seleccionados[i].value.trim()=="" && !seleccionados[i].readOnly && seleccionados[i].type === "text"){
+						seleccionados[i].style.background='orange'
+						//alert(seleccionados[i].id +" "+i)
+						alert("Algun capo no relleno")
+						break
+				 	}else{
+						if(i==1 || i==0){
+							validarNomApel(seleccionados[i])
+							cont+=1
+							//no sigue si esta mal
+						}
+						if(i==2 || i==5){
+							validarFecha(seleccionados[i])
+							cont+=1
+						}
+						if(i==4){
+							validarCarnet(seleccionados[i])
+							cont+=1
+						}
+					}
+				}
+				if(cont==5){
+					alert("TODO BIEN")
+				}
+		}
+	
+
+
+     </script>
+    </head>
+ <body>
+<h1>CLUB DEL AUTOMOVIL</h1>
+<h3>ALTA NUEVO SOCIO</h3>
+<form>
+<div>
+    <fieldset>
+	<legend>DATOS SOCIO</legend>
+
+	Nombre &nbsp;&nbsp;<input type="text" id="nom"size=30
+     	onfocus="cambiarColor(this)"
+		onchange="validarNomApel(this)"
+		>
+	<br><br>Apellidos <input type="text" id="ape"size=30
+		onfocus="cambiarColor(this)" 
+		onchange="validarNomApel(this)">
+
+	<br><br>Fecha Nacimiento  <input type="text" id="fecnac" size=13 placeholder="aaaa-mm-dd"
+		onfocus="cambiarColor(this) "
+		onchange="if (validarFecha(this)) calcularEdad(this)"
+		>&nbsp;&nbsp; Edad <input type="text" size=4 id="edad" readonly>
+		 </fieldset>
+	 <br>
+	<fieldset>
+    <legend>DATOS CARNET CONDUCIR </legend>
+    Num Carnet <input type="text" id="carnet" size="15"
+		onfocus="cambiarColor(this)"
+		onchange="validarCarnet(this)"
+		> &nbsp;&nbsp;
+	Desde   <input type="text" size=13 id="desde" placeholder="aaaa-mm-dd"
+		onfocus="cambiarColor(this)"
+		onchange="if (validarFecha(this)) calcularRenovar(this)"> &nbsp;&nbsp;  
+    Renovar   <input type="text"  size=13 id="renovar" readonly>  
+	<input  type="button" value="CONTRATAR" onclick="validar()">  <br><br> 
+ </div>
+</form> 
+<br>
+<div id="todoOK"></div>
+</body>
+</html>

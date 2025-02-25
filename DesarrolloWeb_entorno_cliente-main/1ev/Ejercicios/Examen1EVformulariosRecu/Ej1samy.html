@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Recuperación FORMULARIOS</title>
+    <link rel="stylesheet" href="main.css">
+    <style type="text/css">
+        #otro {
+            display: none;
+        }
+
+        input:focus {
+            background-color: #FDEBD0;
+        }
+    </style>
+
+<script>
+    function calcular() {
+        // Selección de cursos
+        const progCheck = document.getElementById('prog');
+        const sqlCheck = document.getElementById('sql');
+        const webCheck = document.getElementById('web');
+        const selProg = document.getElementById('selprog');
+        const selWeb = document.getElementById('selweb');
+
+        // Validación de selección de cursos
+        if (!progCheck.checked && !sqlCheck.checked && !webCheck.checked) {
+            alert("Debe seleccionar al menos un curso.");
+            return;
+        }
+        if (progCheck.checked && selProg.value == 0) {
+            alert("Debe seleccionar una opción de PROGRAMACIÓN.");
+            return;
+        }
+        if (webCheck.checked && selWeb.value == 0) {
+            alert("Debe seleccionar una opción de DISEÑO WEB.");
+            return;
+        }
+
+        // Validación de la fecha
+        const fecInput = document.getElementById('fec');
+        const fechaInicio = new Date(fecInput.value);
+        const hoy = new Date();
+        const maxFecha = new Date();
+        maxFecha.setDate(hoy.getDate() + 30);
+        if (isNaN(fechaInicio) || fechaInicio < hoy || fechaInicio > maxFecha || fechaInicio.getDay() === 0 || fechaInicio.getDay() === 6) {
+            alert("Debe introducir una fecha válida entre hoy y 30 días (ni sábado ni domingo).");
+            return;
+        }
+
+        // Cálculo de precio y duración
+        let precioTotal = 0;
+        let duracionSemanas = 0;
+
+        if (progCheck.checked) {
+            precioTotal += parseInt(selProg.value);
+            duracionSemanas += 3;
+        }
+        if (sqlCheck.checked) {
+            precioTotal += parseInt(sqlCheck.value);
+            duracionSemanas += 3;
+        }
+        if (webCheck.checked) {
+            precioTotal += parseInt(selWeb.value);
+            duracionSemanas += 2;
+        }
+
+        document.getElementById('precio').value = `${precioTotal} €`;
+        document.getElementById('duracion').value = `${duracionSemanas} semanas`;
+
+        // Mostrar el div "otro"
+        document.getElementById('otro').style.display = "block";
+    }
+
+    function comprobar_codigo(e) {
+        const codigo = e.target.value;
+        const regex = /^[BCDFGHJKLMNPQRSTVWXYZ]{3}\d{2,5}$/;
+        //const regex = /^[^AEIOU]{3}\d{2,5}$/;
+
+        if (!regex.test(codigo)) {
+            e.target.style.backgroundColor = "#FADBD8";
+            e.target.value = "Código erróneo";
+        } else {
+            e.target.style.backgroundColor = "";
+        }
+    }
+
+    function comprobar_tfno(e) {
+        const telefono = e.target.value;
+        const regex = /^\(\d{3}\)-\d{3}-\d{3}$/;
+        if (!regex.test(telefono)) {
+            e.target.style.backgroundColor = "#FADBD8";
+            e.target.value = "Formato erróneo";
+        } else {
+            e.target.style.backgroundColor = "";
+        }
+    }
+</script>
+
+<body>
+    <h1>LEARNING ABACO</h1>
+    Esta es nuestra selección de CURSOS Certificados
+    <br><br>
+    <input type="checkbox" id="prog">PROGRAMACION
+    <select id="selprog">
+        <option value="0">Selecciona</option>
+        <option value="200">Java</option>
+        <option value="80">PHP</option>
+        <option value="120">Python</option>
+        <option value="90">JavaScript</option>
+    </select>
+    <br><br>
+    <input type="checkbox" id="sql" value="100">MySQL
+    <br><br>
+    <input type="checkbox" id="web">DISEÑO WEB
+    <select id="selweb">
+        <option value="0">Selecciona</option>
+        <option value="80">HTML</option>
+        <option value="90">CSS</option>
+        <option value="60">Bootstrap</option>
+    </select>
+    <br><br>
+    Teclee la fecha en la que quiere comenzar sus curso
+    <br>(dd/mm/aaaa entre el día de hoy y 30 días, de lunes a viernes)
+    <input type="date" id="fec" size=10 placeholder="dd/mm/aaaa">
+    <hr>
+    <input type="button" value="Mostrar Precio y Duración" onclick="calcular()">
+    <br><br>PRECIO <input type="text" id="precio" size=10 readonly>
+    <br><br>DURACIÓN <input type="text" id="duracion" size=10 readonly>
+    <hr>
+    <div id="otro">
+        Si dispones de un código descuento indícalo: <input type="text" id="codigo" size=10
+            onblur="comprobar_codigo(event)">
+        Teléfono de contacto: <input type="text" id="telefono" size=12 placeholder="(XXX)-XXX-XXX"
+            onblur="comprobar_tfno(event)">
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        text-align: center;
+    }
+</style>
+<body>
+    <h3>Entradas vendidas en salas de cine</h3>
+    <div id="tablaResultados"></div>
+
+    <script>
+        function generarTablaSalas() {
+            const numSalas = parseInt(prompt("¿Cuántas salas de cine vamos a trabajar?"));
+            const dias = ["L", "M", "X", "J", "V"];
+            // Crear la tabla
+            let tablaHTML = "<table border='1'><tr><th>   </th>";
+            dias.forEach(dia => {
+                tablaHTML += `<th>${dia}</th>`; //cada dia 
+            });
+            tablaHTML += "<th>TOTAL</th></tr>"; //cierra la fila
+
+            // Generar datos aleatorios y calcular totales
+            for (let i = 1; i <= numSalas; i++) {
+                tablaHTML += `<tr><td>SALA ${i}</td>`;
+                let totalEntradas = 0;
+
+                // Generar y mostrar las entradas vendidas para cada día
+                dias.forEach(() => {
+                    const entradas = Math.floor(Math.random() * 50) + 1; // Número aleatorio entre 1 y 50
+                    totalEntradas += entradas;
+                    tablaHTML += `<td>${entradas}</td>`;
+                });
+
+                // Agregar el total de entradas de la sala
+                tablaHTML += `<td>${totalEntradas}</td></tr>`;
+            }
+
+            tablaHTML += "</table>";
+            document.getElementById("tablaResultados").innerHTML = tablaHTML;
+            //pinta la tabla
+        }
+
+        // Generar la tabla al cargar la página
+        generarTablaSalas();
+    </script>
+</body>
+</html>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>CONTROL FORMULARIOS</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+
+  <style>
+    #precio {
+      color: #222;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+  </style>
+  <script>
+    var descuento = 0;
+    function calcular() {
+      let precio = 0;
+      numero1 = 0;
+      precioindiv = 0;
+      numero2 = 0;
+      preciodoble = 0;
+      if (document.getElementById("check1").checked) {
+        numero1 = document.getElementById("sel1").value;
+        precio += 50 * numero1;
+        precioindiv = 50 * numero1;
+      }
+      if (document.getElementById("check2").checked) {
+        numero2 = document.getElementById("sel2").value;
+        precio += 70 * numero2;
+        preciodoble = 70 * numero2;
+      }
+      preciosindesc = precio;
+      precio = precio - precio * (descuento / 100);
+      document.getElementById("idpet").style.display = "flex";
+
+      let ventana = window.open(" ", "ventana", "width=400,height=300");
+      ventana.document.write(
+        "<p>El precio por noche para las habitaciones seleccionadas es:</p>"
+      );
+      ventana.document.write(numero1, " individual-->", precioindiv, "€ </p>");
+      ventana.document.write(numero2, " dobles-->", preciodoble, "€</p>");
+      ventana.document.write("Total por noches ", preciosindesc, "€</p>");
+      ventana.document.write(
+        "Aplicando ",
+        descuento,
+        "% descuento: ",
+        precio,
+        "€</p>"
+      );
+      ventana.document.write(
+        '<input type="button" value="Cerrar" onclick="window.close()"> <br>'
+      );
+    }
+    function confirmar() {
+      var a = confirm("quieres q contactemos con ust?");
+      if (a) {
+        let wndw = window.open(" ", "ventana", "width=400,height=300");
+        wndw.document.write("ya le contactaremos");
+        window.setTimeout(function () {
+          wndw.close();
+        }, 5000);
+      } else {
+        alert("chau");
+        window.open("https://www.acierto.com", "_blank");
+        window.open("https://www.santalucia.es", "_blank");
+      }
+    }
+    function pedir() {}
+  </script>
+  <body>
+    Actualmente nuestros precios por habitación y noche son (Iva incluido):
+    <ul>
+      <li>Habitación individual 50€</li>
+      <li>Habitación doble 70€</li>
+    </ul>
+
+    <input type="checkbox" id="check1" value="50" />Habitación individual <br />
+    <span id="id50"
+      >Seleccione cuantas
+      <select id="sel1">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+      </select>
+    </span>
+    <br />
+    <input type="checkbox" id="check2" value="70" />Habitación doble <br />
+    <span id="id70"
+      >Seleccione cuantas
+      <select id="sel2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+    </span>
+    <br />
+
+    Pudiendo aplicar uno de nuestros descuentos<br />
+    <input
+      type="radio"
+      checked
+      name="desc"
+      value="0"
+      onclick="descuento=this.value"
+    />
+    Sin descuento
+    <input type="radio" name="desc" value="10" onclick="descuento=this.value" />
+    Familia numerosa (10%)
+    <input type="radio" name="desc" value="20" onclick="descuento=this.value" />
+    Tercera edad (20%)
+    <br />
+    Si nos deja un teléfono nosotros le llamamos
+    <input type="text" id="telefono" />
+    <br />
+    <input type="button" value="CALCULAR PRECIO" onclick="calcular()" />
+    <input type="button" value="Confirm" onclick="window.confirmar()" /> <br />
+
+    <br /><br />
+    <input
+      type="button"
+      id="idpet"
+      value="Más información"
+      onclick="pedir()"
+      style="display: none"
+    />
+  </body>
+</html>

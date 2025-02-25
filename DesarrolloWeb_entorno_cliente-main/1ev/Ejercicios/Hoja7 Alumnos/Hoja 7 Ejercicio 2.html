@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <html>
+    <head>
+      <link
+        href="http://fonts.googleapis.com/css?family=Kite+One|Cherry+Swash"
+        rel="stylesheet"
+        type="text/css"
+      />
+      <style type="text/css">
+        body {
+          font-family: "Kite One", sans-serif;
+        }
+
+        #div1 {
+          width: 250px;
+          margin: auto;
+        }
+
+        h1 {
+          text-align: center;
+          font-size: 20pt;
+        }
+
+        table {
+          background-color: #eff2fb;
+          text-align: center;
+          width: 250px;
+          border: 1px solid #d0a9f5;
+          font-family: "Cherry Swash", cursive;
+        }
+
+        #dias {
+          background-color: #d0a9f5;
+        }
+
+        td {
+          border: 1px solid #d0a9f5;
+        }
+      </style>
+
+<script>
+  function cargar() {
+      // Obtener los valores seleccionados para filas, columnas y tipo de relleno
+      const filas = parseInt(document.getElementById("id1").value);
+      const columnas = parseInt(document.getElementById("id2").value);
+      const eleccion = document.querySelector("input[name='eleccion']:checked").value;
+      const multiplo = parseInt(document.getElementById("id3").value);
+
+      // Limpiar el contenido anterior
+      const div1 = document.getElementById("div1");
+      div1.innerHTML = "";
+
+      // Crear la tabla
+      const tabla = document.createElement("table");
+      tabla.border = "1";
+
+      // Rellenar la tabla según la opción seleccionada
+      let valor = 0;
+      for (let i = 0; i < filas; i++) {
+          const fila = document.createElement("tr");
+          for (let j = 0; j < columnas; j++) {
+              const celda = document.createElement("td");
+              // Determinar el valor según la elección
+              if (eleccion === "1") {         // De uno en uno
+                  celda.textContent = valor++;
+              } else if (eleccion === "2") { // Pares
+                  valor+=2;
+                  celda.textContent = valor;
+              } else if (eleccion === "3") { // Impares
+                  valor+=1;
+                  celda.textContent = valor;
+                  valor += 1;
+              } else if (eleccion === "4") { // Múltiplos de
+                  celda.textContent = multiplo * valor;
+                  valor++;
+              }
+              fila.appendChild(celda);
+          }
+          tabla.appendChild(fila);
+      }
+
+      // Añadir la tabla al div
+      div1.appendChild(tabla);
+  }
+</script>
+    </head>
+    <body>
+      <div>
+        <h3>PROBANDO ARRAYS BIDIMENSIONALES</h3>
+        <br />
+        <form name="formulario">
+          SELECCIONA: Filas
+          <select id="id1" onchange="cargar()">
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+          Columnas
+          <select id="id2" onchange="cargar()">
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+          <br />
+          <br />
+          RELLENAR CON:
+          <input
+            type="radio"
+            name="eleccion"
+            value="1"
+            checked
+            onchange="cargar()"
+          />
+          De uno en uno
+
+          <input type="radio" name="eleccion" value="2" onchange="cargar()" />
+          Pares
+
+          <input type="radio" name="eleccion" value="3" onchange="cargar()" />
+          Impares
+
+          <input type="radio" name="eleccion" value="4" onchange="cargar()" />
+          Multiplos de
+          <select id="id3" onchange="cargar()">
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+          <br />
+          <br />
+        </form>
+      </div>
+      <div id="div1"></div>
+    </body>
+  </html>
+</html>

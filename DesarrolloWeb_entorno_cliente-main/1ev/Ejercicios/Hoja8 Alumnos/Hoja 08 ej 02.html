@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style></style>
+  <script>
+    function btt() {
+      siguiente = window.open(
+        //"ventanaej2.html",
+        " ",
+        "siguiente",
+        "width=300,height=200,top=1,left=0"
+      );
+      siguiente.document.write("hola");
+      a = window.setInterval(function () {
+        siguiente.moveBy(20, 20);
+      }, 1000);
+    }
+    function parar() {
+      clearInterval(a);
+      siguiente.close();
+    }
+  </script>
+  <body>
+    <input type="button" value="ME ABURRO" onclick="btt()" />
+    <input type="button" value="Ya no" onclick="parar()" />
+  </body>
+</html>

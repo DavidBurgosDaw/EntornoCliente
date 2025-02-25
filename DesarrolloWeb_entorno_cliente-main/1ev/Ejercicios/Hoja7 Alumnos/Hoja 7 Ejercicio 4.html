@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<style type="text/css">
+table{
+	background-color: #F7F793;
+	border: 1px solid #75756A;
+	width:300px;
+	text-align: center;
+	margin: auto;
+	box-shadow: 5px 5px 12px #F5F5DC;
+	font-size: 20px;
+	font-family: 'Indie Flower', cursive;
+	height: 22px;
+}
+td{
+	border: 1px solid red;
+	width: 21px;
+}
+body{
+	text-align: center
+}
+
+ </style>
+ <script>
+	let col=4;
+	let fil=4;
+	let tabla=new Array(fil);
+	let tabla2=new Array(fil);
+	const maxFallos = 5; 
+	let fallos = 0;
+
+	function random (){
+ 		return Math.floor(Math.random()*10);
+	}
+
+	function cargar(){
+		//alert(tabla)
+		for(let i=0;i<fil;i++){
+			tabla[i]=new Array(col)
+			tabla2[i]=new Array(col)
+		}
+		//alert(tabla)
+		for (let i=0;i<fil;i++)
+			for (j=0;j<col;j++){
+				tabla[i][j]=random();
+				tabla2[i][j]='**';
+		} 
+		//alert(tabla);
+
+		let tablaHTML="<table>"
+			for( let i=0; i<4 ; i++){
+				tablaHTML+="<tr>"
+				for( let q=0;q<4;q++){
+					const c = Math.floor(Math.random() * 10); 
+                    tablaHTML += `<td>**</td>`;
+					//tablaHTML += `<td>${c}</td>`;
+				}
+				tablaHTML+="</tr>"
+			}
+			tablaHTML += "</table>";
+			document.getElementById("tabla").innerHTML = tablaHTML;
+        }
+
+		function actualizarTabla() {
+		let tablaHTML = "<table>";
+		for (let i = 0; i < fil; i++) {
+			tablaHTML += "<tr>";
+			for (let j = 0; j < col; j++) {
+				tablaHTML += `<td>${tabla2[i][j]}</td>`;
+			}
+			tablaHTML += "</tr>";
+		}
+		tablaHTML += "</table>";
+		document.getElementById("tabla").innerHTML = tablaHTML;
+	}
+		function buscar(valor) {
+			if (fallos >= maxFallos) {
+				document.getElementById("div2").innerHTML = `Fallos: ${fallos} / ${maxFallos}`;
+				return;
+		}
+
+		let encontrado = false;
+
+		for (let i = 0; i < fil; i++) {
+			for (let j = 0; j < col; j++) {
+				// Si el número coincide y no ha sido revelado antes
+				if (tabla[i][j] == valor && tabla2[i][j] == '**') {
+					tabla2[i][j] = valor;
+					encontrado = true;
+					actualizarTabla();
+					return; // Revela solo el primer número encontrado y sale
+				}
+			}
+		}
+		if (!encontrado) {
+			fallos++;
+			document.getElementById("div2").innerHTML = `Fallos: ${fallos} / ${maxFallos}`;
+		}
+		if (fallos >= maxFallos) {
+			alert("Has perdido. ¡Intenta de nuevo!");
+		}
+	}
+
+ </script>
+<body onload="cargar()">
+ 
+<div>
+ <input type="button" value=1 onclick="buscar(this.value)"> 
+	 <input type="button" value=2 onclick="buscar(this.value)"> 
+	 <input type="button" value=3 onclick="buscar(this.value)"><br> 
+ <input type="button" value=4 onclick="buscar(this.value)"> 
+	 <input type="button" value=5 onclick="buscar(this.value)"> 
+	 <input type="button" value=6 onclick="buscar(this.value)"> <br> 
+ <input type="button" value=7 onclick="buscar(this.value)"> 
+	 <input type="button" value=8 onclick="buscar(this.value)"> 
+	 <input type="button" value=9 onclick="buscar(this.value)"> <br> 
+ <input type="button" value=0 onclick="buscar(this.value)">  
+	
+</div>
+<div id="tabla">
+
+</div>
+<div id="div2">
+
+</div>
+</body>
+<script type="text/JavaScript">
+
+
+</script>
+</html>

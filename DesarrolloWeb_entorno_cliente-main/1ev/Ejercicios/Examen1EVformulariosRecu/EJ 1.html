@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Recuperación FORMULARIOS</title>
+    <link rel="stylesheet" href="main.css" />
+    <style type="text/css">
+      #otro {
+        display: none;
+      }
+    </style>
+  </head>
+  <script>
+    function calcular() {
+      let chkprogra = document.getElementById("prog");
+      let chkMysql = document.getElementById("sql");
+      let chkDiseño = document.getElementById("web");
+      let selectProgra = document.getElementById("selprog").value;
+      let selectDiseño = document.getElementById("selweb").value;
+      let valueMysql = document.getElementById("sql").value;
+
+      let fecha = document.getElementById("fec").value;
+      let fechaformateada = new Date(fecha);
+
+      if (
+        chkprogra.checked == true ||
+        chkMysql.checked == true ||
+        chkDiseño.checked == true
+      ) {
+        //|| valueMysql == 100
+        if (selectProgra != 0 || selectDiseño != 0) {
+          alert("todo bn");
+          let fecha = document.getElementById("fec").value;
+          let fechaformateada = new Date(fecha);
+          let fechahoy = new Date();
+          let diferenciaMilisegundos = fechahoy - fechaformateada;
+          let diferenciaDias = diferenciaMilisegundos / (1000 * 60 * 60 * 24);
+          alert(diferenciaDias);
+        } else {
+          alert("selecciona algun valor ");
+        }
+      } else {
+        alert("selecciona algun campo");
+      }
+    }
+
+    function comprobar_tfno(e) {}
+    function comprobar_codigo(e) {}
+  </script>
+  <body>
+    <h1>LEARNING ABACO</h1>
+    <p>Esta es nuestra selección de CURSOS Certificados:</p>
+
+    <br />
+    <input type="checkbox" id="prog" /> PROGRAMACIÓN
+    <select id="selprog">
+      <option value="0">Selecciona</option>
+      <option value="200">Java</option>
+      <option value="80">PHP</option>
+      <option value="120">Python</option>
+      <option value="90">JavaScript</option>
+    </select>
+
+    <br /><br />
+    <input type="checkbox" id="sql" value="100" /> MySQL
+
+    <br /><br />
+    <input type="checkbox" id="web" /> DISEÑO WEB
+    <select id="selweb">
+      <option value="0">Selecciona</option>
+      <option value="80">HTML</option>
+      <option value="90">CSS</option>
+      <option value="60">Bootstrap</option>
+    </select>
+
+    <br /><br />
+    <p>Teclee la fecha en la que quiere comenzar sus cursos:</p>
+    <p>(dd/mm/aaaa entre el día de hoy y 30 días, de lunes a viernes)</p>
+    <input type="date" id="fec" size="10" placeholder="dd/mm/aaaa" />
+
+    <hr />
+    <input
+      type="button"
+      value="Mostrar Precio y Duración"
+      onclick="calcular()"
+    />
+
+    <br /><br />
+    <label for="precio">PRECIO</label>
+    <input type="text" id="precio" size="10" readonly />
+
+    <br /><br />
+    <label for="duracion">DURACIÓN</label>
+    <input type="text" id="duracion" size="10" readonly />
+
+    <hr />
+    <div id="otro">
+      <p>Si dispones de un código descuento, indícalo:</p>
+      <input type="text" id="codigoDescuento" size="10" />
+
+      <br /><br />
+      <label for="telefono">Teléfono de contacto:</label>
+      <input type="text" id="telefono" size="12" placeholder="(XXX)-XXX-XXX" />
+    </div>
+  </body>
+</html>

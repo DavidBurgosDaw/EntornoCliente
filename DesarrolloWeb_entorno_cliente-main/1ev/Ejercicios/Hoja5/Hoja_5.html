@@ -1,0 +1,34 @@
+<!-- 
+Que significan las siguientes expresiones regulares y para que pueden servir
+
+/^\s+$/ 	                    que sea solamente espacio las veces que quieras min 1
+/^\d{8}[A-Z]$/	                dígito 0-9 8 veces y letra
+/^\d{10}[A-Z]{2}$/	            10 dígitos y 2 letras
+/^\d{9}$/	                    9 dígitos
+/^\d{3}-\d{3}-\d{3}$/           3 dígitos - 3 dígitos - 3 dígitos
+/^\d{3}\s\d{2}\s\d{2}\s\d{2}$/  3 dígitos espacio blanco (2 dígitos espacio blanco) 3 veces
+/^\+\d{2,3}\s\d{9}$/            + 2o3 dígitos espacio 9 dígitos
+
+Definir y comprobar la validez de expresiones regulares que sirvan para comprobar si una cadena de caracteres:
+
+Es un número binario. /^(1[0-1]*|0)+$   #obliga que la primera sea o un 1 y si quieres que siga o que sea solo 0
+Es un teléfono móvil  /^\+\d{2,3}\s\d{9}$/    
+Es un teléfono 901, 902 o 903    /^90[1-3]\d{6}$/
+Es daw1, daw2, asir1, asir2, fin1 o fin2 en mayúsculas o minúsculas /^(daw|asir|fin)[1,2]$/i
+Es una cantidad de dinero que tiene dos decimales (, decimal) y acaba en $ o €  ^\d+,\d{2}[$€]$
+Es una página web que comienza con www., acaba con .com o .org o .es y contiene en su nombre “poker”, “porno” o “juego”     ^www\..*(poker|porno|juego).*\.(com|org|es)$
+Es una hora que contiene hh:mm:ss (por ej 12:44:21) ^([01]\d|2[0-3])(:[0-5]\d){2}
+Es una fecha dd/mm/aaaa     ^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2]\/\d{4})
+Contraseña de exactamente 6 dígitos     ^\d{6}$/
+Contraseña de 6 caracteres con solo dígitos o letras minúsculas     ^[0-9a-z]{6}$
+Contraseña de entre 6 y 8 caracteres entre los que hay al menos 2 letra minúscula y un dígito     ^(?=.*[a-z].*[a-z])(?=.*[0-9])[a-z0-9]{6-8}$
+
+OPCIONAL 
+Implementar las siguientes expresiones regulares:
+Solo tienen ‘a’ o solo tienen ‘b’
+Solo tengan parejas de ‘a’ y/o parejas de ‘b’
+Contienen la cadena ‘aba’ o la cadena ‘bab’
+Contienen la cadena ‘ba’ al menos dos veces seguidas 
+No tienen más de tres ‘a’ o tres ‘b’ seguidas
+Alternan la ‘a’ y la ‘b’ sin repetirse
+-->

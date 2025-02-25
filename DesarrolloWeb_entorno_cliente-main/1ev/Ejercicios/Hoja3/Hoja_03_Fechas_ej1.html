@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type='text/css'>
+body{
+	font-family: 'Kite One', sans-serif;
+}
+ 
+div {
+	border-style: solid;
+    border-width: 2px;
+	width:500px;
+	margin:auto;
+	padding: 20px;
+}
+.uno {
+		line-height: 30px;  
+	}
+</style>
+ <script>
+/*
+texto = "pafadfasdf";
+alert (texto.replace('p','x'));
+alert (texto);
+*/
+
+    function ejercicio1(){
+
+        
+        let dias= new Array("dom","lun","mart","mie","jue","vi","sab");
+        let dia=new Date(document.getElementById("n1").value);
+        let hoy = new Date();
+        let result=hoy - dia;
+        //alert(result);
+        alert(parseInt(((result/ (1000*60*60*24))/365.25)));
+
+        alert(dias[dia.getDay()]);
+    }
+    function ejercicio2(){
+        var texto= document.getElementById("n2").value;
+        let fecha = texto.split('/');
+        let dia= new Date(parseInt(fecha[2]),parseInt(fecha[1])-1,parseInt(fecha[0]));
+        let hoy = new Date();
+        let result=hoy - dia;
+        //alert(result);
+        alert(Math.round(result/ (1000*60*60*24)))
+    }
+    function ejercicio5(){
+        let hoy = new Date();
+        numdias=parseInt((hoy.getDate())+100);
+        dia= new Date(hoy.getFullYear(),hoy.getMonth(),numdias);
+        alert(dia.getDate()+"-"+(parseInt(dia.getMonth())+1)+"-"+dia.getFullYear())
+    }
+
+
+ </script>
+
+</head>
+<body>
+<form>
+    <div>
+        <br> Introduce una fecha <input type="text" id="n1" ></p>
+            <input type="button" class="uno"  value="Ejercicio 1 y 3" onclick="ejercicio1()"> 
+        <br> <br>
+    </div>
+    <div>
+        <br> Introduce una fecha <input type="text" id="n2" ></p>
+            <input type="button" class="uno"  value="Ejercicio 2" onclick="ejercicio2()"> 
+        <br> <br>
+    </div>
+    <div>
+        <br> <input type="button" class="uno"  value="Ejercicio 5" onclick="ejercicio5()"> 
+        <br> <br>
+    </div>
+    <!--caaj tipo date-->
+</form>
+</body>
+</html>

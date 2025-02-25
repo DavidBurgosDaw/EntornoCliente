@@ -1,0 +1,55 @@
+<!DOCTYPE >
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title> </title>
+  </head>
+  <script src="..\jquery-3.7.1.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#sel").change(function () {
+        var nombremasc = $(this).val();
+        if (nombremasc !== "0") {
+          $("#demo").html(`<img src="${nombremasc}">`);
+        } else {
+          $("#demo").html("");
+        }
+      });
+
+      descargaArchivo();
+    });
+
+    function descargaArchivo() {
+      peticion_http = new XMLHttpRequest();
+      peticion_http.onreadystatechange = muestraContenido;
+      peticion_http.open("GET", "fotos.json", true);
+      peticion_http.send(null);
+      function muestraContenido() {
+        if (peticion_http.readyState == 4) {
+          if (peticion_http.status == 200) {
+            var arr = JSON.parse(peticion_http.responseText);
+            var out = "";
+            var i;
+            for (i = 0; i < arr.length; i++) {
+              v =
+                `<option value="` +
+                arr[i].src +
+                `">` +
+                arr[i].imagen +
+                `</option`;
+              document.getElementById("sel").innerHTML += v;
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <body>
+    <div id="titulo"><h1>BUSCAR FOTOS</h1></div>
+    <select id="sel">
+      <option value="0">MIS FOTOS</option>
+    </select>
+    <div id="demo"></div>
+  </body>
+</html>

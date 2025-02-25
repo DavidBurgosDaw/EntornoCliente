@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>CONTROL FORMULARIOS</title>
+    <link rel="stylesheet" href="main.css" />
+
+    <style>
+      span {
+        display: none;
+      }
+
+      #precio {
+        color: #222;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+    </style>
+    <script>
+      // Aquí pon las variables globales que necesites si las necesitas
+
+      function cargarFecha() {
+        let dia = new Date();
+        año = dia.getFullYear() - 2000;
+        //alert(año);
+        document.getElementById("fent").value = `${dia.getDate() + 1}//${
+          dia.getMonth() + 1
+        }//${año}`;
+        cont = 1;
+        a = window.setInterval(function () {
+          i = "playa" + cont + ".png";
+          //alert(i);
+          document.getElementById("imagen").src = i;
+          cont++;
+          if (cont > 4) {
+            cont = 1;
+          }
+        }, 3000);
+      }
+      function colorear(event, x) {
+        if (event.type === "focus") {
+          x.style.background = "grey";
+        } else {
+          //puede ser cualquier otrro event que quiera poner abajo
+          x.style.background = "white";
+        }
+      }
+      function calcular() {
+        /*SI ALGO DA ERROR PONER EL FOCUS */
+        const regexFecha =
+          /^([1-2][0-9]|[1-9]|3[12])\/\/(1[0-2]|[1-9]|0[1-9])\/\/(24|25)$/;
+        let fecha1 = document.getElementById("fent").value;
+        let fecha2 = document.getElementById("fsal").value;
+        if (!regexFecha.test(fecha1)) {
+          alert("esta Mal fecha 1");
+          document.getElementById("fent").focus();
+          return;
+        }
+        if (!regexFecha.test(fecha2)) {
+          alert("esta Mal fecha 2");
+          document.getElementById("fsal").focus();
+          return;
+        }
+        //dia1 = new Date();
+
+        d2 = fecha2.split("//");
+        // alert(d2[1]);
+        dia2 = new Date(Number(d2[2]) + 2000, d2[1] - 1, d2[0]);
+        alert(fecha2);
+        alert(dia2);
+        // if (dia1 >= dia2) {
+        //   alert("el dia de entrada tiene que ser anterior");
+        //   return;
+        // }
+        document.getElementById("noches").value = 5;
+        /*PARA SACAR EL AÑO SIMPLEMENTE -2000*/
+        /*
+        [d1, m1, a1] = fecha1.split("//");
+        [d2, m2, a2] = fecha2.split("//");
+        //alert(d1 + " " + m1 + " " + a1);
+        año1 = 2000 + Number(a1);
+        alert(Number(mes));
+        let date1 = new Date(año1, Number(mes), Number(dia));
+        alert(date1);
+        */
+
+        /*
+          if(date1>date2){
+            alert("el dia de entrada tiene que ser anterior");
+            return;
+          }
+        */
+        let chk1 = document.getElementById("check1");
+        let chk2 = document.getElementById("check2");
+        let chk3 = document.getElementById("check3");
+        let select = document.getElementById("sel");
+        let codsoc = document.getElementById("socio");
+        const regexCode = /^([13579]|[ABC])*$/;
+        let tel = document.getElementById("telefonos").value;
+        const regexTel = /^([67]\d{8})( \([67]\d{8}\))?$/;
+        let corr = document.getElementById("correo").value;
+
+        if (!chk1.checked && !chk2.checked && !chk3.checked) {
+          alert("seleccion al menos un campo ");
+          return;
+        }
+        if (select.value != 0 && codsoc.value == "") {
+          alert("si tienes descuento tienes q poner code");
+          return;
+        } else if (
+          codsoc.value.length > 9 ||
+          codsoc.value.length < 3 ||
+          !regexCode.test(codsoc.value)
+        ) {
+          alert("el code esta mal");
+          return;
+        }
+        if (tel != "") {
+          if (!regexTel.test(tel)) {
+            alert("mal escrito el tel");
+            return;
+          }
+        }
+        if (tel == "" && corr == "") {
+          var a = confirm("Seguro que no quiere que el contactemos?");
+          if (!a) {
+            alert("indique el num de tel o corr");
+            return;
+          }
+        }
+        //CALCULOS
+        //-----
+        let numnoches = 5;
+        let precio = 0;
+        if (chk1.checked) {
+          precio += 120 * numnoches;
+        }
+        if (chk2.checked) {
+          precio += 200 * numnoches;
+        }
+        if (chk3.checked) {
+          precio += 250 * numnoches;
+        }
+        //alert(select.value);
+        preciot = precio * ((100 - select.value) / 100);
+        /*SIEMPRE COGE EL SI PQ TIENEN MISMO ID */
+        if (document.getElementById("r").value == 1) {
+          preciotc = preciot + 30;
+        }
+        document.getElementById(
+          "precio"
+        ).innerHTML = `Precio total: ${precio}€ <br>Aplicando ${select.value}% desc: ${preciot}€ <br>Incluyendo canc:${preciotc}€`;
+
+        //-----
+      }
+      let click = 0;
+      function fin() {
+        if (click == 0) {
+          clearInterval(a);
+          click++;
+        } else {
+          mia = window.open(
+            "https://www.booking.com",
+            "_self"
+            /*FALTABA EL _self*/
+          );
+        }
+      }
+
+      function comprobarSocio() {
+        /*ESTO ES UN ONPRESS*/
+        /*VALIDAR CON EXPRESION REGULAR */
+        const key = event.key;
+        if (
+          key === "1" ||
+          key === "3" ||
+          key === "5" ||
+          key === "7" ||
+          key === "9" ||
+          key === "a" ||
+          key === "b" ||
+          key === "c"
+        ) {
+        } else {
+          let wndw = window.open(" ", "ventana", "width=300,height=200");
+          wndw.document.write("Error en las teclas");
+        }
+      }
+    </script>
+  </head>
+  <body onload="cargarFecha()">
+    <h1>APARTAMENTOS SOLYPLAYA</h1>
+    <img
+      src="playa1.png"
+      id="imagen"
+      width="300"
+      height="200"
+      onclick="fin()"
+    />
+    <h2>Solicite información para su reserva</h2>
+
+    Día Entrada&nbsp
+    <input
+      type="text"
+      id="fent"
+      size="8"
+      onfocus="colorear(event,this)"
+      onblur="colorear(event,this)"
+    />
+    <br />
+    Día Salida&nbsp&nbsp&nbsp
+    <input
+      type="text"
+      id="fsal"
+      size="8"
+      onfocus="colorear(event,this)"
+      onblur="colorear(event,this)"
+    />
+
+    Noches:&nbsp&nbsp <input type="text" id="noches" size="2" readonly /><br />
+    <br />
+    <div>
+      Actualmente nuestros precios por noche son (Iva incluido): <br />
+
+      <input type="checkbox" id="check1" /> Estudio (2 plazas) 120€
+      <br />
+      <input type="checkbox" id="check2" /> 1 habitación y salón (4 plazas) 200€
+      <br />
+      <input type="checkbox" id="check3" /> 2 habitaciones y salón (6 plazas)
+      250€ <br /><br />
+      Pudiendo aplicar uno de nuestros descuentos<br />
+      <select id="sel">
+        <option value="0">Ninguno</option>
+        <option value="5">Socio SOLYPLAYA Plata (5%)</option>
+        <option value="10">Socio SOLYPLAYA Oro (10%)</option>
+        <option value="20">Socio SOLYPLAYA Premium (20%)</option>
+      </select>
+      <!-- es un onkeypress-->
+      Código Socio <input type="text" id="socio" onchange="comprobarSocio()" />
+      <br />
+      Con seguro de cancelación
+      <input type="radio" checked value="1" id="r" name="r" />Sí
+      <input type="radio" value="2" id="r" name="r" /> No <br /><br />
+      Si nos deja un teléfono (o dos) nosotros le llamamos
+      <input type="text" id="telefonos" placeholder="999999999 (999999999)" />
+      <br />
+      O su correo
+      <input type="text" id="correo" size="50" />
+    </div>
+    <br />
+    <input type="button" value="CALCULAR PRECIO" onclick="calcular()" />
+    <br /><br />
+
+    <div id="precio"></div>
+  </body>
+</html>

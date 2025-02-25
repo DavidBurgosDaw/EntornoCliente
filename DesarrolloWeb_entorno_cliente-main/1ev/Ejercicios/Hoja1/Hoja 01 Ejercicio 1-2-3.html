@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type='text/css'>
+body{
+	font-family: 'Kite One', sans-serif;
+}
+ 
+div {
+	border-style: solid;
+    border-width: 2px;
+	width:500px;
+	margin:auto;
+	padding: 20px;
+}
+.uno {
+		line-height: 30px;  
+	}
+</style>
+ <script>
+ function ejercicio1(){
+	alert("i am = i \n i do not = i don't" );
+ }
+  function ejercicio2(){
+	
+	let num=document.getElementById("n1").value;
+	//let num=numero.length;
+	let conv = Number (document.getElementById("n1").value);	
+		if(isNaN(conv)){
+			alert("no pongas letras");
+		}
+		else {
+			if(num==conv){
+			alert("FELICIDADES");
+			}
+			if(num!=conv){
+				alert("no es entero");
+			}
+		}
+ }
+  function ejercicio3(){
+	let num1=Number(document.getElementById("n2").value);
+	let num2=Number(document.getElementById("n3").value);
+	//let num1=document.getElementById("n2").value;
+	//let num2=document.getElementById("n3").value;
+	let oper=document.getElementById("oper").value;
+	let contfallos=0;
+	  if (num1 == "" || num2 == "" || oper == "") {
+		  alert("alguna caja vacia");
+		  contfallos++;
+	  }
+	  if (isNaN(num1)) {
+		  alert("num1 no es num");
+		  contfallos++;
+	  }
+	  if (isNaN(num2)) {
+		  alert("num2 no es num");
+		  contfallos++;
+	  }
+	  if (oper != '+' && oper != '-' && oper != '*' && oper != '/') {
+		  alert("mal operador");
+		  contfallos++;
+	  }
+	  if(contfallos==0) {
+		let result;
+		if(oper=='+')
+			result=num1+num2;
+		if(oper=='-')
+			result=num1-num2;
+		if(oper=='*')
+			result=num1*num2;
+		if(oper=='/')
+			result=num1/num2;
+
+		document.getElementById('res').value=result
+	  }
+ }
+ 	function ejercicio4(){
+		let a=true;
+		let tot=0;
+		while(a!=false){
+		let pal=prompt('Introduce un número')
+		let num=parseInt(pal);
+		if(pal=="FIN" || pal=="fin"){
+			alert("La suma es "+tot);
+			break;
+		}
+		else if(isNaN(num) || pal==""){
+			continue;
+		}
+		else
+			tot=num+tot;
+	}
+	}
+	function ejercicio5(){
+		let maxl=0;
+		let maxfrase;
+		for(let i=0;i<5;i++){
+			let pal=prompt('Introduce una cadena')
+			if(pal.length>maxl){
+				maxl=pal.length;
+				maxfrase=pal;
+			}
+		}
+		alert(maxfrase);
+
+	}
+ </script>
+
+</head>
+<body>
+<form>
+<input type="reset" value="BORRAR">
+<div>
+<br> 
+ <input type="button" class="uno"  value="Ejercicio 1" onclick="ejercicio1()"> 
+ <br> <br>
+ </div>
+ <div>
+<br> Introduce un N&uacute;mero entero <input type="text" id="n1" size="10"></p>
+ <input type="button" class="uno"  value="Ejercicio 2" onclick="ejercicio2()"> 
+ <br> <br>
+ </div>
+ <div>
+Introduce dos n&uacute;meros
+<br>
+<p>N&uacute;mero 1 <input type="text" id="n2" size="8"></p>
+<p>N&uacute;mero 2 <input type="text" id="n3" size="8"></p>
+Introduce la operaci&oacute;n a ejecutar
+<input type="text" id="oper" size="3"></p>
+<p>Resultado <input type="text" id="res" size="8" readonly="readonly"></p>
+ <input type="button" class="uno"  value="Ejercicio 3" onclick="ejercicio3()"> 
+
+</div>
+<div>
+	<br> 
+		<input type="button" class="uno"  value="Ejercicio 4" onclick="ejercicio4()"> 
+	<br> <br>
+</div>
+<div>
+	<br> 
+		<input type="button" class="uno"  value="Ejercicio 5" onclick="ejercicio5()"> 
+	<br><br>
+</div>
+ 
+</form>
+</body></html>

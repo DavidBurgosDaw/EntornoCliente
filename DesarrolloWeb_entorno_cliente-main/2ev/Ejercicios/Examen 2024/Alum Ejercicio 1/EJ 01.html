@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>CONTROL FORMULARIOS</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="jquery-3.7.1.min.js"></script>
+    <style>
+      body {
+        font-family: "Trebuchet MS", sans-serif;
+        margin: 50px;
+      }
+      .but {
+        width: 15px;
+        height: 15px;
+        border: 0px;
+      }
+    </style>
+    <script>
+      let pkm = [];
+      let cont = 0;
+
+      $(document).ready(function () {
+        iniciar();
+
+        $("#selGen").change(function () {
+          iniciar();
+        });
+
+        $("#uno").click(function () {
+          cont = (cont + 1) % pkm.length;
+          cargarpkm();
+        });
+
+        $("#dos").click(function () {
+          $.getScript("masinfoalum.js");
+          $("#uno").prop("disabled", true);
+        });
+      });
+
+      function iniciar() {
+        pkm = [];
+        cont = 0;
+
+        let gen = $("#selGen").val();
+        $.getJSON(`pokemon.${gen}.json`)
+          .done(function (data) {
+            pkm = data;
+            cargarpkm();
+          })
+          .fail(function () {
+            alert("Error al cargar los datos de Pokémon.");
+          });
+      }
+
+      function cargarpkm() {
+        if (pkm.length === 0) return;
+
+        let tipos = pkm[cont].tipo.join(" ");
+
+        $("#principal").html(`
+          <h4>Pokédex: ${pkm[cont].pokedex} - ${pkm[cont].nombre}</h4>
+          <p><img src="pokemon2/${pkm[cont].nombre}.png" onerror="this.src='default.png';"></p>
+          <p>${pkm[cont].comentarios}</p>
+          <h4>Tipo: ${tipos}</h4>
+        `);
+      }
+    </script>
+  </head>
+  <body>
+    <h3>Pokémon</h3>
+
+    <select id="selGen">
+      <option value="1GEN">1ª Generación</option>
+      <option value="2GEN">2ª Generación</option>
+      <option value="3GEN">3ª Generación</option>
+    </select>
+
+    <br /><br />
+
+    <input type="button" id="uno" value="AVANZAR" />
+    <input type="button" id="dos" value="TRAER TXT" />
+    <div id="principal"></div>
+  </body>
+</html>

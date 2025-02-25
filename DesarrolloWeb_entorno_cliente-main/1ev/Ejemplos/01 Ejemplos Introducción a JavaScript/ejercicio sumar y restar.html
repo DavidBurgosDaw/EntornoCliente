@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+</head>
+<body>
+    RESULTADOS
+    <br>
+    <!-- podria poner number-->
+    Num 1 <input type="text" value="" id="n1" >
+    <br>
+    <br>
+    Num 2 <input type="text" value="" id="n2" >
+    <br><br>
+    <input type="button" value="resta" onclick="restar()">
+    <input type="button" value="suma" onclick="sumar()">
+    <br>
+   <!--onblur es para cuando soltamos  -->
+    <div id="demo">
+   </div>
+</body>
+<script type="text/javascript">
+
+
+   function restar(){
+      document.getElementById("demo").innerHTML="La resta da "+(document.getElementById("n1").value-document.getElementById("n2").value);
+   }
+   function sumar(){
+      document.getElementById("demo").innerHTML="Has escrito "+(Number(document.getElementById("n1").value)+Number(document.getElementById("n2").value));
+   }
+
+
+</script>
+</html>

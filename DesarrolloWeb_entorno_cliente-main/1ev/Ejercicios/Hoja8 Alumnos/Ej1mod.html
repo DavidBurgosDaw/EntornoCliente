@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <script>
+    function temp() {
+      i = 10;
+      a = window.setInterval(function () {
+        document.getElementById("id").innerHTML = i;
+        i--;
+        if (i < 0) {
+          clearInterval(a);
+          document.getElementById("id").style.display = "none";
+          document.getElementById("im").style.display = "flex";
+          //document.getElementById("id").innerHTML = "FINN";
+          //document.getElementById("id").innerHTML = ;
+        }
+      }, 1000);
+    }
+  </script>
+  <style>
+    #im {
+      display: none;
+      height: 100vh;
+      width: 100%;
+    }
+    #id {
+      text-align: center;
+      font-size: 300px;
+    }
+  </style>
+  <body onload="temp()">
+    <div id="id"></div>
+    <img
+      src="Screenshot_2024-11-27-10-00-01-06_92460851df6f172a4592fca41cc2d2e6.jpg"
+      id="im"
+    />
+  </body>
+</html>

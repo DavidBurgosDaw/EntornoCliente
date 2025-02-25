@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>EXAMEN EJERCICIO 1</title>
+    <link rel="stylesheet" href="main.css" />
+    <style>
+      .clasePremio {
+        color: red;
+      }
+    </style>
+    <script type="text/javascript">
+      var imagenes = new Array(
+        "Bulbasaur",
+        "Ivysaur",
+        "Venusaur",
+        "Charmander",
+        "Charmeleon",
+        "Charizard",
+        "Squirtle",
+        "Wartortle",
+        "Blastoise"
+      );
+      let dinero = 10000;
+      function cargar() {
+        i = 0;
+        palabras = new Array(
+          "Jugada: 2€",
+          "2 iguales: premio 5€",
+          "3 iguales: premio 10€"
+        );
+        intervalo = setInterval(() => {
+          document.getElementById("idspan").innerHTML = palabras[i];
+          i = (i + 1) % palabras.length;
+        }, 3000);
+      }
+      function jugar() {
+        if (dinero < 2) {
+          alert("no te queda saldo");
+          return;
+        }
+        dinero -= 2;
+
+        let tabla = document.getElementById("tabla");
+        let fila = document.createElement("tr");
+        let numeros = [];
+
+        for (let i = 0; i < 3; i++) {
+          let caja = document.createElement("td");
+          let numero = random();
+          numeros.push(numero);
+
+          let imagen = document.createElement("img");
+          imagen.src = `pokemon/${imagenes[numero]}.png`; // Usar el array "imagenes" para obtener el nombre
+          caja.append(imagen);
+          fila.append(caja);
+        }
+        let repetido = 0;
+        for (let i = 0; i < numeros.length - 1; i++) {
+          for (let j = i + 1; j < numeros.length; j++) {
+            if (numeros[i] === numeros[j]) {
+              repetido += 1;
+              alert("repetidos");
+            }
+            if (repetido > 1) {
+              alert("333333");
+            }
+          }
+          if (repetido > 0) break;
+        }
+        if (repetido > 0) {
+          cajatexto = document.createElement("div");
+          if (repetido == 1) {
+            cajatexto.textContent = "Premio 5€";
+            dinero += 5;
+          }
+          if (repetido == 2) {
+            cajatexto.textContent = "Premio 10€";
+            dinero += 10;
+          }
+          cajatexto.className = "clasePremio";
+        } else {
+          cajatexto = document.createElement("div");
+          cajatexto.textContent = "No premio";
+        }
+        let caja = document.createElement("td");
+        caja.append(cajatexto);
+        fila.append(caja);
+        tabla.append(fila);
+      }
+
+      function random() {
+        return Math.floor(Math.random() * 9);
+      }
+      function borrar() {
+        let filas = document.querySelectorAll("tr");
+        //bucle paar buscar
+        for (let i = 0; i < filas.length - 1; i++) {
+          //if(filas[i])
+          alert(filas[i]);
+        }
+      }
+    </script>
+  </head>
+
+  <body onload="cargar()">
+    <div>
+      <p>
+        JUGANDO A POKEMON &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span id="idspan"></span>
+      </p>
+      <input type="button" value="JUGAR" onclick="jugar()" />
+      <input type="button" value="BORRAR SIN PREMIO" onclick="borrar()" />
+      <input
+        type="button"
+        value="http://www.pokemongo.com/es-es/"
+        onclick="window.open(this.value, '_blank')"
+      />
+      <input type="button" value="GANANCIAS" />
+      <br />
+      <table id="tabla"></table>
+    </div>
+  </body>
+</html>
