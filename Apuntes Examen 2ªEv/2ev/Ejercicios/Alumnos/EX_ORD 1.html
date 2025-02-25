@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>EXAMEN ORDINARIA 1</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+        color: #210b61;
+        font-size: 10pt;
+      }
+      div {
+        width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #pos1 {
+        position: relative;
+        background-color: #f5da81;
+      }
+      .nuevo {
+        position: relative;
+        background-color: #f5b7b1;
+      }
+      #boton1,
+      #boton2 {
+        display: none;
+      }
+      table {
+        margin: auto;
+        text-align: center;
+      }
+      td {
+        font-size: 26px;
+        width: 150px;
+        height: 150px;
+        text-align: center;
+        border: 1px solid black;
+      }
+      td img {
+        width: 150px;
+        height: 150px;
+      }
+    </style>
+    <script src="jquery-3.7.1.min.js"></script>
+    <script>
+      var imagenes = [
+        "num1.JPG",
+        "num2.JPG",
+        "num3.JPG",
+        "num4.JPG",
+        "num5.JPG",
+        "num6.JPG",
+        "num7.JPG",
+        "num8.JPG",
+        "num9.JPG",
+      ];
+      $(document).ready(function () {
+        let cont = 0;
+        $("td").each(function (i) {
+          $(this).html('<img src="fotos/fondo.jpg" width="150" height="150">');
+        });
+        $("td img").one("click", function () {
+          //$("td img").click(function (i) {
+          if (cont == 8) {
+            $("#boton1").css("display", "block");
+            $("#boton2").css("display", "block");
+          }
+          if (cont == 0) {
+            $(this).fadeOut(500);
+            $(this).attr("src", `fotos/${imagenes[cont]}`);
+            $(this).fadeIn(500);
+          } else {
+            $(this).attr("src", `fotos/${imagenes[cont]}`);
+          }
+          cont += 1;
+        });
+        $("#boton1").click(function () {
+          $("td img").each(function (index) {
+            //index va escalando 1,2,3,4,5 y asi tiene cooldwon por cada uno
+            var img = $(this);
+            setTimeout(function () {
+              img.fadeTo(200, 0.1);
+            }, 500 * index);
+          });
+        });
+        $("#boton2").click(function () {
+          $("td img").each(function (index) {
+            //index va escalando 1,2,3,4,5 y asi tiene cooldwon por cada uno
+            var img = $(this);
+            setTimeout(function () {
+              img.attr("src", `fotos/${imagenes[index]}`);
+              img.fadeTo(200, 1);
+            }, 500 * index);
+          });
+        });
+        $("fieldset").mouseenter(function () {
+          $(this).css("background-color", "#218838");
+        });
+        $("fieldset").mouseleave(function () {
+          $(this).css("background-color", "#f5da81");
+        });
+        $("h1").click(function () {
+          var container = $("<div class='nuevo'></div>");
+          $(this).wrap(container);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>JUGANDO CON LOS NÚMEROS</h1>
+    <div id="central">
+      <fieldset>
+        <p>Bienvenido a nuestra web, puedes jugar y divertirte</p>
+      </fieldset>
+    </div>
+
+    <table>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+    <input type="button" id="boton1" class="boton" value="PÚLSAME" />
+    <input type="button" id="boton2" class="boton" value="LOS COLOCO" />
+  </body>
+</html>

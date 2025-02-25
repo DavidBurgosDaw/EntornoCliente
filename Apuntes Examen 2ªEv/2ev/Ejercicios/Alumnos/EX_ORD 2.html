@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>EJERCICIO ORDINARIA 2</title>
+
+    <style>
+      /* Estilos para cada tarjeta de héroe */
+      .clasediv {
+        position: relative;
+        float: left;
+        width: 120px;
+        height: 160px;
+        margin-left: 50px;
+        margin-top: 50px;
+        color: #515a5a;
+        text-align: center;
+      }
+      /* Estilos para el cuadro de información adicional */
+      .clasemas {
+        position: relative;
+        float: left;
+        width: 340px;
+        margin-left: 50px;
+        margin-top: 100px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        border: 1px solid #000000;
+        border-radius: 7px;
+        padding: 10px;
+        background-color: #eaeded;
+      }
+      /* Estilo para los textos de párrafos y spans */
+      p,
+      span {
+        font-weight: bold;
+        color: #515a5a;
+      }
+    </style>
+
+    <!-- Carga la librería jQuery -->
+    <script src="jquery-3.7.1.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        // Carga el archivo JSON con la información de los héroes
+        $.getJSON("heroes.json", function (datos) {
+          datos.forEach((element) => {
+            // Crea un div con la clase "clasediv" para cada héroe
+            let heroDiv = $("<div class='clasediv'>")
+              .data("bio", element.bio) // Guarda la biografía en los datos del div
+              .append(
+                $("<h4>").text(element.nombre), // Agrega el nombre del héroe
+                $("<img>") // Agrega la imagen del héroe
+                  .attr("src", element.img)
+                  .attr("width", 100)
+                  .attr("height", 100),
+                $("<p class='casa'>").text(element.casa) // Agrega el nombre de la casa
+              );
+
+            // Agrega el div al contenedor con id "info"
+            $("#info").append(heroDiv);
+          });
+
+          // Evento cuando el mouse entra en un héroe para mostrar su biografía
+          $("#info").on("mouseenter", ".clasediv", function () {
+            $("#masinfo").html($(this).data("bio"));
+          });
+        });
+
+        // Evento cuando se hace clic en el nombre de la casa de un héroe
+        $("#info").on("click", ".casa", function () {
+          let casa = $(this).text().trim(); // Obtiene el nombre de la casa
+          $("#masinfo").text(`Cargando información de ${casa}...`);
+
+          // Intenta cargar un script con el nombre de la casa (ej. "Marvel.js" o "DC.js")
+          $.getScript(`${casa}.js`).fail(() => {
+            $("#masinfo").html(
+              `<p style="color:red;">Error: No se pudo cargar la información de ${casa}.</p>`
+            );
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Contenedor donde se mostrarán las tarjetas de los héroes -->
+    <div id="info"></div>
+
+    <!-- Cuadro donde se muestra información adicional sobre un héroe -->
+    <div class="clasemas">
+      Saber más...
+      <div id="masinfo"></div>
+    </div>
+  </body>
+</html>

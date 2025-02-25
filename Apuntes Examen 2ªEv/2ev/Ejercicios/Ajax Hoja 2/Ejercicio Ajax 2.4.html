@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Example Page</title>
+ 
+
+	<style>
+	body{
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	img {
+		witdth:170px;
+		height:120px;
+		border:solid 2px;
+		}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+
+	</style>
+</head>
+<body>
+
+
+<h2 class="demoHeaders">Mis animalitos</h2>
+<p>
+	<button id="dialog-link" class="ui-button ui-corner-all ui-widget">
+		<span class="ui-icon ui-icon-newwin"></span>Pedir información
+	</button>
+</p>
+
+
+<!-- ui-dialog -->
+<div id="dialog" title="Información">
+	<p>Si pulsa traeremos la información utilizando AJAX y JSON</p>
+</div>
+
+
+<script src="jquery-3.3.1.min.js"> </script>
+ 
+<div id="imagenes">
+<br>
+<img id="mamiferos" src="img/mamiferos.jpeg">  <img id="aves" src="img/aves.jpeg"> <img id="reptiles" src="img/reptiles.jpeg">
+</div>
+<div id="informacion">
+</div>
+</body>
+</html>

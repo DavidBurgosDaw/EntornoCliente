@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/
+xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> </title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script> 
+		<script type="text/javascript">
+			
+			function cargaColores(){
+				$.ajax( {
+					url: 'colores.json',
+					type: 'get',
+					dataType:'json',
+					success: function (request){
+						let arr = request;
+						var primer = document.createElement("option");
+						primer.value = 0;
+						primer.text = "Elige Color"
+
+						for(let i = 0; i < arr.length; i++) {
+							var option = document.createElement("option");
+							option.value = arr[i].valorHexadec;
+							option.text = arr[i].nombreColor;
+							document.getElementById("colores").appendChild(option);			
+						}
+									
+					}
+			});
+			}
+
+			function cargaColor() {
+			let sel = document.getElementById("colores").value;
+			document.getElementById("id1").style.borderRadius = "10%"
+			document.getElementById("id1").style.width = "100px";
+			document.getElementById("id1").style.height = "100px";
+			document.getElementById("id1").style.backgroundColor = sel;
+		}
+
+
+		</script>
+</head>
+<body onload="cargaColores()">
+	<div id="id1">
+		<select id="colores" onchange="cargaColor()">
+		</select>
+	</div>
+</body>
+</html>

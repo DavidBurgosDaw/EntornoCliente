@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>EJERCICIO 3</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+
+  <script type="text/javascript">
+    let empleados = [];
+
+    function descargaArchivo() {
+      const peticion_http = new XMLHttpRequest();
+      peticion_http.onreadystatechange = muestraContenido;
+      peticion_http.open("GET", "empleados.json", true);
+      peticion_http.send(null);
+
+      function muestraContenido() {
+        if (peticion_http.readyState == 4) {
+          if (peticion_http.status == 200) {
+            const arr = JSON.parse(peticion_http.responseText);
+            for (let i = 0; i < arr.length; i++) {
+              empleados.push(arr[i]);
+            }
+          }
+        }
+      }
+    }
+
+    function cargarDatos() {
+      alert(empleados.length);
+      let sel = document.getElementById("sel1").value;
+      console.log(sel);
+      document.getElementById("ul1").innerHTML = "";
+      switch (sel) {
+        case "1":
+          for (let i = 0; i < empleados.length; i++) {
+            var li = document.createElement("li");
+            li.innerHTML =
+              empleados[i].departamento +
+              " " +
+              empleados[i].nombre +
+              " " +
+              empleados[i].apellido;
+            document.getElementById("ul1").appendChild(li);
+          }
+          break;
+        case "2":
+          for (let i = 0; i < empleados.length; i++) {
+            var li = document.createElement("li");
+            li.innerHTML =
+              empleados[i].departamento +
+              " " +
+              empleados[i].nombre +
+              " " +
+              empleados[i].apellido +
+              " " +
+              empleados[i].salario;
+            document.getElementById("ul1").appendChild(li);
+          }
+          break;
+      }
+    }
+  </script>
+
+  <body onload="descargaArchivo()">
+    <div id="titulo"><h1>EMPLEADOS</h1></div>
+    <select id="sel1" onchange="cargarDatos()">
+      <option value="0">Selecciona</option>
+      <option value="1">Datos sin salario</option>
+      <option value="2">Datos con salario</option>
+    </select>
+    <br /><br />
+    <ul id="ul1"></ul>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>EJERCICIO 3 EXAMEN JUNIO JQUERY 2018</title>
+		<style>
+			table{
+				background-color: #EFF2FB;
+				text-align:center;
+				width:900px;
+				border: 1px solid #D0A9F5;
+				font-family: 'Cherry Swash', cursive;
+			}
+			td{
+				border: 1px solid #D0A9F5;
+			}
+		</style>
+		<script src="../../jquery-3.7.1.min.js"></script>
+		<script>
+			function cargarDatos(){
+				// Limpia todas las filas de la tabla excepto la primera (encabezado)
+				$("#tabla tr:not(:first)").remove(); 
+
+				$.ajax({
+					url: 'empleados.json',
+					type: 'get',
+					dataType: 'json',
+					success: function(request){
+						let arr = request;
+						let sel = document.getElementById("sel1").value;
+
+						switch(sel){
+							case "1":
+								// Agrego todos los empleados
+								for(let i = 0; i < arr.length; i++) {
+									let emp = "<tr><td> " + arr[i].departamento + " </td><td> " + arr[i].nombre + " </td><td> " + arr[i].apellido + " </td><td>" + arr[i].salario + " </td></tr>";
+									$("#tabla").append(emp);
+								}
+								break;
+							case "CONTABILIDAD":
+								// Agrego solo empleados de contabilidad
+								for(let i = 0; i < arr.length; i++) {
+									if(arr[i].departamento == "CONTABILIDAD"){
+										let emp = "<tr><td> " + arr[i].departamento + " </td><td> " + arr[i].nombre + " </td><td> " + arr[i].apellido + " </td><td>" + arr[i].salario + " </td></tr>";
+										$("#tabla").append(emp);
+									}
+								}
+								break;
+							case "MARKETING":
+								// Agrego solo empleaods de marketing
+								for(let i = 0; i < arr.length; i++) {
+									if(arr[i].departamento == "MARKETING"){
+										let emp = "<tr><td> " + arr[i].departamento + " </td><td> " + arr[i].nombre + " </td><td> " + arr[i].apellido + " </td><td>" + arr[i].salario + " </td></tr>";
+										$("#tabla").append(emp);
+									}
+								}
+								break;
+						}
+					}
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div id="titulo"> <h1> EMPLEADOS</h1> </div>
+		<select id="sel1" onchange="cargarDatos()">
+			<option value="0">Selecciona</option>
+			<option value="1">Todos</option>
+			<option value="CONTABILIDAD">CONTABILIDAD</option>
+			<option value="MARKETING">MARKETING</option>
+		</select>
+		<br><br>
+		<table id="tabla">
+			<tr>
+				<td> DEPARTAMENTO </td>
+				<td> NOMBRE </td>
+				<td> APELLIDO </td>
+				<td> SALARIO </td>
+			</tr>
+		</table>
+	</body>
+</html>
