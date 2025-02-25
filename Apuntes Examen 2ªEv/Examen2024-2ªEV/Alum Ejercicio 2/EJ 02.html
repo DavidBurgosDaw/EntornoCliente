@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+ <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
+        <link rel="stylesheet" href="main.css">
+<style>
+img {
+	width:100px;
+	height:100px;
+}
+.envuelve {border: 2px solid lightgrey;}
+        
+</style>
+<title>Frameworks de JavaScript</title>
+<script src="jquery-3.7.1.min.js"> </script>
+<script>
+let srcs= [];
+
+ 
+
+    $(document).ready(function(){
+
+        $("img").each(function(index) {
+        srcs[index] = $(this).attr("src");  // Guardamos el src original de cada imagen en el array
+        });
+
+        //Al hacer click en un h2 mostrar u ocultar sus párrafos hermanos con una velocidad de 1 segundo y
+        //efecto persiana. (0,25 ptos)
+        $("h2").click(function(){
+            $(this).siblings().slideToggle(1000);
+        });
+       
+        /* 2) Al pulsar el primer botón dar la clase envuelve, que se encuentra en el html, a los div que tienen
+        imágenes. (0,25 ptos)*/
+        $("input[type='button']").eq(0).click(function(){ 
+            $("div:has(img)").addClass("envuelve");
+        });
+        
+
+
+        /* Al pulsar el segundo botón clonar cada uno de los párrafos que son hermanos directos de un h2 ,
+        incrementar en 20px el tamaño de la letra y añadirlos en el div padre del h2. (0,75 ptos) */
+        $("input[type='button']").eq(1).click(function(){
+            $("h2").each(function(){
+                $(this).siblings("p").clone().css("font-size","+=20").appendTo($(this).parent())
+            })
+        })
+
+        /* Al pulsar el tercer botón: poner todas las imágenes con opacidad 0.3, esperar 1 segundo, hacerlas
+        desaparecer con efecto persiana, esperar otro segundo, hacerlas aparecer de nuevo con efecto
+        persiana y poner su opacidad a 1. (0,5 ptos) */
+
+        $("input[type='button']").eq(2).click(function(){ 
+            $("img").css("opacity","0.3").delay(1000).slideToggle().delay(1000).slideToggle().css("opacity","1")
+        });
+
+        /* 5) Al seleccionar un valor del select poner en amarillo los párrafos que contengan el valor
+        seleccionado. Los demás párrafos tendrán fondo blanco. (0,5 ptos) */
+        $("select:first").on("change",function(){
+            var valorBuscado = $(this).val(); // El valor que quieres buscar
+
+            $("p").each(function() {
+                if ($(this).text().includes(valorBuscado)) {
+                    $(this).css("background-color", "yellow");
+                } else{
+                    $(this).css("background-color","white")
+                }
+            });
+        })
+
+        $("img").hover(function() {
+        var imagen = $(this).attr("src");  // Obtener el src de la imagen sobre la que pasamos el ratón
+        
+        // Cambiar el src de todas las imágenes al de la imagen sobre la que estamos pasando el ratón
+        $("img").each(function() {
+            $(this).attr("src", imagen);
+        });
+
+        }, function() {
+            // Paso 3: Al salir el ratón, restaurar los src originales de todas las imágenes
+            $("img").each(function(index) {
+                $(this).attr("src", srcs[index]);  // Restauramos el src original de cada imagen
+            });
+        });
+
+
+
+    });
+
+    
+
+    
+</script>
+</head>
+<body>
+<h1>Frameworks de JavaScript</h1>
+<input type="button" value="Uno"> <input type="button" value="Dos"> <input type="button" value="Tres">
+<select>
+    <option value='0'>seleccione</option><option value='biblioteca'>biblioteca</option>
+    <option value='framework'>framework</option><option value='interfaces'>interfaces</option>
+</select>
+<div>
+    <h2>1. React</h2>
+	<img src="react.png"></img>
+    <p>React es una biblioteca de JavaScript para construir interfaces de usuario, desarrollada por Facebook. Utiliza un enfoque basado en componentes que permite la reutilización de código y facilita el desarrollo de aplicaciones de una sola página (SPA).</p>
+</div>
+<div>
+    <h2>2. Angular</h2>
+	<img src="angular.png"></img>
+    <p>Angular es un framework de desarrollo de aplicaciones web desarrollado y mantenido por Google. Utiliza el lenguaje TypeScript y sigue el patrón de diseño MVC (Modelo-Vista-Controlador). Angular ofrece una amplia gama de características para el desarrollo frontend y backend.</p>
+</div>
+<div>
+    <h2>3. Vue.js</h2>
+	<img src="vue.png"></img>
+    <p>Vue.js es un framework progresivo de JavaScript utilizado para construir interfaces de usuario. Es conocido por su curva de aprendizaje suave y su flexibilidad. Vue.js se puede integrar fácilmente en proyectos existentes y permite el desarrollo de aplicaciones escalables.</p>
+</div>
+<div>
+    <h2>4. Ember.js</h2>
+    <p>Ember.js es un framework de JavaScript para la construcción de aplicaciones web ambiciosas. Proporciona un conjunto de herramientas robustas para facilitar el desarrollo de aplicaciones complejas. Ember.js sigue la convención sobre configuración y enfatiza la productividad del desarrollador.</p>
+</div>
+<div>
+    <h2>5. Svelte</h2>
+    <p>Svelte es un framework de JavaScript que se diferencia de otros enfoques como React o Vue.js al mover la mayor parte del trabajo de compilación del código JavaScript a tiempo de compilación. Esto resulta en un código final muy optimizado y un rendimiento mejorado en la aplicación.</p>
+</body>
+</html>

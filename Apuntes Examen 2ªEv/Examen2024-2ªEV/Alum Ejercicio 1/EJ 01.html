@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+ <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CONTROL FORMULARIOS</title>
+        <link rel="stylesheet" href="main.css">
+ 	<script src="jquery-3.7.1.min.js"> </script>
+	<style>
+	body{
+		font:  "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	.but{
+	width: 15px;
+	height: 15px;
+	border: 0px;
+	
+	}
+	</style>
+<script>
+	$(document).ready(function(){
+
+		let pkm = []
+		let cont = 0;
+		cargaDatos(); //Hago que la primera carga, ponga el primer objeto
+		$("#selGen").on("change",function(){
+			cargaDatos();
+		})
+		//Carga los datos a un array
+		function cargaDatos(){
+			let gen = $("#selGen").val();
+				$.ajax( {
+					url: 'pokemon.' + gen + '.json',
+					type: 'get',
+					dataType:'json',
+					success: function (request){
+						let arr = request;
+						pkm = arr	
+
+						if (pkm.length > 0) {
+							let primerPokemon = pkm[0]; 
+							let nombre = primerPokemon.nombre;
+							let tipo = "" 
+							//Concateno los tipos para que no salgan con coma
+							primerPokemon.tipo.forEach(t => {
+								 tipo+=t
+								 tipo+=" "
+							});
+							$("#principal").html(`<h4> Pokedex: ${primerPokemon.pokedex} ${primerPokemon.nombre} </h4>
+							<img src="pokemon2/${nombre}.png"  width="200"> 
+							<br> ${primerPokemon.comentarios} 
+							<br> <h4>Tipo: ${tipo} </h4>`);
+						}
+
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+					// Aqui controlo que si alguno no existe salte el fallo
+					console.error("Error al cargar el archivo: " + textStatus, errorThrown);
+					$("#principal").html("<h4>Error: No se pudo cargar la información del Pokémon.</h4>");
+					}
+				});
+		}
+
+		//Traigo la info del archivo js
+		$("#dos").click(function(){
+			$.getScript("masinfo alum.js")
+			.done(function(script, textStatus) {
+        	console.log("Script cargado y ejecutado exitosamente: " + textStatus);
+    	})
+		})
+
+		$("#uno").click(function(){
+			let pokemon = pkm[cont]
+			let tipo = ""
+			pokemon.tipo.forEach(t => {
+								 tipo+=t
+								 tipo+=" "
+							});
+			if (cont < pkm.length -1 		){
+				cont++
+			} else {
+				cont = 0;
+			}
+			$("#principal").html(`<h4> Pokedex: ${pokemon.pokedex} ${pokemon.nombre} </h4><img src="pokemon2/${pokemon.nombre}.png"  width="200"> <br> ${pokemon.comentarios} <br> <h4>Tipo: ${tipo} </h4>`);
+		})
+
+	
+	})
+</script>	
+</head>
+<body>
+<h3>  Pokemon </h3>
+ 
+<select id="selGen">
+<option value="1GEN" >1ª Generación</option>
+<option value="2GEN" >2ª Generación</option>
+<option value="3GEN" >3ª Generación</option>
+</select>
+ 
+<br><br> 
+
+<input type="button" id="uno" value="AVANZAR" > 
+<input type="button" id="dos" value="TRAER TXT"> 
+<div id="principal">
+</div>
+
+</body>
+</html>
