@@ -5,70 +5,88 @@
     <title>EJERCICIO ORDINARIA 2</title>
 
     <style>
+      /* Estilo para los div que contienen los héroes */
       .clasediv {
-        position: relative;
-        float: left;
-        width: 120px;
-        height: 160px;
-        margin-left: 50px;
-        margin-top: 50px;
-        color: #515a5a;
-        text-align: center;
+        position: relative; /* Posiciona de manera relativa */
+        float: left; /* Flota a la izquierda */
+        width: 120px; /* Ancho del div */
+        height: 160px; /* Alto del div */
+        margin-left: 50px; /* Margen izquierdo */
+        margin-top: 50px; /* Margen superior */
+        color: #515a5a; /* Color del texto */
+        text-align: center; /* Centra el texto dentro del div */
       }
+
+      /* Estilo para el div que muestra más información */
       .clasemas {
-        position: relative;
-        float: left;
-        width: 340px;
-        margin-left: 50px;
-        margin-top: 100px;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        line-height: 1.5;
-        border: 1px solid #000000;
-        -moz-border-radius: 7px;
-        -webkit-border-radius: 7px;
-        padding: 10px;
-        background-color: #eaeded;
+        position: relative; /* Posiciona de manera relativa */
+        float: left; /* Flota a la izquierda */
+        width: 340px; /* Ancho del div */
+        margin-left: 50px; /* Margen izquierdo */
+        margin-top: 100px; /* Margen superior */
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Establece la fuente */
+        font-size: 14px; /* Tamaño de fuente */
+        line-height: 1.5; /* Altura de línea */
+        border: 1px solid #000000; /* Borde negro */
+        -moz-border-radius: 7px; /* Radio de borde para navegadores Mozilla */
+        -webkit-border-radius: 7px; /* Radio de borde para navegadores Webkit */
+        padding: 10px; /* Relleno interno */
+        background-color: #eaeded; /* Color de fondo */
       }
+
+      /* Estilo para los elementos de párrafos y spans */
       p,
       span {
-        font-weight: bold;
-        color: #515a5a;
+        font-weight: bold; /* Pone el texto en negrita */
+        color: #515a5a; /* Color del texto */
       }
     </style>
+
+    <!-- Inclusión de la librería jQuery -->
     <script src="jquery-3.7.1.min.js"></script>
+
     <script type="text/javascript">
+      // Función que se ejecuta cuando el documento está listo
       $(document).ready(function () {
+        // Llama a un archivo JSON y procesa sus datos
         $.getJSON("heroes.json", function (datos) {
+          // Recorre el array de héroes en el JSON
           datos.forEach((element) => {
+            // Crea un nuevo div para cada héroe
             let heroDiv = $("<div class='clasediv'>")
-              .data("bio", element.bio)
+              .data("bio", element.bio) // Asocia la biografía con el div
               .append(
-                $("<h4>").text(element.nombre),
+                $("<h4>").text(element.nombre), // Nombre del héroe
                 $("<img>")
-                  .attr("src", element.img)
-                  .attr("width", 100)
-                  .attr("height", 100),
-                $("<p class='casa'>").text(element.casa)
+                  .attr("src", element.img) // Imagen del héroe
+                  .attr("width", 100) // Ancho de la imagen
+                  .attr("height", 100), // Altura de la imagen
+                $("<p class='casa'>").text(element.casa) // Casa del héroe
               );
 
+            // Agrega el div del héroe al contenedor #info
             $("#info").append(heroDiv);
           });
 
+          // Muestra la biografía del héroe cuando se pasa el mouse sobre el div
           $("#info")
             .on("mouseenter", ".clasediv", function () {
-              $("#masinfo").html($(this).data("bio"));
+              $("#masinfo").html($(this).data("bio")); // Muestra la biografía
             })
+            // Elimina la biografía cuando el mouse sale del div
             .on("mouseleave", ".clasediv", function () {
-              $("#masinfo").empty(); // Vacía el contenido de #masinfo al salir
+              $("#masinfo").empty(); // Vacía el contenido de #masinfo
             });
         });
 
+        // Maneja el evento de clic en el nombre de la casa
         $("#info").on("click", ".casa", function () {
-          let casa = $(this).text().trim();
-          $("#masinfo").text(`Cargando información de ${casa}...`);
+          let casa = $(this).text().trim(); // Obtiene el texto (nombre de la casa)
+          $("#masinfo").text(`Cargando información de ${casa}...`); // Muestra un mensaje de carga
 
+          // Carga un archivo de script correspondiente a la casa del héroe
           $.getScript(`${casa}.js`).fail(() => {
+            // Si no se puede cargar el script, muestra un mensaje de error
             $("#masinfo").html(
               `<p style="color:red;">Error: No se pudo cargar la información de ${casa}.</p>`
             );
@@ -78,9 +96,13 @@
     </script>
   </head>
   <body>
+    <!-- Contenedor para los héroes -->
     <div id="info"></div>
+
+    <!-- Div que muestra la información adicional -->
     <div class="clasemas">
       Saber mas...
+      <!-- Aquí se mostrará la información adicional -->
       <div id="masinfo"></div>
     </div>
   </body>

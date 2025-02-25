@@ -4,44 +4,61 @@
     <meta charset="UTF-8" />
     <title>EXAMEN ORDINARIA 1</title>
     <style type="text/css">
+      /* Estilo general del cuerpo de la página */
       body {
-        text-align: center;
-        font-family: "Trebuchet MS", Helvetica, sans-serif;
-        color: #210b61;
-        font-size: 10pt;
+        text-align: center; /* Centra el contenido del cuerpo */
+        font-family: "Trebuchet MS", Helvetica, sans-serif; /* Establece la fuente */
+        color: #210b61; /* Color del texto */
+        font-size: 10pt; /* Tamaño de fuente */
       }
+
+      /* Estilo para el contenedor div */
       div {
-        width: 600px;
-        margin-left: auto;
-        margin-right: auto;
+        width: 600px; /* Ancho del contenedor */
+        margin-left: auto; /* Centra el div a la izquierda */
+        margin-right: auto; /* Centra el div a la derecha */
       }
+
+      /* Estilo para el elemento con id "pos1" */
       #pos1 {
         position: relative;
-        background-color: #f5da81;
+        background-color: #f5da81; /* Color de fondo */
       }
+
+      /* Estilo para los elementos con clase "nuevo" */
       .nuevo {
         position: relative;
-        background-color: #f5b7b1;
+        background-color: #f5b7b1; /* Color de fondo para elementos nuevos */
       }
+
+      /* Inicialmente oculta los botones */
       #boton1,
       #boton2 {
-        display: none;
+        display: none; /* Oculta los botones */
       }
+
+      /* Estilo para la tabla */
       table {
-        margin-right: auto;
-        margin-left: auto;
-        text-align: center;
+        margin-right: auto; /* Centra la tabla */
+        margin-left: auto; /* Centra la tabla */
+        text-align: center; /* Centra el texto dentro de las celdas */
       }
+
+      /* Estilo para las celdas de la tabla */
       td {
-        font-size: 26px;
-        width: 150px;
-        height: 150px;
-        text-align: center;
-        border: 1px solid black;
+        font-size: 26px; /* Tamaño de la fuente */
+        width: 150px; /* Ancho de las celdas */
+        height: 150px; /* Altura de las celdas */
+        text-align: center; /* Centra el texto dentro de las celdas */
+        border: 1px solid black; /* Borde de las celdas */
       }
     </style>
+
+    <!-- Inclusión de la librería jQuery -->
     <script src="jquery-3.7.1.min.js"></script>
+
     <script type="text/javascript">
+      /* Arreglo con las imágenes que se mostrarán */
       var imagenes = new Array(
         "num 1.JPG",
         "num 2.JPG",
@@ -53,59 +70,69 @@
         "num 8.JPG",
         "num 9.JPG"
       );
-    </script>
-    <script>
-      $("document").ready(function () {
-        var counter = 0;
-        var clicked = 0;
-        var totalCells = $("td").length;
 
+      // Función que se ejecuta cuando el documento está listo
+      $("document").ready(function () {
+        var counter = 0; // Contador de imágenes
+        var clicked = 0; // Contador de celdas clickeadas
+        var totalCells = $("td").length; // Total de celdas en la tabla
+
+        // Al cargar el documento, coloca una imagen de fondo en cada celda
         $("td").each(function () {
           $(this).append(
             $("<img src='fotos/fondo.jpg' width='150' height='150'>")
           );
         });
 
+        // Evento cuando se hace clic en una celda
         $("td>img").one("click", function () {
           $(this).fadeOut(500, function () {
+            // Al hacer clic, cambia la imagen por una nueva
             $(this).attr("src", "fotos/" + imagenes[counter]);
-            counter++;
+            counter++; // Aumenta el contador de imágenes
             $(this).fadeIn(500);
           });
 
-          clicked++;
+          clicked++; // Aumenta el contador de clics
+          // Si se han clickeado todas las celdas, muestra los botones
           if (clicked === totalCells) {
             $(".boton").fadeIn(500);
           }
         });
 
+        // Función para el primer botón
         $("#boton1").click(function () {
+          // Reduce la opacidad de las imágenes en las celdas
           $("td img").each(function (index) {
             var image = $(this);
             setTimeout(function () {
-              image.fadeTo(200, 0.1);
+              image.fadeTo(200, 0.1); // Apaga las imágenes gradualmente
             }, 500 * index);
           });
         });
 
+        // Función para el segundo botón
         $("#boton2").click(function () {
+          // Muestra las imágenes originales en las celdas
           $("td img").each(function (index) {
             var image = $(this);
             setTimeout(function () {
               image.attr("src", "fotos/" + imagenes[index]);
-              image.fadeTo(200, 0.1);
+              image.fadeTo(200, 0.1); // Restaura la opacidad de las imágenes
             }, 500 * index);
           });
         });
 
+        // Cambio de color de fondo al pasar el mouse sobre el elemento con id "pos1"
         $("#pos1")
           .mouseenter(function () {
-            $(this).css("background-color", "#D5F5E3");
+            $(this).css("background-color", "#D5F5E3"); // Color de fondo cuando el mouse entra
           })
           .mouseleave(function () {
-            $(this).css("background-color", "#F5DA81");
+            $(this).css("background-color", "#F5DA81"); // Color de fondo cuando el mouse sale
           });
 
+        // Al hacer clic en el título (h1), lo envuelve en un div con la clase "nuevo"
         $("h1").click(function () {
           $(this).wrap($("<div class='nuevo'></div>"));
         });
@@ -115,6 +142,7 @@
   <body>
     <h1>JUGANDO CON LOS NÚMEROS</h1>
     <div id="central">
+      <!-- Elemento de bienvenida -->
       <fieldset id="pos1">
         Bienvenido a nuestra web, puedes jugar y divertirte
       </fieldset>
@@ -122,6 +150,7 @@
     <div id="div1"></div>
     <br /><br /><br />
     <center>
+      <!-- Tabla con 9 celdas donde se mostrarán las imágenes -->
       <table>
         <tr>
           <td></td>
@@ -140,6 +169,7 @@
         </tr>
       </table>
       <br /><br />
+      <!-- Botones que aparecen después de hacer clic en todas las celdas -->
       <input type="button" id="boton1" class="boton" value="PÚLSAME" />
       <br /><br />
       <input type="button" id="boton2" class="boton" value="LOS COLOCO" />
