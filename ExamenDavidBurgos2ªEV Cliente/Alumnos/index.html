@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Próximos Conciertos en Madrid</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<script src="jquery-3.7.1.min.js"></script>
+<script>
+    let lugares = []
+    let lugaresCargados = []
+    var vfooter = ""
+
+    function seleccionar(){
+            let valor = $("#filtro-lugar").val()
+            $(".card-content").children(function(){
+            if ($("h4").text() == valor ){
+                $(".card-content").css().display("none");
+            }
+            
+        })
+           
+        }
+
+    $(document).ready(function(){
+        cargaDatos();
+
+
+        
+
+        function cargaDatos(){
+				$.ajax( {
+					url: 'conciertos.json',
+					type: 'get',
+					dataType:'json',
+					success: function (request){
+						let arr = request;
+                        let out = ""
+						for(let i = 0;i < arr.length; i++){
+                            let tipo = ""
+                            if (arr[i].gira){
+                                tipo = "Gira: " + arr[i].gira 
+                            }
+
+                            if(arr[i].evento){
+                                tipo = "Evento: " + arr[i].evento
+                            }
+                            //Recojo los lugares
+                            lugares.push(arr[i].lugar)
+                            //Creo la tarjeta y la añado
+
+                            let divCard = $("<div>")
+                                divCard.attr("class","card")
+
+                            let imagen = $("<img>")
+                            imagen.attr(`src`,`imagenes/${arr[i].imagen}`)
+                            imagen.attr('class',"card-image")
+
+                            let divCardContent = $("<div>")
+                                divCardContent.attr("class","card-content")
+
+                            let h2 = $("<h2>")
+                                h2.attr("class","artista")
+                                h2.text(`${arr[i].artista}`)
+                            
+                            let tipoAct = $("<p>")
+                                tipoAct.text(tipo)
+
+                            let fecha = $("<p>")
+                                fecha.text(`Fecha: ${arr[i].fecha}`)
+                            
+                            let h4 = $("<h4>")
+                                h4.text(`Lugar: ${arr[i].lugar}`)
+
+                            let descripcion = $("<p>")
+                                descripcion.attr("class","descripcion")
+                                descripcion.text(arr[i].descripcion)
+                            
+                            let boton = $("<button>")
+                                boton.attr("class","btn-compra")
+                                boton.text("Comprar Entradas")
+
+
+                            divCardContent.append(h2)
+                            divCardContent.append(tipoAct)
+                            divCardContent.append(fecha)
+                            divCardContent.append(h4)
+                            divCardContent.append(descripcion)
+                            divCardContent.append(boton)
+
+                            divCard.append(imagen);
+                            divCard.append(divCardContent)
+
+                            divCard.appendTo($("#contenedor-cards"))
+
+                        }
+
+                        for(let i = 0; i<lugares.length; i++){
+                            let valor = lugares[i]
+                            if(lugaresCargados.includes(valor)==false){
+                                let option = document.createElement("option")
+                                lugaresCargados.push(lugares[i])
+                                option.value = lugares[i]
+                                option.text = lugares[i]
+                                $("#filtro-lugar").append(option)
+                            }
+                            
+                        }
+
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+					// Aqui controlo que si alguno no existe salte el fallo
+					console.error("Error al cargar el archivo: " + textStatus, errorThrown);
+					$("#principal").html("<h4>Error: No se pudo cargar la informacion de los conciertos</h4>");
+					},
+					complete: function(xhr){
+                        $.ajax({url: "footer.js",
+                        dataType: "script",
+                        success: function(result){
+                            $(".footer").html(vfooter)
+                        },
+                        error: function(xhr){
+                                alert("Se ha producido un error " + xhr.status + " " + xhr.statusText);
+                            }
+                        });
+					}
+				});
+		}
+
+        
+    })
+</script>
+<body>
+    <h1>Próximos Conciertos en Madrid</h1>
+    <label for="filtro-lugar">Filtrar por lugar:</label>
+    <select id="filtro-lugar" onchange="seleccionar()">
+        <option value="todos">Todos</option>
+    </select>
+    <br>
+
+    <div class="grid-container" id="contenedor-cards">
+        <!-- Las tarjetas se generarán aquí dinámicamente con jQuery -->
+    </div>
+    <footer class="footer">
+    </footer>
+</body>
+</html>

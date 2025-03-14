@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lugares de Conciertos en Madrid</title>
+    <link rel="stylesheet" href="lugares.css">
+	
+</head>
+<script src="jquery-3.7.1.min.js"></script>
+<script>
+    let cont = 0
+    let valorh2 = ""
+    $(document).ready(function(){
+        //A
+        $(".card").slideToggle(2000).delay(1000).slideToggle(2000);
+
+        //B
+        $("#Movi").click(function(){
+            if(cont<3){
+                cont++;
+                console.log(cont)
+                $("#Movi").animate().css("opacity","-=0.25");
+            }
+            return;
+        })
+
+        //C
+        $("#Grut").hover(function(){
+            $("#Grut").animate({opacity:0.25},1000);
+            $("#Moby").delay(1000).animate({opacity:0.25},1000)
+            
+        },function(){
+            $("#Grut").animate({opacity:1},1000)
+            $("#Moby").delay(1000).animate({opacity:1},1000)
+        })
+
+       //E
+     
+       $("h2").click(function(){
+        $("h2").css("color","black");
+        $("h2").siblings("a").show();
+
+        $(this).css("color","red");
+        $(this).siblings("a").hide();
+       })
+        
+       //D
+       $("h1").click(function(){
+        $(".card").clone(true).appendTo("#principal").last()
+        $(".card:first").remove();
+       })
+     
+    })
+</script>
+<body>
+    <h1>¡Conoce los mejores lugares de conciertos en Madrid!</h1>
+
+    <div id="principal" class="grid-container">
+        <!-- Movistar Arena -->
+        <div class="card" id="Movi">
+           <div class="card-content">
+                <h2 class="nombre-lugar">Movistar Arena</h2>
+                <p class="descripcion-lugar">
+                    Un lugar moderno y vibrante para eventos y conciertos masivos. Ofrece una experiencia única con tecnología de última generación.
+                </p>
+                <a href="https://www.movistararena.es" target="_blank" class="btn-mas-info">Visitar sitio web</a>
+            </div>
+        </div>
+
+        <!-- Gruta 77 -->
+        <div class="card" id="Grut">
+            <div class="card-content">
+                <h2 class="nombre-lugar">Gruta 77</h2>
+                <p class="descripcion-lugar">
+                    La meca del rock underground en Madrid. Ambiente íntimo y auténtico para disfrutar de bandas emergentes y consolidadas.
+                </p>
+                <a href="https://www.gruta77.com" target="_blank" class="btn-mas-info">Visitar sitio web</a>
+            </div>
+        </div>
+
+        <!-- Moby Dick -->
+        <div class="card" id="Moby">
+            <div class="card-content">
+                <h2 class="nombre-lugar">Moby Dick</h2>
+                <p class="descripcion-lugar">
+                    Un clásico de la música en vivo en Madrid. Conciertos de diversos géneros en un entorno acogedor con excelente acústica.
+                </p>
+                <a href="https://www.mobydickclub.com" target="_blank" class="btn-mas-info">Visitar sitio web</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+    out+= `<div class="card">
+                                         <img src="imagenes/${arr[i].imagen}" class="card-image" alt="">
+                                        <div class="card-content">
+                                            <h2 class="artista">${arr[i].artista}</h2>
+                                            <p>${tipo}</p>
+                                            <p>Fecha: ${arr[i].fecha}</p>
+                                            <h4>Lugar: ${arr[i].lugar}</h4>
+                                            <p class="descripcion">${arr[i].descripcion}</p>
+                                            <button class="btn-compra">Comprar Entradas</button>
+                                        </div>
+                                    </div>`
